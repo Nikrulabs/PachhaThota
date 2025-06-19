@@ -410,6 +410,27 @@
             align-items: center;
         }
 
+        /* Cart Quantity Adjust Buttons */
+        .quantity-adjust-btn {
+            background-color: var(--color-accent-light-green);
+            color: var(--color-primary-forest-green);
+            border: none;
+            border-radius: 0.25rem;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .quantity-adjust-btn:hover {
+            background-color: #81C784;
+        }
+
+
         /* Tabs for Login/Register */
         .tab-buttons {
             display: flex;
@@ -446,7 +467,7 @@
             display: flex;
             justify-content: center;
             margin-bottom: 2rem;
-            border-bottom: 1px solid var(--color-border-light);
+            border-bottom: 1px solid var(--color-primary-forest-green); /* Thicker for emphasis */
             flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
             gap: 0.5rem; /* Space between tabs */
         }
@@ -1155,9 +1176,7 @@
                 <div class="admin-nav-tabs max-w-4xl mx-auto">
                     <button class="admin-nav-tab active" data-admin-tab="overview">Overview</button>
                     <button class="admin-nav-tab" data-admin-tab="orders">Orders</button>
-                    <button class="admin-nav-tab" data-admin-tab="products">Products</button>
-                    <button class="admin-nav-tab" data-admin-tab="customers">Customers</button>
-                    <button id="admin-settings-tab" class="admin-nav-tab" data-admin-tab="settings">Settings</button>
+                    <button class="admin-nav-tab" data-admin-tab="settings">Settings</button>
                 </div>
 
                 <!-- Admin Module Content -->
@@ -1179,7 +1198,7 @@
                                 <p id="most-popular-item" class="text-xl font-bold text-[--color-secondary-terra-cotta]">N/A</p>
                             </div>
                         </div>
-                        <p class="text-center text-[--color-text-light-grey]">Navigate through the tabs above to manage orders, products, and customer information.</p>
+                        <p class="text-center text-[--color-text-light-grey]">Navigate through the tabs above to manage orders and settings.</p>
                     </div>
 
                     <!-- Orders Tab Content -->
@@ -1189,7 +1208,7 @@
                             <input type="text" id="order-search-input" placeholder="Search by Order ID or Customer Name" class="flex-grow p-2 border border-gray-300 rounded-md shadow-sm">
                             <select id="order-status-filter" class="p-2 border border-gray-300 rounded-md shadow-sm">
                                 <option value="all">All Statuses</option>
-                                <option value="Pending">Pending</option>
+                                <option value="Confirmed">Confirmed</option>
                                 <option value="Processing">Processing</option>
                                 <option value="Shipped">Shipped</option>
                                 <option value="Delivered">Delivered</option>
@@ -1213,47 +1232,6 @@
                                 <tbody id="orders-table-body">
                                     <!-- Orders will be dynamically loaded here -->
                                     <tr><td colspan="7" class="text-center text-[--color-text-light-grey]">No orders placed yet.</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Products Tab Content -->
-                    <div id="admin-products" class="admin-module-content-section">
-                        <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Product List</h3>
-                        <p class="text-center text-[--color-text-light-grey] mb-4">This section displays all products. For a real backend, you'd have options to add, edit, or delete products.</p>
-                        <div id="product-list-table-container" class="overflow-x-auto">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Base Price</th>
-                                        <th>Unit</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="products-table-body">
-                                    <!-- Products will be dynamically loaded here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Customers Tab Content -->
-                    <div id="admin-customers" class="admin-module-content-section">
-                        <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Customer List</h3>
-                        <p class="text-center text-[--color-text-light-grey] mb-4">This section displays registered customers. In a real system, you'd manage customer profiles here.</p>
-                        <div id="customer-list-table-container" class="overflow-x-auto">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="customers-table-body">
-                                    <!-- Customers will be dynamically loaded here -->
                                 </tbody>
                             </table>
                         </div>
@@ -1433,11 +1411,11 @@
                 </div>
             </form>
 
-            <button id="whatsapp-order-button" class="w-full bg-green-500 text-white px-4 py-3 rounded-md font-semibold flex items-center justify-center space-x-2 hover:bg-green-600 transition-colors mt-6">
-                <i class="fab fa-whatsapp"></i>
-                <span>Place Order on WhatsApp</span>
+            <button id="place-order-online-button" class="w-full bg-[--color-primary-forest-green] text-white px-4 py-3 rounded-md font-semibold flex items-center justify-center space-x-2 hover:bg-[#316F54] transition-colors mt-6">
+                <i class="fas fa-check-circle"></i>
+                <span>Place Order Online</span>
             </button>
-             <p class="text-center text-xs text-gray-500 mt-2">You will be redirected to WhatsApp to confirm your order.</p>
+             <p class="text-center text-xs text-gray-500 mt-2">After confirmation, a WhatsApp message will be sent with order details for your records (simulated backend action).</p>
         </div>
     </div>
 
@@ -1456,7 +1434,7 @@
 
         // Global state for login and cart
         let currentUserRole = localStorage.getItem('currentUserRole') || 'guest'; // Persist current user role
-        let shoppingCart = [];
+        let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')) || []; // Persist cart
         let allOrders = JSON.parse(localStorage.getItem('allOrders')) || []; // Persist orders
 
         // Define product data with base prices and bulk pricing tiers
@@ -1567,7 +1545,7 @@
             const cartItemsList = document.getElementById('cart-items-list');
             const emptyCartMessage = document.getElementById('empty-cart-message');
             const cartTotalPriceSpan = document.getElementById('cart-total-price');
-            const whatsappOrderButton = document.getElementById('whatsapp-order-button');
+            const placeOrderOnlineButton = document.getElementById('place-order-online-button'); // Renamed button
             const cartCloseButton = document.getElementById('cart-close-button');
 
             // Customer details fields in cart modal
@@ -1579,8 +1557,6 @@
             const adminNavTabs = document.querySelectorAll('.admin-nav-tab');
             const adminModuleContentSections = document.querySelectorAll('.admin-module-content-section');
             const ordersTableBody = document.getElementById('orders-table-body');
-            const productsTableBody = document.getElementById('products-table-body');
-            const customersTableBody = document.getElementById('customers-table-body');
             const orderSearchInput = document.getElementById('order-search-input');
             const orderStatusFilter = document.getElementById('order-status-filter');
             const applyFilterBtn = document.getElementById('apply-filter-btn');
@@ -1618,10 +1594,11 @@
                 const totalItems = shoppingCart.reduce((sum, item) => sum + item.quantity, 0);
                 cartCountSpan.textContent = `Cart (${totalItems})`;
                 mobileCartCountSpan.textContent = `Cart (${totalItems})`;
+                localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart)); // Persist cart state
             }
 
             // Function to display custom message box
-            function showMessageBox(message, isError = false) {
+            function showMessageBox(message, isError = false, duration = 3000) {
                 let messageBox = document.querySelector('.custom-message-box');
                 if (!messageBox) {
                     messageBox = document.createElement('div');
@@ -1649,7 +1626,7 @@
                         messageBox.removeEventListener('transitionend', handler);
                         if (messageBox.parentNode) messageBox.parentNode.removeChild(messageBox);
                     });
-                }, 3000); // Hide after 3 seconds
+                }, duration); // Hide after 'duration' seconds
             }
 
             // Function to calculate discounted price
@@ -1677,8 +1654,9 @@
             function renderAdminDashboard() {
                 renderOverview();
                 renderOrdersTable();
-                renderProductsTable();
-                renderCustomersTable();
+                // Products and Customers tables are not directly part of the primary admin tabs anymore
+                // renderProductsTable(); 
+                // renderCustomersTable();
             }
 
             function renderOverview() {
@@ -1743,6 +1721,10 @@
                     return;
                 }
 
+                // Sort orders by timestamp, newest first
+                filteredOrders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+
                 filteredOrders.forEach(order => {
                     const orderDate = new Date(order.timestamp).toLocaleString();
                     const itemsSummary = order.items.map(item => `${item.name} (${item.quantity} ${item.unit})`).join(', ');
@@ -1756,7 +1738,7 @@
                         <td>₹${order.totalPrice.toFixed(2)}</td>
                         <td>
                             <select class="order-status-select p-1 border rounded" data-order-id="${order.orderId}">
-                                <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                <option value="Confirmed" ${order.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
                                 <option value="Processing" ${order.status === 'Processing' ? 'selected' : ''}>Processing</option>
                                 <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
                                 <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
@@ -1805,41 +1787,9 @@
                 }
             }
 
-            function renderProductsTable() {
-                productsTableBody.innerHTML = '';
-                if (products.length === 0) {
-                    productsTableBody.innerHTML = '<tr><td colspan="5" class="text-center text-[--color-text-light-grey]">No products defined.</td></tr>';
-                    return;
-                }
-                products.forEach(product => {
-                    const row = productsTableBody.insertRow();
-                    row.innerHTML = `
-                        <td>${product.id}</td>
-                        <td>${product.name}</td>
-                        <td>${product.category}</td>
-                        <td>₹${product.basePrice.toFixed(2)}</td>
-                        <td>${product.unit}</td>
-                    `;
-                });
-            }
-
-            function renderCustomersTable() {
-                customersTableBody.innerHTML = '';
-                const usersArray = Object.entries(simulatedUsers); // Convert object to array for iteration
-
-                if (usersArray.length === 0) {
-                    customersTableBody.innerHTML = '<tr><td colspan="2" class="text-center text-[--color-text-light-grey]">No registered users.</td></tr>';
-                    return;
-                }
-
-                usersArray.forEach(([email, userData]) => {
-                    const row = customersTableBody.insertRow();
-                    row.innerHTML = `
-                        <td>${email}</td>
-                        <td>${userData.role}</td>
-                    `;
-                });
-            }
+            // Products table and Customers table rendering functions removed as per user request to streamline admin view
+            // However, the `products` and `simulatedUsers` data structures are still available globally
+            // if you wish to re-introduce viewing them or use their data in other reports.
 
 
             // Function to show a specific content section and hide others
@@ -2115,9 +2065,10 @@
                     // Add/update item in shopping cart
                     const existingItemIndex = shoppingCart.findIndex(item => item.id === productId);
                     if (existingItemIndex > -1) {
-                        shoppingCart[existingItemIndex].quantity += quantity;
-                        // Recalculate price for the updated quantity of this existing item
-                        const updatedPrices = getDiscountedPrice(product.basePrice, shoppingCart[existingItemIndex].quantity, productBulkPricing);
+                        // Increase quantity if item already exists
+                        const newQuantity = shoppingCart[existingItemIndex].quantity + quantity;
+                        const updatedPrices = getDiscountedPrice(product.basePrice, newQuantity, productBulkPricing);
+                        shoppingCart[existingItemIndex].quantity = newQuantity;
                         shoppingCart[existingItemIndex].pricePerUnit = updatedPrices.pricePerUnit;
                         shoppingCart[existingItemIndex].totalPrice = updatedPrices.total;
                         shoppingCart[existingItemIndex].discountApplied = updatedPrices.discount > 0 ? `${updatedPrices.discount}%` : 'None';
@@ -2184,12 +2135,12 @@
 
                 if (shoppingCart.length === 0) {
                     emptyCartMessage.classList.remove('hidden');
-                    whatsappOrderButton.disabled = true;
-                    whatsappOrderButton.classList.add('opacity-50', 'cursor-not-allowed');
+                    placeOrderOnlineButton.disabled = true;
+                    placeOrderOnlineButton.classList.add('opacity-50', 'cursor-not-allowed');
                 } else {
                     emptyCartMessage.classList.add('hidden');
-                    whatsappOrderButton.disabled = false;
-                    whatsappOrderButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                    placeOrderOnlineButton.disabled = false;
+                    placeOrderOnlineButton.classList.remove('opacity-50', 'cursor-not-allowed');
 
                     shoppingCart.forEach(item => {
                         const itemElement = document.createElement('div');
@@ -2202,9 +2153,11 @@
                                 ${item.discountApplied !== 'None' ? `<p class="text-xs text-[--color-secondary-terra-cotta]">Discount: ${item.discountApplied}</p>` : ''}
                                 <p class="text-sm font-semibold text-gray-700">Total: ₹${item.totalPrice.toFixed(2)}</p>
                             </div>
-                            <div class="cart-item-actions">
-                                <input type="number" value="${item.quantity}" min="1" class="cart-item-quantity-input" data-item-id="${item.id}">
-                                <button class="cart-item-remove" data-item-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+                            <div class="cart-item-actions flex items-center">
+                                <button class="quantity-adjust-btn minus-btn" data-item-id="${item.id}">-</button>
+                                <input type="number" value="${item.quantity}" min="1" class="cart-item-quantity-input mx-1" data-item-id="${item.id}">
+                                <button class="quantity-adjust-btn plus-btn" data-item-id="${item.id}">+</button>
+                                <button class="cart-item-remove ml-2" data-item-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         `;
                         cartItemsList.appendChild(itemElement);
@@ -2222,6 +2175,31 @@
                     });
                 });
 
+                document.querySelectorAll('.minus-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const itemId = e.target.dataset.itemId;
+                        const quantityInput = document.querySelector(`.cart-item-quantity-input[data-item-id="${itemId}"]`);
+                        let currentQuantity = parseInt(quantityInput.value);
+                        if (currentQuantity > 1) {
+                            quantityInput.value = currentQuantity - 1;
+                            updateCartItemQuantity(itemId, currentQuantity - 1);
+                        } else {
+                            // If quantity is 1 and minus is clicked, remove the item
+                            updateCartItemQuantity(itemId, 0); 
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.plus-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const itemId = e.target.dataset.itemId;
+                        const quantityInput = document.querySelector(`.cart-item-quantity-input[data-item-id="${itemId}"]`);
+                        let currentQuantity = parseInt(quantityInput.value);
+                        quantityInput.value = currentQuantity + 1;
+                        updateCartItemQuantity(itemId, currentQuantity + 1);
+                    });
+                });
+
                 document.querySelectorAll('.cart-item-remove').forEach(button => {
                     button.addEventListener('click', (e) => {
                         const itemIdToRemove = e.target.closest('.cart-item-remove').dataset.itemId;
@@ -2230,8 +2208,8 @@
                 });
             }
 
-            // WhatsApp Order Button in Cart Modal
-            whatsappOrderButton.addEventListener('click', () => {
+            // Place Order Online Button in Cart Modal (Renamed)
+            placeOrderOnlineButton.addEventListener('click', () => {
                 if (shoppingCart.length === 0) {
                     showMessageBox('Your cart is empty. Please add items before placing an order.', true);
                     return;
@@ -2248,20 +2226,14 @@
                     return;
                 }
 
-                let whatsappMessage = `*PachhaThota Order Request*\n\n`;
+                // Simulate online order confirmation
+                showMessageBox('Order Placed Successfully! Processing your order now.', false, 4000); // Show for 4 seconds
+
                 let orderTotalPrice = 0;
                 let orderItemsForDashboard = []; // For the dashboard record
 
-                shoppingCart.forEach((item, index) => {
-                    whatsappMessage += `${index + 1}. ${item.name} - ${item.quantity} ${item.unit}\n`;
-                    whatsappMessage += `   Base Price: ₹${item.basePrice.toFixed(2)}\n`;
-                    if (item.discountApplied !== 'None') {
-                        whatsappMessage += `   Discount: ${item.discountApplied}\n`;
-                        whatsappMessage += `   Discounted Unit Price: ₹${item.pricePerUnit.toFixed(2)}\n`;
-                    }
-                    whatsappMessage += `   Subtotal: ₹${item.totalPrice.toFixed(2)}\n`;
+                shoppingCart.forEach(item => {
                     orderTotalPrice += item.totalPrice;
-
                     // Prepare item for dashboard record
                     orderItemsForDashboard.push({
                         name: item.name,
@@ -2271,20 +2243,6 @@
                         discountApplied: item.discountApplied
                     });
                 });
-
-                whatsappMessage += `\n*Overall Total: ₹${orderTotalPrice.toFixed(2)}*\n\n`;
-                whatsappMessage += `--- Customer Details ---\n`;
-                whatsappMessage += `Name: ${customerName}\n`;
-                whatsappMessage += `Phone: ${customerPhone}\n`;
-                whatsappMessage += `Delivery Address: ${deliveryAddress}\n`;
-                whatsappMessage += `Payment Method: ${paymentMethod}\n\n`;
-                whatsappMessage += `Looking forward to your confirmation and delivery details!`;
-
-
-                const encodedMessage = encodeURIComponent(whatsappMessage);
-                const whatsappNumber = '919704699511'; // Your WhatsApp number
-
-                window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
 
                 // Record the order for the dashboard
                 const newOrder = {
@@ -2296,15 +2254,37 @@
                     deliveryAddress: deliveryAddress,
                     paymentMethod: paymentMethod,
                     timestamp: new Date().toISOString(),
-                    status: 'Pending' // Default status for new orders
+                    status: 'Confirmed' // Default status for new online orders
                 };
                 allOrders.push(newOrder);
                 localStorage.setItem('allOrders', JSON.stringify(allOrders)); // Persist orders to local storage
 
+                // Simulate backend sending WhatsApp message after a short delay
+                setTimeout(() => {
+                    let whatsappMessage = `*PachhaThota Order Confirmed!* (Order ID: ${newOrder.orderId})\n\n`;
+                    whatsappMessage += `--- Order Summary ---\n`;
+                    newOrder.items.forEach((item, index) => {
+                        whatsappMessage += `${index + 1}. ${item.name} - ${item.quantity} ${item.unit}\n`;
+                        whatsappMessage += `   Subtotal: ₹${item.totalPrice.toFixed(2)}\n`;
+                    });
+                    whatsappMessage += `\n*Overall Total: ₹${newOrder.totalPrice.toFixed(2)}*\n\n`;
+                    whatsappMessage += `--- Customer Details ---\n`;
+                    whatsappMessage += `Name: ${newOrder.customerName}\n`;
+                    whatsappMessage += `Phone: ${newOrder.customerPhone}\n`;
+                    whatsappMessage += `Delivery Address: ${newOrder.deliveryAddress}\n`;
+                    whatsappMessage += `Payment Method: ${newOrder.paymentMethod}\n\n`;
+                    whatsappMessage += `Thank you for your order! We'll notify you when your order status changes.`;
+
+
+                    const encodedMessage = encodeURIComponent(whatsappMessage);
+                    const whatsappNumber = '919704699511'; // Your WhatsApp number
+                    window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+                    showMessageBox('WhatsApp message with order details sent (simulated backend action).', false, 3000);
+                }, 1500); // Small delay to show initial confirmation message
+
                 shoppingCart = []; // Clear cart after placing order
                 updateCartCount();
                 cartModalOverlay.classList.remove('open'); // Close cart modal
-                showMessageBox('Your order request has been sent to WhatsApp! Please check the new tab to confirm.');
                 customerNameInput.value = '';
                 customerPhoneInput.value = '';
                 deliveryAddressInput.value = '';
@@ -2346,11 +2326,8 @@
                         renderOverview();
                     } else if (targetTabId === 'orders') {
                         renderOrdersTable();
-                    } else if (targetTabId === 'products') {
-                        renderProductsTable();
-                    } else if (targetTabId === 'customers') {
-                        renderCustomersTable();
                     }
+                    // No rendering for products/customers/settings as they are static or simpler
                 });
             });
 
