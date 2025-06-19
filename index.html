@@ -409,6 +409,37 @@
             justify-content: space-between;
             align-items: center;
         }
+
+        /* Tabs for Login/Register */
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background-color: transparent;
+            color: var(--color-text-light-grey);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .tab-button.active {
+            color: var(--color-primary-forest-green);
+            border-bottom: 2px solid var(--color-primary-forest-green);
+        }
+        .tab-button:not(.active):hover {
+            color: var(--color-text-dark-grey);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-[--color-background-off-white] text-[--color-text-dark-grey]">
@@ -1069,7 +1100,8 @@
                         <p class="text-center text-[--color-text-light-grey]">No orders placed yet.</p>
                         <!-- Orders will be dynamically loaded here -->
                     </div>
-                    <button id="clear-orders-btn" class="w-full bg-red-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-600 transition-colors mt-8">Clear All Orders (Admin Only)</button>
+                    <button id="change-password-btn" class="w-full bg-blue-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-600 transition-colors mt-8 mb-4">Change Password (Simulated)</button>
+                    <button id="clear-orders-btn" class="w-full bg-red-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-600 transition-colors mt-4">Clear All Orders (Admin Only)</button>
                 </div>
             </div>
         </section>
@@ -1098,36 +1130,96 @@
     <div id="login-modal-overlay" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" id="login-close-button">&times;</button>
-            <h2 class="text-2xl font-bold mb-6 text-center text-[--color-primary-forest-green]">Login to PachhaThota</h2>
-            <form id="login-form" class="space-y-4">
-                <div class="mb-4">
-                    <h3 class="text-lg font-bold text-gray-700 mb-2">Select Your Role:</h3>
-                    <div class="flex flex-wrap gap-4 justify-center">
-                        <div class="flex items-center">
-                            <input type="radio" id="role-customer" name="login-role" value="customer" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300" checked>
-                            <label for="role-customer" class="ml-2 text-sm text-gray-700">Customer</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="radio" id="role-seller" name="login-role" value="seller" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300">
-                            <label for="role-seller" class="ml-2 text-sm text-gray-700">Seller</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="radio" id="role-admin" name="login-role" value="admin" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300">
-                            <label for="role-admin" class="ml-2 text-sm text-gray-700">Admin</label>
+            <h2 class="text-2xl font-bold mb-6 text-center text-[--color-primary-forest-green]">Access PachhaThota</h2>
+            
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="login">Login</button>
+                <button class="tab-button" data-tab="register">Register</button>
+            </div>
+
+            <!-- Login Tab Content -->
+            <div id="login-tab-content" class="tab-content active">
+                <form id="login-form" class="space-y-4">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold text-gray-700 mb-2">Select Your Role:</h3>
+                        <div class="flex flex-wrap gap-4 justify-center">
+                            <div class="flex items-center">
+                                <input type="radio" id="role-customer-login" name="login-role" value="customer" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300" checked>
+                                <label for="role-customer-login" class="ml-2 text-sm text-gray-700">Customer</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="role-seller-login" name="login-role" value="seller" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300">
+                                <label for="role-seller-login" class="ml-2 text-sm text-gray-700">Seller</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="role-admin-login" name="login-role" value="admin" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300">
+                                <label for="role-admin-login" class="ml-2 text-sm text-gray-700">Admin</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
-                    <input type="text" id="username" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
-                    <input type="password" id="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
-                </div>
-                <div id="login-message" class="text-red-500 text-center hidden"></div>
-                <button type="submit" class="w-full bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#316F54] transition-colors">Login</button>
-            </form>
+
+                    <div class="space-y-4" id="login-credentials-section">
+                        <div>
+                            <label for="login-username" class="block text-sm font-medium text-gray-700" id="login-username-label">Username/Email:</label>
+                            <input type="text" id="login-username" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                        </div>
+                        <div id="login-password-field">
+                            <label for="login-password" class="block text-sm font-medium text-gray-700">Password:</label>
+                            <input type="password" id="login-password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                        </div>
+                        <div id="login-otp-field" class="hidden">
+                            <label for="login-mobile" class="block text-sm font-medium text-gray-700">Mobile Number:</label>
+                            <div class="flex items-center mt-1">
+                                <span class="inline-flex items-center px-3 text-gray-500 bg-gray-50 border border-r-0 border-gray-300 rounded-l-md text-sm">+91</span>
+                                <input type="tel" id="login-mobile" class="block w-full border border-gray-300 rounded-r-md shadow-sm p-2" placeholder="e.g., 9876543210" pattern="[0-9]{10}" title="Please enter a 10-digit mobile number" required>
+                            </div>
+                            <button type="button" id="send-otp-button" class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors mt-2">Send OTP (Simulated)</button>
+                            <label for="login-otp" class="block text-sm font-medium text-gray-700 mt-3">Enter OTP:</label>
+                            <input type="text" id="login-otp" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" placeholder="Enter OTP" maxlength="6">
+                        </div>
+
+                        <div class="flex items-center">
+                            <input type="checkbox" id="login-with-mobile-checkbox" class="h-4 w-4 text-[--color-primary-forest-green] focus:ring-[--color-primary-forest-green] border-gray-300 rounded">
+                            <label for="login-with-mobile-checkbox" class="ml-2 block text-sm text-gray-900">Login with Mobile Number</label>
+                        </div>
+                    </div>
+                    <div id="login-message" class="text-red-500 text-center hidden"></div>
+                    <button type="submit" class="w-full bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#316F54] transition-colors">Login</button>
+                </form>
+            </div>
+
+            <!-- Register Tab Content -->
+            <div id="register-tab-content" class="tab-content">
+                <form id="register-form" class="space-y-4">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold text-gray-700 mb-2">Register as:</h3>
+                        <div class="flex flex-wrap gap-4 justify-center">
+                            <div class="flex items-center">
+                                <input type="radio" id="role-customer-register" name="register-role" value="customer" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300" checked>
+                                <label for="role-customer-register" class="ml-2 text-sm text-gray-700">Customer</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="role-seller-register" name="register-role" value="seller" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300">
+                                <label for="role-seller-register" class="ml-2 text-sm text-gray-700">Seller</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="register-email" class="block text-sm font-medium text-gray-700">Email:</label>
+                        <input type="email" id="register-email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                    </div>
+                    <div>
+                        <label for="register-password" class="block text-sm font-medium text-gray-700">Password:</label>
+                        <input type="password" id="register-password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                    </div>
+                    <div>
+                        <label for="register-confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password:</label>
+                        <input type="password" id="register-confirm-password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                    </div>
+                    <div id="register-message" class="text-red-500 text-center hidden"></div>
+                    <button type="submit" class="w-full bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#316F54] transition-colors">Register</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -1185,12 +1277,15 @@
 
     <script>
         // Admin Credentials (Client-side simulation ONLY - DO NOT use in production)
-        const ADMIN_USERNAME = 'admin';
-        const ADMIN_PASSWORD = 'password';
-        const CUSTOMER_USERNAME = 'customer'; // Example customer credentials
-        const CUSTOMER_PASSWORD = 'password';
-        const SELLER_USERNAME = 'seller'; // Example seller credentials
-        const SELLER_PASSWORD = 'password';
+        const ADMIN_USERNAME = 'edulaksy@gmail.com';
+        const ADMIN_PASSWORD = 'admin123';
+        // Example user storage for simulation (in a real app, use a database)
+        let simulatedUsers = JSON.parse(localStorage.getItem('simulatedUsers')) || {
+            'customer@example.com': { password: 'password', role: 'customer' },
+            'seller@example.com': { password: 'password', role: 'seller' },
+            [ADMIN_USERNAME]: { password: ADMIN_PASSWORD, role: 'admin' }
+        };
+        localStorage.setItem('simulatedUsers', JSON.stringify(simulatedUsers)); // Initialize if not present
 
         // Global state for login and cart
         let currentUserRole = localStorage.getItem('currentUserRole') || 'guest'; // Persist current user role
@@ -1248,12 +1343,38 @@
             const mobileDashboardNavLink = document.getElementById('mobile-dashboard-nav-link');
             const dashboardSection = document.getElementById('dashboard');
             const clearOrdersBtn = document.getElementById('clear-orders-btn');
-            const exploreProductsBtn = document.getElementById('explore-products-btn'); // Get the new button ID
+            const exploreProductsBtn = document.getElementById('explore-products-btn'); 
+            const changePasswordBtn = document.getElementById('change-password-btn'); // New change password button
 
             const loginModalOverlay = document.getElementById('login-modal-overlay');
-            const loginForm = document.getElementById('login-form');
-            const loginMessage = document.getElementById('login-message');
             const loginCloseButton = document.getElementById('login-close-button');
+            const loginTabButton = document.querySelector('.tab-button[data-tab="login"]');
+            const registerTabButton = document.querySelector('.tab-button[data-tab="register"]');
+            const loginTabContent = document.getElementById('login-tab-content');
+            const registerTabContent = document.getElementById('register-tab-content');
+
+            // Login Form Elements
+            const loginForm = document.getElementById('login-form');
+            const loginUsernameInput = document.getElementById('login-username');
+            const loginUsernameLabel = document.getElementById('login-username-label');
+            const loginPasswordField = document.getElementById('login-password-field');
+            const loginPasswordInput = document.getElementById('login-password');
+            const loginOtpField = document.getElementById('login-otp-field');
+            const loginMobileInput = document.getElementById('login-mobile');
+            const sendOtpButton = document.getElementById('send-otp-button');
+            const loginOtpInput = document.getElementById('login-otp');
+            const loginWithMobileCheckbox = document.getElementById('login-with-mobile-checkbox');
+            const loginMessage = document.getElementById('login-message');
+            const loginRoleRadios = document.querySelectorAll('input[name="login-role"]');
+
+
+            // Register Form Elements
+            const registerForm = document.getElementById('register-form');
+            const registerEmailInput = document.getElementById('register-email');
+            const registerPasswordInput = document.getElementById('register-password');
+            const registerConfirmPasswordInput = document.getElementById('register-confirm-password');
+            const registerMessage = document.getElementById('register-message');
+            const registerRoleRadios = document.querySelectorAll('input[name="register-role"]');
 
             const cartModalOverlay = document.getElementById('cart-modal-overlay');
             const cartItemsList = document.getElementById('cart-items-list');
@@ -1266,12 +1387,6 @@
             const customerNameInput = document.getElementById('customer-name');
             const customerPhoneInput = document.getElementById('customer-phone');
             const deliveryAddressInput = document.getElementById('delivery-address');
-
-
-            // Global state for login and cart
-            let currentUserRole = localStorage.getItem('currentUserRole') || 'guest'; // Persist current user role
-            let shoppingCart = [];
-            let allOrders = JSON.parse(localStorage.getItem('allOrders')) || []; // Persist orders
 
             // --- UI Update Functions ---
             function updateLoginUI() {
@@ -1299,6 +1414,10 @@
                 // Ensure clear orders button visibility on dashboard
                 if (clearOrdersBtn) {
                      clearOrdersBtn.style.display = (currentUserRole === 'admin') ? 'block' : 'none';
+                }
+                // Ensure change password button visibility on dashboard
+                if (changePasswordBtn) {
+                    changePasswordBtn.style.display = (currentUserRole === 'admin') ? 'block' : 'none';
                 }
             }
 
@@ -1483,6 +1602,7 @@
                 } else {
                     // Show Login Modal
                     loginModalOverlay.classList.add('open');
+                    loginTabButton.click(); // Default to login tab
                 }
             });
             mobileLoginLogoutButton.addEventListener('click', () => {
@@ -1496,6 +1616,7 @@
                 } else {
                     // Show Login Modal
                     loginModalOverlay.classList.add('open');
+                    loginTabButton.click(); // Default to login tab
                 }
                 mobileMenu.classList.add('hidden'); // Close mobile menu
             });
@@ -1503,48 +1624,103 @@
             loginCloseButton.addEventListener('click', () => {
                 loginModalOverlay.classList.remove('open');
                 loginMessage.classList.add('hidden'); // Clear any login messages
+                registerMessage.classList.add('hidden');
                 loginForm.reset();
-                document.getElementById('role-customer').checked = true; // Reset to customer role
+                registerForm.reset();
+                document.getElementById('role-customer-login').checked = true; // Reset login role to customer
+                document.getElementById('role-customer-register').checked = true; // Reset register role to customer
+                loginWithMobileCheckbox.checked = false; // Reset mobile login checkbox
+                toggleLoginMethod(); // Reset login method view
             });
+
+            // Tab switching logic for Login/Register Modal
+            loginTabButton.addEventListener('click', () => {
+                loginTabButton.classList.add('active');
+                registerTabButton.classList.remove('active');
+                loginTabContent.classList.add('active');
+                registerTabContent.classList.remove('active');
+                loginMessage.classList.add('hidden'); // Clear messages on tab switch
+                registerMessage.classList.add('hidden');
+                loginForm.reset(); // Reset form when switching tabs
+                registerForm.reset();
+                document.getElementById('role-customer-login').checked = true;
+                loginWithMobileCheckbox.checked = false;
+                toggleLoginMethod();
+            });
+
+            registerTabButton.addEventListener('click', () => {
+                registerTabButton.classList.add('active');
+                loginTabButton.classList.remove('active');
+                registerTabContent.classList.add('active');
+                loginTabContent.classList.remove('active');
+                loginMessage.classList.add('hidden'); // Clear messages on tab switch
+                registerMessage.classList.add('hidden');
+                loginForm.reset(); // Reset form when switching tabs
+                registerForm.reset();
+                document.getElementById('role-customer-register').checked = true;
+                loginWithMobileCheckbox.checked = false;
+                toggleLoginMethod();
+            });
+
+            // Toggle between Username/Email and Mobile Number login fields
+            function toggleLoginMethod() {
+                if (loginWithMobileCheckbox.checked) {
+                    loginPasswordField.classList.add('hidden');
+                    loginUsernameInput.removeAttribute('required');
+                    loginPasswordInput.removeAttribute('required');
+                    loginUsernameLabel.textContent = "Email (Optional):";
+                    loginUsernameInput.placeholder = "Optional Email";
+                    loginOtpField.classList.remove('hidden');
+                    loginMobileInput.setAttribute('required', 'required');
+                } else {
+                    loginPasswordField.classList.remove('hidden');
+                    loginUsernameInput.setAttribute('required', 'required');
+                    loginPasswordInput.setAttribute('required', 'required');
+                    loginUsernameLabel.textContent = "Username/Email:";
+                    loginUsernameInput.placeholder = "";
+                    loginOtpField.classList.add('hidden');
+                    loginMobileInput.removeAttribute('required');
+                    loginOtpInput.value = ''; // Clear OTP field
+                }
+            }
+            loginWithMobileCheckbox.addEventListener('change', toggleLoginMethod);
+
 
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                const selectedRole = document.querySelector('input[name="login-role"]:checked').value;
-
                 loginMessage.classList.add('hidden'); // Hide previous messages
 
+                const selectedRole = document.querySelector('input[name="login-role"]:checked').value;
                 let loginSuccess = false;
                 let message = '';
 
-                if (selectedRole === 'admin') {
-                    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-                        currentUserRole = 'admin';
-                        message = 'Login successful! Welcome, Admin.';
-                        loginSuccess = true;
+                if (loginWithMobileCheckbox.checked) {
+                    const mobile = loginMobileInput.value.trim();
+                    const otp = loginOtpInput.value.trim();
+
+                    if (!mobile || !otp) {
+                        message = 'Please enter mobile number and OTP.';
                     } else {
-                        message = 'Invalid username or password for Admin.';
+                        // Simulated mobile login: any non-empty OTP works for now
+                        message = `${selectedRole} Login successful with mobile number! (Simulated OTP)`;
+                        currentUserRole = selectedRole; // Set role based on selection
+                        loginSuccess = true;
                     }
-                } else if (selectedRole === 'customer') {
-                     // For demo, any non-empty credentials for customer/seller will pass
-                    if (username && password) {
-                        currentUserRole = 'customer';
-                        message = 'Customer Login successful! Welcome.';
+                } else {
+                    const username = loginUsernameInput.value.trim();
+                    const password = loginPasswordInput.value.trim();
+
+                    if (!username || !password) {
+                        message = 'Please enter username/email and password.';
+                    } else if (simulatedUsers[username] && simulatedUsers[username].password === password && simulatedUsers[username].role === selectedRole) {
+                        currentUserRole = selectedRole;
+                        message = `${selectedRole} Login successful!`;
                         loginSuccess = true;
                     } else {
-                        message = 'Please enter username and password.';
-                    }
-                } else if (selectedRole === 'seller') {
-                    if (username && password) {
-                        currentUserRole = 'seller';
-                        message = 'Seller Login successful! Welcome.';
-                        loginSuccess = true;
-                    } else {
-                        message = 'Please enter username and password.';
+                        message = 'Invalid username/email or password, or incorrect role selected.';
                     }
                 }
-
+                
                 if (loginSuccess) {
                     localStorage.setItem('currentUserRole', currentUserRole);
                     updateLoginUI();
@@ -1561,6 +1737,47 @@
                     loginMessage.classList.remove('hidden');
                 }
             });
+
+            sendOtpButton.addEventListener('click', () => {
+                const mobile = loginMobileInput.value.trim();
+                if (mobile && mobile.length === 10) { // Basic validation for 10 digits
+                    showMessageBox('OTP sent to your mobile number (simulated)!', false);
+                } else {
+                    showMessageBox('Please enter a valid 10-digit mobile number.', true);
+                }
+            });
+
+
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                registerMessage.classList.add('hidden');
+
+                const email = registerEmailInput.value.trim();
+                const password = registerPasswordInput.value;
+                const confirmPassword = registerConfirmPasswordInput.value;
+                const selectedRole = document.querySelector('input[name="register-role"]:checked').value;
+
+                if (password !== confirmPassword) {
+                    registerMessage.textContent = 'Passwords do not match.';
+                    registerMessage.classList.remove('hidden');
+                    return;
+                }
+
+                if (simulatedUsers[email]) {
+                    registerMessage.textContent = 'User with this email already exists.';
+                    registerMessage.classList.remove('hidden');
+                    return;
+                }
+
+                // Simulate registration
+                simulatedUsers[email] = { password: password, role: selectedRole };
+                localStorage.setItem('simulatedUsers', JSON.stringify(simulatedUsers));
+
+                showMessageBox(`Registration successful for ${email} as ${selectedRole}! You can now login.`, false);
+                registerForm.reset();
+                loginTabButton.click(); // Switch back to login tab
+            });
+
 
             // Add to Cart functionality
             document.querySelectorAll('.add-to-cart-btn').forEach(button => {
@@ -1815,11 +2032,24 @@
                 });
             }
 
+            // Change Password button on Dashboard (Simulated)
+            if (changePasswordBtn) {
+                changePasswordBtn.addEventListener('click', () => {
+                    if (currentUserRole === 'admin') {
+                        showMessageBox('Change Password feature requires a secure backend for implementation. This is a placeholder.', true);
+                        // In a real app, you'd open a form for password change
+                    } else {
+                        showMessageBox('Access Denied: You must be an admin to change passwords.', true);
+                    }
+                });
+            }
+
 
             // --- Initial Setup ---
             updateLoginUI(); // Set initial login state of UI
             updateCartCount(); // Set initial cart count
             showSection('hero'); // Show hero section on initial load
+            toggleLoginMethod(); // Initialize login method display
         });
     </script>
 </body>
