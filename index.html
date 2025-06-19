@@ -440,6 +440,81 @@
         .tab-content.active {
             display: block;
         }
+
+        /* Admin Module specific styles */
+        .admin-nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border-light);
+            flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
+            gap: 0.5rem; /* Space between tabs */
+        }
+        .admin-nav-tab {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--color-background-off-white);
+            border-radius: 0.5rem 0.5rem 0 0;
+            border: 1px solid var(--color-border-light);
+            border-bottom: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--color-text-light-grey);
+            transition: all 0.2s ease;
+        }
+        .admin-nav-tab.active {
+            background-color: var(--color-white);
+            color: var(--color-primary-forest-green);
+            border-color: var(--color-primary-forest-green);
+            border-bottom: 1px solid var(--color-white); /* To visually blend with content area */
+            transform: translateY(1px);
+        }
+        .admin-nav-tab:not(.active):hover {
+            color: var(--color-text-dark-grey);
+            background-color: #f0f0f0;
+        }
+        .admin-module-content-section {
+            display: none;
+            background-color: var(--color-white);
+            padding: 2rem;
+            border-radius: 0 0 1rem 1rem;
+            box-shadow: 0 6px 15px var(--color-shadow);
+        }
+        .admin-module-content-section.active {
+            display: block;
+        }
+
+        /* Table styles for admin module */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid var(--color-border-light);
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        .admin-table th {
+            background-color: var(--color-accent-light-green);
+            color: var(--color-primary-forest-green);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .admin-table tbody tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+        .admin-table tbody tr:hover {
+            background-color: #f0f0f0;
+        }
+        .admin-table td select {
+            padding: 0.4rem;
+            border-radius: 0.3rem;
+            border: 1px solid var(--color-border-light);
+            background-color: white;
+            min-width: 120px;
+        }
     </style>
 </head>
 <body class="bg-[--color-background-off-white] text-[--color-text-dark-grey]">
@@ -456,7 +531,7 @@
                 <a href="#contact" class="nav-link">Contact</a>
                 
                 <!-- Dashboard link - visible only to admin -->
-                <a href="#dashboard" id="dashboard-nav-link" class="nav-link hidden">Dashboard</a>
+                <a href="#dashboard" id="dashboard-nav-link" class="nav-link hidden">Admin Dashboard</a>
                 
                 <button id="cart-button" class="btn-header-action flex items-center space-x-2">
                     <i class="fas fa-shopping-cart"></i>
@@ -475,7 +550,7 @@
             <a href="#contact" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Contact</a>
             
             <!-- Mobile Dashboard link - visible only to admin -->
-            <a href="#dashboard" id="mobile-dashboard-nav-link" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54] hidden">Dashboard</a>
+            <a href="#dashboard" id="mobile-dashboard-nav-link" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54] hidden">Admin Dashboard</a>
 
             <button id="mobile-cart-button" class="block w-full text-center py-3 px-4 text-base btn-header-action rounded-none text-[--color-primary-forest-green] bg-[--color-accent-light-green]">
                 <i class="fas fa-shopping-cart mr-2"></i>
@@ -1072,36 +1147,128 @@
             </div>
         </section>
 
-        <!-- Order Management Dashboard (Client-Side Simulation) -->
+        <!-- Admin Dashboard Section -->
         <section id="dashboard" class="py-16 md:py-24 content-section hidden">
             <div class="container mx-auto px-6">
-                <h2 class="section-heading">Order Management Dashboard</h2>
-                <div class="max-w-4xl mx-auto bg-[--color-white] p-8 rounded-lg shadow-md">
-                    <p class="text-center text-[--color-text-light-grey] mb-6">This is a client-side simulation of your order dashboard. For a robust, persistent solution with multi-user access and advanced reporting, **Firestore** integration is recommended.</p>
-                    
-                    <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Order Summary</h3>
-                    <div id="order-summary" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center">
-                        <div class="bg-[--color-light-grey-bg] p-4 rounded-lg">
-                            <p class="text-sm text-gray-600">Total Orders</p>
-                            <p id="total-orders" class="text-2xl font-bold text-[--color-secondary-terra-cotta]">0</p>
+                <h2 class="section-heading">Admin Dashboard</h2>
+                
+                <div class="admin-nav-tabs max-w-4xl mx-auto">
+                    <button class="admin-nav-tab active" data-admin-tab="overview">Overview</button>
+                    <button class="admin-nav-tab" data-admin-tab="orders">Orders</button>
+                    <button class="admin-nav-tab" data-admin-tab="products">Products</button>
+                    <button class="admin-nav-tab" data-admin-tab="customers">Customers</button>
+                    <button id="admin-settings-tab" class="admin-nav-tab" data-admin-tab="settings">Settings</button>
+                </div>
+
+                <!-- Admin Module Content -->
+                <div class="admin-module-content max-w-4xl mx-auto">
+                    <!-- Overview Tab Content -->
+                    <div id="admin-overview" class="admin-module-content-section active">
+                        <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Dashboard Overview</h3>
+                        <div id="order-summary" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center">
+                            <div class="bg-[--color-light-grey-bg] p-4 rounded-lg">
+                                <p class="text-sm text-gray-600">Total Orders</p>
+                                <p id="total-orders" class="text-2xl font-bold text-[--color-secondary-terra-cotta]">0</p>
+                            </div>
+                            <div class="bg-[--color-light-grey-bg] p-4 rounded-lg">
+                                <p class="text-sm text-gray-600">Total Revenue</p>
+                                <p id="total-revenue" class="text-2xl font-bold text-[--color-primary-forest-green]">₹0.00</p>
+                            </div>
+                            <div class="bg-[--color-light-grey-bg] p-4 rounded-lg">
+                                <p class="text-sm text-gray-600">Most Popular Item</p>
+                                <p id="most-popular-item" class="text-xl font-bold text-[--color-secondary-terra-cotta]">N/A</p>
+                            </div>
                         </div>
-                        <div class="bg-[--color-light-grey-bg] p-4 rounded-lg">
-                            <p class="text-sm text-gray-600">Total Revenue</p>
-                            <p id="total-revenue" class="text-2xl font-bold text-[--color-primary-forest-green]">₹0.00</p>
+                        <p class="text-center text-[--color-text-light-grey]">Navigate through the tabs above to manage orders, products, and customer information.</p>
+                    </div>
+
+                    <!-- Orders Tab Content -->
+                    <div id="admin-orders" class="admin-module-content-section">
+                        <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Order Management</h3>
+                        <div class="flex flex-col sm:flex-row gap-4 mb-4 items-center justify-center">
+                            <input type="text" id="order-search-input" placeholder="Search by Order ID or Customer Name" class="flex-grow p-2 border border-gray-300 rounded-md shadow-sm">
+                            <select id="order-status-filter" class="p-2 border border-gray-300 rounded-md shadow-sm">
+                                <option value="all">All Statuses</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                            <button id="apply-filter-btn" class="bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#316F54] transition-colors">Apply Filters</button>
                         </div>
-                        <div class="bg-[--color-light-grey-bg] p-4 rounded-lg">
-                            <p class="text-sm text-gray-600">Most Popular Item</p>
-                            <p id="most-popular-item" class="text-xl font-bold text-[--color-secondary-terra-cotta]">N/A</p>
+                        <div id="order-list-table-container" class="overflow-x-auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th>Items</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orders-table-body">
+                                    <!-- Orders will be dynamically loaded here -->
+                                    <tr><td colspan="7" class="text-center text-[--color-text-light-grey]">No orders placed yet.</td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
-                    <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4">Recent Orders</h3>
-                    <div id="order-list" class="space-y-4">
-                        <p class="text-center text-[--color-text-light-grey]">No orders placed yet.</p>
-                        <!-- Orders will be dynamically loaded here -->
+                    <!-- Products Tab Content -->
+                    <div id="admin-products" class="admin-module-content-section">
+                        <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Product List</h3>
+                        <p class="text-center text-[--color-text-light-grey] mb-4">This section displays all products. For a real backend, you'd have options to add, edit, or delete products.</p>
+                        <div id="product-list-table-container" class="overflow-x-auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Base Price</th>
+                                        <th>Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="products-table-body">
+                                    <!-- Products will be dynamically loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <button id="change-password-btn" class="w-full bg-blue-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-600 transition-colors mt-8 mb-4">Change Password (Simulated)</button>
-                    <button id="clear-orders-btn" class="w-full bg-red-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-600 transition-colors mt-4">Clear All Orders (Admin Only)</button>
+
+                    <!-- Customers Tab Content -->
+                    <div id="admin-customers" class="admin-module-content-section">
+                        <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Customer List</h3>
+                        <p class="text-center text-[--color-text-light-grey] mb-4">This section displays registered customers. In a real system, you'd manage customer profiles here.</p>
+                        <div id="customer-list-table-container" class="overflow-x-auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customers-table-body">
+                                    <!-- Customers will be dynamically loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                     <!-- Settings Tab Content -->
+                    <div id="admin-settings" class="admin-module-content-section">
+                        <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Admin Settings</h3>
+                        <div class="max-w-md mx-auto space-y-4">
+                            <p class="text-[--color-text-light-grey] text-center">These settings apply to the simulated admin features.</p>
+                            <button id="change-password-btn" class="w-full bg-blue-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-600 transition-colors">Change Admin Password (Simulated)</button>
+                            <button id="clear-orders-btn" class="w-full bg-red-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-600 transition-colors">Clear All Orders (Admin Only)</button>
+                            <p class="text-xs text-gray-500 text-center mt-4">Note: Password change and clearing orders are simulated and only affect this browser's local data.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1120,7 +1287,7 @@
                 <a href="#learning" class="hover:underline">Learn & Grow</a>
                 <a href="#about" class="hover:underline">About Us</a>
                 <a href="#contact" class="hover:underline">Contact</a>
-                <a href="#dashboard" class="hover:underline hidden" id="footer-dashboard-link">Dashboard</a>
+                <a href="#dashboard" class="hover:underline hidden" id="footer-dashboard-link">Admin Dashboard</a>
             </div>
              <p class="mt-8 text-xs text-gray-300">&copy; 2025 PachhaThota. All Rights Reserved.</p>
         </div>
@@ -1294,40 +1461,63 @@
 
         // Define product data with base prices and bulk pricing tiers
         const products = [
-            { id: 'tomato-veg', category: 'Vegetables', name: 'Organic Tomatoes', basePrice: 80, unit: 'kg', img: 'https://images.unsplash.com/photo-1546549032-9571cd686864?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
-            { id: 'spinach-veg', category: 'Vegetables', name: 'Spinach Greens', basePrice: 50, unit: 'bunch', img: 'https://images.unsplash.com/photo-1596773177699-b1411ce44e3e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
-            { id: 'bellpepper-veg', category: 'Vegetables', name: 'Colorful Bell Peppers', basePrice: 120, unit: 'kg', img: 'https://images.unsplash.com/photo-1546738910-c4e8e9e432c7?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
-            { id: 'potatoes-veg', category: 'Vegetables', name: 'Farm Potatoes', basePrice: 40, unit: 'kg', img: 'https://images.unsplash.com/photo-1587063380020-f1ee5df2d721?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            { id: 'tomato-veg', category: 'Vegetables', name: 'Organic Tomatoes', basePrice: 80, unit: 'kg', img: 'https://images.unsplash.com/photo-1546549032-9571cd686864?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'spinach-veg', category: 'Vegetables', name: 'Spinach Greens', basePrice: 50, unit: 'bunch', img: 'https://images.unsplash.com/photo-1596773177699-b1411ce44e3e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'bellpepper-veg', category: 'Vegetables', name: 'Colorful Bell Peppers', basePrice: 120, unit: 'kg', img: 'https://images.unsplash.com/photo-1546738910-c4e8e9e432c7?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'potatoes-veg', category: 'Vegetables', name: 'Farm Potatoes', basePrice: 40, unit: 'kg', img: 'https://images.unsplash.com/photo-1587063380020-f1ee5df2d721?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
             
-            { id: 'mangoes-fruit', category: 'Fruits', name: 'Sweet Mangoes', basePrice: 150, unit: 'kg', img: 'https://images.unsplash.com/photo-1629822602732-c6517a26ee68?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
-            { id: 'apples-fruit', category: 'Fruits', name: 'Crisp Apples', basePrice: 180, unit: 'kg', img: 'https://images.unsplash.com/photo-1579613832107-167098485070?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
-            { id: 'banana-fruit', category: 'Fruits', name: 'Banana Bunch', basePrice: 60, unit: 'dozen', img: 'https://images.unsplash.com/photo-1622359416201-cf5d6c8e5472?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            { id: 'mangoes-fruit', category: 'Fruits', name: 'Sweet Mangoes', basePrice: 150, unit: 'kg', img: 'https://images.unsplash.com/photo-1629822602732-c6517a26ee68?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'apples-fruit', category: 'Fruits', name: 'Crisp Apples', basePrice: 180, unit: 'kg', img: 'https://images.unsplash.com/photo-1579613832107-167098485070?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'banana-fruit', category: 'Fruits', name: 'Banana Bunch', basePrice: 60, unit: 'dozen', img: 'https://images.unsplash.com/photo-1622359416201-cf5d6c8e5472?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
 
-            { id: 'rose-flower', category: 'Flowers', name: 'Elegant Rose Bouquet', basePrice: 250, unit: 'bouquet', img: 'https://images.unsplash.com/photo-1616260170068-185d26392095?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 3, discount: 0.05 }, { quantity: 5, discount: 0.10 }] },
-            { id: 'marigold-flower', category: 'Flowers', name: 'Marigold Garland', basePrice: 100, unit: 'garland', img: 'https://images.unsplash.com/photo-1610486800767-f4955b2d715d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            { id: 'rose-flower', category: 'Flowers', name: 'Elegant Rose Bouquet', basePrice: 250, unit: 'bouquet', img: 'https://images.unsplash.com/photo-1616260170068-185d26392095?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'marigold-flower', category: 'Flowers', name: 'Marigold Garland', basePrice: 100, unit: 'garland', img: 'https://images.unsplash.com/photo-1610486800767-f4955b2d715d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
 
-            { id: 'moneyplant-plant', category: 'Plants', name: 'Money Plant (Pothos)', basePrice: 300, unit: 'plant', img: 'https://images.unsplash.com/photo-1601004546450-4b2a472c67b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
-            { id: 'snakeplant-plant', category: 'Plants', name: 'Snake Plant (Sansevieria)', basePrice: 450, unit: 'plant', img: 'https://images.unsplash.com/photo-1596207861911-39c87898516d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
+            { id: 'moneyplant-plant', category: 'Plants', name: 'Money Plant (Pothos)', basePrice: 300, unit: 'plant', img: 'https://images.unsplash.com/photo-1601004546450-4b2a472c67b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'snakeplant-plant', category: 'Plants', name: 'Snake Plant (Sansevieria)', basePrice: 450, unit: 'plant', img: 'https://images.unsplash.com/photo-1596207861911-39c87898516d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
             
-            { id: 'terracotta-pot', category: 'Pots', name: 'Terracotta Pot (10-inch)', basePrice: 120, unit: 'pot', img: 'https://images.unsplash.com/photo-1589139268688-df88656d2e6b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
-            { id: 'plastic-pot', category: 'Pots', name: 'Plastic Pot (8-inch)', basePrice: 80, unit: 'pot', img: 'https://images.unsplash.com/photo-1612015555462-83b6e8284534?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            { id: 'terracotta-pot', category: 'Pots', name: 'Terracotta Pot (10-inch)', basePrice: 120, unit: 'pot', img: 'https://images.unsplash.com/photo-1589139268688-df88656d2e6b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'plastic-pot', category: 'Pots', name: 'Plastic Pot (8-inch)', basePrice: 80, unit: 'pot', img: 'https://images.unsplash.com/photo-1612015555462-83b6e8284534?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
 
-            { id: 'tomato-sapling', category: 'Nursery Saplings', name: 'Tomato Saplings', basePrice: 50, unit: 'sapling', img: 'https://images.unsplash.com/photo-1563604928738-f1f3a22f2a74?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 10, discount: 0.05 }, { quantity: 25, discount: 0.10 }] },
-            { id: 'chilli-sapling', category: 'Nursery Saplings', name: 'Chilli Saplings', basePrice: 45, unit: 'sapling', img: 'https://images.unsplash.com/photo-1627889137004-9c8e8d8e8b2b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 10, discount: 0.05 }, { quantity: 25, discount: 0.10 }] },
-            { id: 'brinjal-sapling', category: 'Nursery Saplings', name: 'Brinjal Saplings', basePrice: 40, unit: 'sapling', img: 'https://images.unsplash.com/photo-1580211327177-3e113a3b0213?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 10, discount: 0.05 }, { quantity: 25, discount: 0.10 }] },
+            { id: 'tomato-sapling', category: 'Nursery Saplings', name: 'Tomato Saplings', basePrice: 50, unit: 'sapling', img: 'https://images.unsplash.com/photo-1563604928738-f1f3a22f2a74?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'chilli-sapling', category: 'Nursery Saplings', name: 'Chilli Saplings', basePrice: 45, unit: 'sapling', img: 'https://images.unsplash.com/photo-1627889137004-9c8e8d8e8b2b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'brinjal-sapling', category: 'Nursery Saplings', name: 'Brinjal Saplings', basePrice: 40, unit: 'sapling', img: 'https://images.unsplash.com/photo-1580211327177-3e113a3b0213?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
 
-            { id: 'neemoil-pest', category: 'Organic Pest Controls', name: 'Neem Oil Spray', basePrice: 280, unit: '500ml', img: 'https://images.unsplash.com/photo-1610444535313-2d2f78e4f50f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
-            { id: 'organic-insecticide', category: 'Organic Pest Controls', name: 'Organic Insecticide', basePrice: 350, unit: '250g', img: 'https://images.unsplash.com/photo-1606790574174-a0c5f4c4c23c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
+            { id: 'neemoil-pest', category: 'Organic Pest Controls', name: 'Neem Oil Spray', basePrice: 280, unit: '500ml', img: 'https://images.unsplash.com/photo-1610444535313-2d2f78e4f50f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'organic-insecticide', category: 'Organic Pest Controls', name: 'Organic Insecticide', basePrice: 350, unit: '250g', img: 'https://images.unsplash.com/photo-1606790574174-a0c5f4c4c23c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
 
-            { id: 'potting-soil', category: 'Soil & Mixes', name: 'Organic Potting Soil', basePrice: 180, unit: '5kg', img: 'https://images.unsplash.com/photo-1557999811-1372332152a5?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }] },
-            { id: 'vermicompost-soil', category: 'Soil & Mixes', name: 'Vermicompost', basePrice: 120, unit: 'kg', img: 'https://images.unsplash.com/photo-1596328328221-db9284241e8c?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }] },
-            { id: 'cocopeat-soil', category: 'Soil & Mixes', name: 'Coco Peat Block', basePrice: 250, unit: 'block', img: 'https://images.unsplash.com/photo-1616462823610-d02f2b3b0704?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }] },
-            { id: 'garden-soil', category: 'Soil & Mixes', name: 'Enriched Garden Soil', basePrice: 300, unit: '10kg', img: 'https://images.unsplash.com/photo-1601004546450-4b2a472c67b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }] },
+            { id: 'potting-soil', category: 'Soil & Mixes', name: 'Organic Potting Soil', basePrice: 180, unit: '5kg', img: 'https://images.unsplash.com/photo-1557999811-1372332152a5?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'vermicompost-soil', category: 'Soil & Mixes', name: 'Vermicompost', basePrice: 120, unit: 'kg', img: 'https://images.unsplash.com/photo-1596328328221-db9284241e8c?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'cocopeat-soil', category: 'Soil & Mixes', name: 'Coco Peat Block', basePrice: 250, unit: 'block', img: 'https://images.unsplash.com/photo-1616462823610-d02f2b3b0704?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'garden-soil', category: 'Soil & Mixes', name: 'Enriched Garden Soil', basePrice: 300, unit: '10kg', img: 'https://images.unsplash.com/photo-1601004546450-4b2a472c67b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
 
-            { id: 'lawngrass-seeds', category: 'Lawn & Garden', name: 'Premium Lawn Grass Seeds', basePrice: 400, unit: '500g', img: 'https://images.unsplash.com/photo-1555776092-231149e6f2b4?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
-            { id: 'gardentool-set', category: 'Lawn & Garden', name: 'Basic Garden Tool Set', basePrice: 750, unit: 'set', img: 'https://images.unsplash.com/photo-1563507567-9d7a22a3e0b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
-            { id: 'lawn-fertilizer', category: 'Lawn & Garden', name: 'Organic Lawn Fertilizer', basePrice: 350, unit: '2kg', img: 'https://images.unsplash.com/photo-1616462823610-d02f2b3b0704?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 2, discount: 0.05 }] }
+            { id: 'lawngrass-seeds', category: 'Lawn & Garden', name: 'Premium Lawn Grass Seeds', basePrice: 400, unit: '500g', img: 'https://images.unsplash.com/photo-1555776092-231149e6f2b4?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'gardentool-set', category: 'Lawn & Garden', name: 'Basic Garden Tool Set', basePrice: 750, unit: 'set', img: 'https://images.unsplash.com/photo-1563507567-9d7a22a3e0b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'lawn-fertilizer', category: 'Lawn & Garden', name: 'Organic Lawn Fertilizer', basePrice: 350, unit: '2kg', img: 'https://images.unsplash.com/photo-1616462823610-d02f2b3b0704?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
         ];
+
+        // Bulk pricing tiers (moved outside products array for clarity and reusability)
+        const bulkPricingTiers = {
+            'tomato-veg': [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }],
+            'spinach-veg': [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }],
+            'bellpepper-veg': [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }],
+            'potatoes-veg': [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }],
+            'mangoes-fruit': [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }],
+            'apples-fruit': [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }],
+            'banana-fruit': [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }],
+            'rose-flower': [{ quantity: 3, discount: 0.05 }, { quantity: 5, discount: 0.10 }],
+            'marigold-flower': [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }],
+            'terracotta-pot': [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }],
+            'plastic-pot': [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }],
+            'tomato-sapling': [{ quantity: 10, discount: 0.05 }, { quantity: 25, discount: 0.10 }],
+            'chilli-sapling': [{ quantity: 10, discount: 0.05 }, { quantity: 25, discount: 0.10 }],
+            'brinjal-sapling': [{ quantity: 10, discount: 0.05 }, { quantity: 25, discount: 0.10 }],
+            'potting-soil': [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }],
+            'vermicompost-soil': [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }],
+            'cocopeat-soil': [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }],
+            'garden-soil': [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }],
+            'lawn-fertilizer': [{ quantity: 2, discount: 0.05 }]
+        };
 
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -1342,10 +1532,7 @@
             const dashboardNavLink = document.getElementById('dashboard-nav-link');
             const mobileDashboardNavLink = document.getElementById('mobile-dashboard-nav-link');
             const dashboardSection = document.getElementById('dashboard');
-            const clearOrdersBtn = document.getElementById('clear-orders-btn');
-            const exploreProductsBtn = document.getElementById('explore-products-btn'); 
-            const changePasswordBtn = document.getElementById('change-password-btn'); // New change password button
-
+            
             const loginModalOverlay = document.getElementById('login-modal-overlay');
             const loginCloseButton = document.getElementById('login-close-button');
             const loginTabButton = document.querySelector('.tab-button[data-tab="login"]');
@@ -1388,6 +1575,18 @@
             const customerPhoneInput = document.getElementById('customer-phone');
             const deliveryAddressInput = document.getElementById('delivery-address');
 
+            // Admin Dashboard Elements
+            const adminNavTabs = document.querySelectorAll('.admin-nav-tab');
+            const adminModuleContentSections = document.querySelectorAll('.admin-module-content-section');
+            const ordersTableBody = document.getElementById('orders-table-body');
+            const productsTableBody = document.getElementById('products-table-body');
+            const customersTableBody = document.getElementById('customers-table-body');
+            const orderSearchInput = document.getElementById('order-search-input');
+            const orderStatusFilter = document.getElementById('order-status-filter');
+            const applyFilterBtn = document.getElementById('apply-filter-btn');
+            const clearOrdersBtn = document.getElementById('clear-orders-btn');
+            const changePasswordBtn = document.getElementById('change-password-btn');
+
             // --- UI Update Functions ---
             function updateLoginUI() {
                 // Adjust login/logout button text based on whether *any* user is logged in
@@ -1403,21 +1602,15 @@
                 if (currentUserRole === 'admin') {
                     dashboardNavLink.classList.remove('hidden');
                     mobileDashboardNavLink.classList.remove('hidden');
+                    document.getElementById('footer-dashboard-link').classList.remove('hidden');
                 } else {
                     dashboardNavLink.classList.add('hidden');
                     mobileDashboardNavLink.classList.add('hidden');
+                    document.getElementById('footer-dashboard-link').classList.add('hidden');
                     // If current section is dashboard and user logs out or changes to non-admin, redirect
                     if (dashboardSection.classList.contains('active-section')) {
                         showSection('hero'); // Redirect to home
                     }
-                }
-                // Ensure clear orders button visibility on dashboard
-                if (clearOrdersBtn) {
-                     clearOrdersBtn.style.display = (currentUserRole === 'admin') ? 'block' : 'none';
-                }
-                // Ensure change password button visibility on dashboard
-                if (changePasswordBtn) {
-                    changePasswordBtn.style.display = (currentUserRole === 'admin') ? 'block' : 'none';
                 }
             }
 
@@ -1464,8 +1657,11 @@
                 let finalPrice = basePrice;
                 let discountApplied = 0;
 
+                // Ensure bulkPricing is an array, default to empty if undefined
+                const validBulkPricing = bulkPricing || [];
+
                 // Sort bulk pricing tiers in descending order of quantity to apply largest applicable discount
-                const sortedBulkPricing = [...bulkPricing].sort((a, b) => b.quantity - a.quantity);
+                const sortedBulkPricing = [...validBulkPricing].sort((a, b) => b.quantity - a.quantity);
 
                 for (const tier of sortedBulkPricing) {
                     if (quantity >= tier.quantity) {
@@ -1477,17 +1673,20 @@
                 return { pricePerUnit: finalPrice, total: finalPrice * quantity, discount: discountApplied };
             }
 
-            // Function to render the dashboard
-            function renderDashboard() {
-                const orderListDiv = document.getElementById('order-list');
+            // Function to render the admin dashboard sections
+            function renderAdminDashboard() {
+                renderOverview();
+                renderOrdersTable();
+                renderProductsTable();
+                renderCustomersTable();
+            }
+
+            function renderOverview() {
                 const totalOrdersSpan = document.getElementById('total-orders');
                 const totalRevenueSpan = document.getElementById('total-revenue');
                 const mostPopularItemSpan = document.getElementById('most-popular-item');
 
-                orderListDiv.innerHTML = ''; // Clear previous list
-
                 if (allOrders.length === 0) {
-                    orderListDiv.innerHTML = '<p class="text-center text-[--color-text-light-grey]">No orders placed yet.</p>';
                     totalOrdersSpan.textContent = '0';
                     totalRevenueSpan.textContent = '₹0.00';
                     mostPopularItemSpan.textContent = 'N/A';
@@ -1499,37 +1698,14 @@
 
                 allOrders.forEach(order => {
                     totalRevenue += order.totalPrice;
-                    const orderDate = new Date(order.timestamp).toLocaleString();
-                    const orderCard = document.createElement('div');
-                    orderCard.className = 'bg-[--color-white] p-4 rounded-lg shadow-sm border border-[--color-border-light]';
-                    
-                    let itemsHtml = order.items.map(item => {
-                        // Accumulate item counts for popularity calculation
+                    order.items.forEach(item => {
                         itemCounts[item.name] = (itemCounts[item.name] || 0) + item.quantity;
-                        return `<li>${item.quantity} x ${item.name} @ ₹${item.pricePerUnit.toFixed(2)}/unit (Total: ₹${(item.totalPrice).toFixed(2)})</li>`;
-                    }).join('');
-
-                    orderCard.innerHTML = `
-                        <p class="font-semibold text-lg text-[--color-primary-forest-green]">Order #${order.orderId}</p>
-                        <p class="text-sm text-gray-500">Date: ${orderDate}</p>
-                        <p class="text-sm text-gray-500">Customer: ${order.customerName || 'N/A'} (Phone: ${order.customerPhone || 'N/A'})</p>
-                        <p class="text-sm text-gray-500">Delivery Address: ${order.deliveryAddress || 'N/A'}</p>
-                        <p class="text-sm text-gray-500">Payment: ${order.paymentMethod || 'N/A'}</p>
-                        <div class="mt-2">
-                            <p class="font-medium">Items:</p>
-                            <ul class="list-disc list-inside text-sm text-[--color-text-light-grey]">
-                                ${itemsHtml}
-                            </ul>
-                        </div>
-                        <p class="font-bold text-lg mt-3 text-right">Order Total: <span class="text-[--color-secondary-terra-cotta]">₹${order.totalPrice.toFixed(2)}</span></p>
-                    `;
-                    orderListDiv.appendChild(orderCard);
+                    });
                 });
 
                 totalOrdersSpan.textContent = allOrders.length;
                 totalRevenueSpan.textContent = `₹${totalRevenue.toFixed(2)}`;
 
-                // Calculate most popular item
                 let maxCount = 0;
                 let popularItem = 'N/A';
                 for (const item in itemCounts) {
@@ -1539,12 +1715,132 @@
                     }
                 }
                 mostPopularItemSpan.textContent = popularItem;
-                
-                // Show/hide clear orders button based on admin status
-                if (clearOrdersBtn) {
-                     clearOrdersBtn.style.display = (currentUserRole === 'admin') ? 'block' : 'none';
+            }
+
+            function renderOrdersTable() {
+                ordersTableBody.innerHTML = ''; // Clear previous list
+                let filteredOrders = allOrders;
+
+                const searchTerm = orderSearchInput.value.toLowerCase();
+                const statusFilter = orderStatusFilter.value;
+
+                // Apply search filter
+                if (searchTerm) {
+                    filteredOrders = filteredOrders.filter(order =>
+                        order.orderId.toLowerCase().includes(searchTerm) ||
+                        order.customerName.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                // Apply status filter
+                if (statusFilter !== 'all') {
+                    filteredOrders = filteredOrders.filter(order => order.status === statusFilter);
+                }
+
+
+                if (filteredOrders.length === 0) {
+                    ordersTableBody.innerHTML = '<tr><td colspan="7" class="text-center text-[--color-text-light-grey]">No orders found matching criteria.</td></tr>';
+                    return;
+                }
+
+                filteredOrders.forEach(order => {
+                    const orderDate = new Date(order.timestamp).toLocaleString();
+                    const itemsSummary = order.items.map(item => `${item.name} (${item.quantity} ${item.unit})`).join(', ');
+
+                    const row = ordersTableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${order.orderId}</td>
+                        <td>${orderDate}</td>
+                        <td>${order.customerName}<br><span class="text-xs text-gray-500">${order.customerPhone}</span></td>
+                        <td>${itemsSummary}</td>
+                        <td>₹${order.totalPrice.toFixed(2)}</td>
+                        <td>
+                            <select class="order-status-select p-1 border rounded" data-order-id="${order.orderId}">
+                                <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                <option value="Processing" ${order.status === 'Processing' ? 'selected' : ''}>Processing</option>
+                                <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                                <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                                <option value="Cancelled" ${order.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                            </select>
+                        </td>
+                        <td><button class="view-order-details-btn bg-blue-500 text-white text-xs px-2 py-1 rounded hover:bg-blue-600" data-order-id="${order.orderId}">View Details</button></td>
+                    `;
+                });
+
+                // Attach event listeners for status change
+                ordersTableBody.querySelectorAll('.order-status-select').forEach(select => {
+                    select.addEventListener('change', (e) => {
+                        const orderId = e.target.dataset.orderId;
+                        const newStatus = e.target.value;
+                        updateOrderStatus(orderId, newStatus);
+                    });
+                });
+
+                // Attach event listeners for view details (optional, could open a new modal)
+                ordersTableBody.querySelectorAll('.view-order-details-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const orderId = e.target.dataset.orderId;
+                        const order = allOrders.find(o => o.orderId === orderId);
+                        if (order) {
+                            let detailsMessage = `Order ID: ${order.orderId}\nDate: ${new Date(order.timestamp).toLocaleString()}\n`;
+                            detailsMessage += `Customer: ${order.customerName} (${order.customerPhone})\nAddress: ${order.deliveryAddress}\n`;
+                            detailsMessage += `Payment: ${order.paymentMethod}\nStatus: ${order.status}\n\nItems:\n`;
+                            order.items.forEach(item => {
+                                detailsMessage += `- ${item.name} x ${item.quantity} (${item.unit}) @ ₹${item.pricePerUnit.toFixed(2)} (Total: ₹${item.totalPrice.toFixed(2)})\n`;
+                            });
+                            detailsMessage += `\nOverall Total: ₹${order.totalPrice.toFixed(2)}`;
+                            showMessageBox(detailsMessage, false, 8000); // Show for longer
+                        }
+                    });
+                });
+            }
+
+            function updateOrderStatus(orderId, newStatus) {
+                const orderIndex = allOrders.findIndex(order => order.orderId === orderId);
+                if (orderIndex > -1) {
+                    allOrders[orderIndex].status = newStatus;
+                    localStorage.setItem('allOrders', JSON.stringify(allOrders));
+                    showMessageBox(`Order ${orderId} status updated to ${newStatus}.`);
+                    renderOverview(); // Update overview stats as well
                 }
             }
+
+            function renderProductsTable() {
+                productsTableBody.innerHTML = '';
+                if (products.length === 0) {
+                    productsTableBody.innerHTML = '<tr><td colspan="5" class="text-center text-[--color-text-light-grey]">No products defined.</td></tr>';
+                    return;
+                }
+                products.forEach(product => {
+                    const row = productsTableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${product.id}</td>
+                        <td>${product.name}</td>
+                        <td>${product.category}</td>
+                        <td>₹${product.basePrice.toFixed(2)}</td>
+                        <td>${product.unit}</td>
+                    `;
+                });
+            }
+
+            function renderCustomersTable() {
+                customersTableBody.innerHTML = '';
+                const usersArray = Object.entries(simulatedUsers); // Convert object to array for iteration
+
+                if (usersArray.length === 0) {
+                    customersTableBody.innerHTML = '<tr><td colspan="2" class="text-center text-[--color-text-light-grey]">No registered users.</td></tr>';
+                    return;
+                }
+
+                usersArray.forEach(([email, userData]) => {
+                    const row = customersTableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${email}</td>
+                        <td>${userData.role}</td>
+                    `;
+                });
+            }
+
 
             // Function to show a specific content section and hide others
             const showSection = (targetId) => {
@@ -1554,7 +1850,10 @@
                 const targetSection = document.getElementById(targetId);
                 if (targetSection) {
                     targetSection.classList.add('active-section');
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    // Scroll only if it's not the dashboard, as dashboard tabs handle their own scroll logic generally
+                    if (targetId !== 'dashboard') {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
                 }
 
                 // Update active navigation link styling
@@ -1584,6 +1883,10 @@
                         return;
                     }
                     showSection(targetId);
+                    if (targetId === 'dashboard') {
+                        renderAdminDashboard(); // Render dashboard content when navigated to
+                        document.querySelector('.admin-nav-tab[data-admin-tab="overview"]').click(); // Default to overview tab
+                    }
                     if (!mobileMenu.classList.contains('hidden')) {
                         mobileMenu.classList.add('hidden'); 
                     }
@@ -1695,16 +1998,22 @@
                 let message = '';
 
                 if (loginWithMobileCheckbox.checked) {
-                    const mobile = loginMobileInput.value.trim();
-                    const otp = loginOtpInput.value.trim();
-
-                    if (!mobile || !otp) {
-                        message = 'Please enter mobile number and OTP.';
+                    // Prevent admin login with mobile number
+                    if (selectedRole === 'admin') {
+                        message = 'Admin login is not allowed with a mobile number. Please use username/email and password.';
+                        loginSuccess = false; 
                     } else {
-                        // Simulated mobile login: any non-empty OTP works for now
-                        message = `${selectedRole} Login successful with mobile number! (Simulated OTP)`;
-                        currentUserRole = selectedRole; // Set role based on selection
-                        loginSuccess = true;
+                        const mobile = loginMobileInput.value.trim();
+                        const otp = loginOtpInput.value.trim();
+
+                        if (!mobile || !otp) {
+                            message = 'Please enter mobile number and OTP.';
+                        } else {
+                            // Simulated mobile login: any non-empty OTP works for now
+                            message = `${selectedRole} Login successful with mobile number! (Simulated OTP)`;
+                            currentUserRole = selectedRole; // Set role based on selection
+                            loginSuccess = true;
+                        }
                     }
                 } else {
                     const username = loginUsernameInput.value.trim();
@@ -1727,8 +2036,10 @@
                     loginModalOverlay.classList.remove('open');
                     showMessageBox(message);
                     if (currentUserRole === 'admin') {
-                        renderDashboard();
+                        renderAdminDashboard(); // Ensure dashboard is rendered if admin logs in
                         showSection('dashboard');
+                        // Automatically switch to overview tab if navigating to dashboard
+                        document.querySelector('.admin-nav-tab[data-admin-tab="overview"]').click();
                     } else {
                         showSection('hero'); // Non-admin users go to home
                     }
@@ -1797,14 +2108,16 @@
                         return;
                     }
 
-                    const { pricePerUnit, total, discount } = getDiscountedPrice(product.basePrice, quantity, product.bulkPricing || []);
+                    // Get bulk pricing for the specific product
+                    const productBulkPricing = bulkPricingTiers[productId] || [];
+                    const { pricePerUnit, total, discount } = getDiscountedPrice(product.basePrice, quantity, productBulkPricing);
                     
                     // Add/update item in shopping cart
                     const existingItemIndex = shoppingCart.findIndex(item => item.id === productId);
                     if (existingItemIndex > -1) {
                         shoppingCart[existingItemIndex].quantity += quantity;
                         // Recalculate price for the updated quantity of this existing item
-                        const updatedPrices = getDiscountedPrice(product.basePrice, shoppingCart[existingItemIndex].quantity, product.bulkPricing || []);
+                        const updatedPrices = getDiscountedPrice(product.basePrice, shoppingCart[existingItemIndex].quantity, productBulkPricing);
                         shoppingCart[existingItemIndex].pricePerUnit = updatedPrices.pricePerUnit;
                         shoppingCart[existingItemIndex].totalPrice = updatedPrices.total;
                         shoppingCart[existingItemIndex].discountApplied = updatedPrices.discount > 0 ? `${updatedPrices.discount}%` : 'None';
@@ -1851,7 +2164,8 @@
                     } else {
                         const product = products.find(p => p.id === itemId);
                         if (product) {
-                            const updatedPrices = getDiscountedPrice(product.basePrice, newQuantity, product.bulkPricing || []);
+                            const productBulkPricing = bulkPricingTiers[itemId] || [];
+                            const updatedPrices = getDiscountedPrice(product.basePrice, newQuantity, productBulkPricing);
                             shoppingCart[itemIndex].quantity = newQuantity;
                             shoppingCart[itemIndex].pricePerUnit = updatedPrices.pricePerUnit;
                             shoppingCart[itemIndex].totalPrice = updatedPrices.total;
@@ -1981,7 +2295,8 @@
                     customerPhone: customerPhone,
                     deliveryAddress: deliveryAddress,
                     paymentMethod: paymentMethod,
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().toISOString(),
+                    status: 'Pending' // Default status for new orders
                 };
                 allOrders.push(newOrder);
                 localStorage.setItem('allOrders', JSON.stringify(allOrders)); // Persist orders to local storage
@@ -2016,33 +2331,61 @@
                 contactForm.reset();
             });
 
-            // Clear All Orders button on Dashboard
-            if (clearOrdersBtn) {
-                clearOrdersBtn.addEventListener('click', () => {
-                    // Using a custom modal for confirmation instead of browser's confirm()
-                    const confirmation = window.confirm('Are you sure you want to clear ALL orders? This action cannot be undone.');
-                    if (currentUserRole === 'admin' && confirmation) {
+            // Admin Dashboard Tab Switching
+            adminNavTabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    adminNavTabs.forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+
+                    adminModuleContentSections.forEach(section => section.classList.remove('active'));
+                    const targetTabId = e.target.dataset.adminTab;
+                    document.getElementById(`admin-${targetTabId}`).classList.add('active');
+
+                    // Re-render content when switching tabs to ensure data is fresh
+                    if (targetTabId === 'overview') {
+                        renderOverview();
+                    } else if (targetTabId === 'orders') {
+                        renderOrdersTable();
+                    } else if (targetTabId === 'products') {
+                        renderProductsTable();
+                    } else if (targetTabId === 'customers') {
+                        renderCustomersTable();
+                    }
+                });
+            });
+
+            // Apply filter button for orders table
+            applyFilterBtn.addEventListener('click', renderOrdersTable);
+            orderSearchInput.addEventListener('input', renderOrdersTable); // Live search
+            orderStatusFilter.addEventListener('change', renderOrdersTable); // Live filter
+
+
+            // Clear All Orders button on Dashboard Settings tab
+            clearOrdersBtn.addEventListener('click', () => {
+                // Using a custom modal for confirmation instead of browser's confirm()
+                if (currentUserRole === 'admin') {
+                    if (window.confirm('Are you sure you want to clear ALL orders? This action cannot be undone.')) {
                         allOrders = [];
                         localStorage.setItem('allOrders', JSON.stringify(allOrders));
-                        renderDashboard();
+                        renderAdminDashboard(); // Re-render all admin sections
                         showMessageBox('All orders cleared successfully!', false);
-                    } else if (currentUserRole !== 'admin') {
-                         showMessageBox('Access Denied: Only administrators can clear orders.', true);
+                        // Switch back to overview or orders tab after clearing
+                        document.querySelector('.admin-nav-tab[data-admin-tab="overview"]').click();
                     }
-                });
-            }
+                } else {
+                     showMessageBox('Access Denied: Only administrators can clear orders.', true);
+                }
+            });
 
-            // Change Password button on Dashboard (Simulated)
-            if (changePasswordBtn) {
-                changePasswordBtn.addEventListener('click', () => {
-                    if (currentUserRole === 'admin') {
-                        showMessageBox('Change Password feature requires a secure backend for implementation. This is a placeholder.', true);
-                        // In a real app, you'd open a form for password change
-                    } else {
-                        showMessageBox('Access Denied: You must be an admin to change passwords.', true);
-                    }
-                });
-            }
+            // Change Password button on Dashboard Settings tab (Simulated)
+            changePasswordBtn.addEventListener('click', () => {
+                if (currentUserRole === 'admin') {
+                    showMessageBox('Change Password feature requires a secure backend for implementation. This is a placeholder.', true);
+                    // In a real app, you'd open a form for password change
+                } else {
+                    showMessageBox('Access Denied: You must be an admin to change passwords.', true);
+                }
+            });
 
 
             // --- Initial Setup ---
