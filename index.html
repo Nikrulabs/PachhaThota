@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenHarvest Hub: Your Farm & Garden Store</title>
+    <title>PachhaThota: Your Farm & Garden Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -24,9 +24,9 @@
             --color-shadow: rgba(0,0,0,0.08); /* Soft shadow */
         }
 
-        /* General body styling - Montserrat for sans-serif, Lora for serif headings */
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--color-background-off-white); color: var(--color-text-dark-grey); }
-        h1, h2, h3, h4 { font-family: 'Lora', serif; color: var(--color-primary-forest-green); }
+        /* General body styling - Inter for humanist sans-serif */
+        body { font-family: 'Inter', sans-serif; background-color: var(--color-background-off-white); color: var(--color-text-dark-grey); font-size: 0.95rem; }
+        h1, h2, h3, h4 { font-family: 'Inter', sans-serif; color: var(--color-primary-forest-green); }
 
         /* Header & Navigation */
         header { background-color: var(--color-white); color: var(--color-text-dark-grey); border-bottom: 1px solid var(--color-border-light); }
@@ -37,14 +37,14 @@
 
         /* Section Headings */
         .section-heading {
-            font-size: 3rem;
+            font-size: 2.5rem; /* Reduced from 3rem */
             font-weight: 700;
             text-align: center;
             margin-bottom: 3.5rem;
             color: var(--color-primary-forest-green);
         }
         @media (max-width: 768px) {
-            .section-heading { font-size: 2.2rem; margin-bottom: 2.5rem; }
+            .section-heading { font-size: 1.8rem; /* Reduced from 2.2rem */ margin-bottom: 2.5rem; }
         }
 
         /* Hero Section Styling */
@@ -55,15 +55,15 @@
             text-align: center;
         }
         .hero-section h1 {
-            font-family: 'Lora', serif;
-            font-size: 4.5rem;
+            font-family: 'Inter', sans-serif; /* Changed from Lora */
+            font-size: 3.8rem; /* Reduced from 4.5rem */
             color: var(--color-white);
             margin-bottom: 1.5rem;
             line-height: 1.1;
             text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
         }
         .hero-section p {
-            font-size: 1.6rem;
+            font-size: 1.4rem; /* Reduced from 1.6rem */
             max-width: 900px;
             margin: 0 auto 3rem auto;
             line-height: 1.6;
@@ -71,8 +71,8 @@
         }
         @media (max-width: 768px) {
             .hero-section { padding: 6rem 0; }
-            .hero-section h1 { font-size: 3rem; }
-            .hero-section p { font-size: 1.2rem; }
+            .hero-section h1 { font-size: 2.5rem; /* Reduced from 3rem */ }
+            .hero-section p { font-size: 1.1rem; /* Reduced from 1.2rem */ }
         }
 
         /* Primary Call to Action Button (reusing .btn-header-action style for main CTA) */
@@ -82,7 +82,7 @@
             padding: 1rem 2.5rem;
             border-radius: 9999px; /* Pill shape */
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem; /* Reduced from 1.1rem */
             text-transform: uppercase;
             letter-spacing: 0.05em;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -120,15 +120,15 @@
             min-height: 180px; /* Ensure consistent card height for text */
         }
         .product-card h3 {
-            font-family: 'Lora', serif;
-            font-size: 1.6rem;
+            font-family: 'Inter', sans-serif; /* Changed from Lora */
+            font-size: 1.4rem; /* Reduced from 1.6rem */
             font-weight: 700;
             margin-bottom: 0.75rem;
             color: var(--color-secondary-terra-cotta); /* Terracotta for product titles */
         }
         .product-card .description {
             color: var(--color-text-light-grey);
-            font-size: 0.95rem;
+            font-size: 0.95rem; /* Adjusted for consistency */
             line-height: 1.4;
             flex-grow: 1; /* Allows description to take available space */
         }
@@ -146,13 +146,13 @@
             align-items: flex-start;
         }
         .product-card .base-price {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.4rem;
+            font-family: 'Inter', sans-serif; /* Changed from Montserrat */
+            font-size: 1.2rem; /* Reduced from 1.4rem */
             font-weight: 700;
             color: var(--color-primary-forest-green);
         }
         .product-card .discount-info {
-            font-size: 0.8rem;
+            font-size: 0.75rem; /* Adjusted for consistency */
             color: var(--color-secondary-terra-cotta);
             font-weight: 500;
             margin-top: 0.2rem;
@@ -178,7 +178,7 @@
             padding: 0.8rem 1.5rem;
             border-radius: 9999px; /* Pill shape */
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.95rem; /* Adjusted for consistency */
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .product-card .add-to-cart-btn:hover {
@@ -205,15 +205,15 @@
             margin-bottom: 1.5rem;
         }
         .feature-card h4 {
-            font-family: 'Lora', serif;
-            font-size: 1.8rem;
+            font-family: 'Inter', sans-serif; /* Changed from Lora */
+            font-size: 1.6rem; /* Reduced from 1.8rem */
             font-weight: 700;
             margin-bottom: 0.75rem;
             color: var(--color-secondary-terra-cotta);
         }
         .feature-card p {
             color: var(--color-text-light-grey);
-            font-size: 1rem;
+            font-size: 0.95rem; /* Adjusted for consistency */
             line-height: 1.6;
         }
 
@@ -225,8 +225,8 @@
             box-shadow: 0 6px 15px var(--color-shadow);
         }
         .info-card h3 {
-            font-family: 'Lora', serif;
-            font-size: 1.8rem;
+            font-family: 'Inter', sans-serif; /* Changed from Lora */
+            font-size: 1.6rem; /* Reduced from 1.8rem */
             font-weight: 700;
             margin-bottom: 1rem;
             color: var(--color-primary-forest-green);
@@ -239,7 +239,7 @@
         .info-card li {
             margin-bottom: 0.75rem;
             color: var(--color-text-dark-grey);
-            font-size: 1rem;
+            font-size: 0.95rem; /* Adjusted for consistency */
         }
         .info-card li i {
             color: var(--color-accent-light-green);
@@ -250,7 +250,7 @@
         footer { background-color: var(--color-primary-forest-green); color: var(--color-white); }
         footer a { color: var(--color-accent-light-green); transition: color 0.3s ease; }
         footer a:hover { color: var(--color-white); }
-        footer .logo-text { font-family: 'Lora', serif; }
+        footer .logo-text { font-family: 'Inter', sans-serif; /* Changed from Lora */ }
 
         /* Custom Message Box for alerts */
         .custom-message-box {
@@ -407,7 +407,7 @@
 
     <header class="shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#hero" class="text-3xl font-bold text-[--color-primary-forest-green] logo-text">GreenHarvest Hub</a>
+            <a href="#hero" class="text-3xl font-bold text-[--color-primary-forest-green] logo-text">PachhaThota</a>
             <div class="hidden md:flex space-x-8 items-center">
                 <a href="#products" class="nav-link">Products</a>
                 <a href="#why-choose-us" class="nav-link">Why Choose Us</a>
@@ -459,7 +459,7 @@
         <!-- Why Choose Us Section -->
         <section id="why-choose-us" class="py-16 md:py-24 bg-[--color-white] content-section">
             <div class="container mx-auto px-6">
-                <h2 class="section-heading">Why Choose GreenHarvest Hub?</h2>
+                <h2 class="section-heading">Why Choose PachhaThota?</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="feature-card">
                         <i class="fas fa-leaf icon"></i>
@@ -908,7 +908,7 @@
         <!-- Unique Ideas / Engagement Sections -->
         <section id="features" class="py-16 md:py-24 bg-[--color-light-grey-bg] content-section">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="section-heading">More Reasons to Love GreenHarvest Hub</h2>
+                <h2 class="section-heading">More Reasons to Love PachhaThota</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
                     <!-- Subscription Boxes -->
                     <div class="info-card">
@@ -940,7 +940,7 @@
         <!-- Farming Community Section -->
         <section id="community" class="py-16 md:py-24 content-section">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="section-heading">Join Our GreenHarvest Community</h2>
+                <h2 class="section-heading">Join Our PachhaThota Community</h2>
                 <p class="text-lg leading-relaxed max-w-3xl mx-auto text-[--color-text-light-grey] mb-8">
                     Connect with fellow gardening enthusiasts and farmers! Share your tips, ask questions, and grow together.
                 </p>
@@ -966,7 +966,7 @@
         <!-- Learning & Resources Section (Blog/Guides) -->
         <section id="learning" class="py-16 md:py-24 bg-[--color-white] content-section">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="section-heading">Learn & Grow with GreenHarvest Hub</h2>
+                <h2 class="section-heading">Learn & Grow with PachhaThota</h2>
                 <p class="text-lg leading-relaxed max-w-3xl mx-auto text-[--color-text-light-grey] mb-8">
                     Empower your gardening journey with our expert guides, tips, and articles.
                 </p>
@@ -995,7 +995,7 @@
             <div class="container mx-auto px-6 text-center">
                 <h2 class="section-heading">Our Story: Growing Together</h2>
                 <p class="text-lg leading-relaxed max-w-3xl mx-auto text-[--color-text-light-grey]">
-                    GreenHarvest Hub is dedicated to providing the freshest produce and highest quality gardening essentials directly from our farms to your doorstep. We believe in sustainable practices, organic methods, and empowering every home and farm to grow and thrive. Our commitment is to freshness, quality, and a greener tomorrow.
+                    PachhaThota is dedicated to providing the freshest produce and highest quality gardening essentials directly from our farms to your doorstep. We believe in sustainable practices, organic methods, and empowering every home and farm to grow and thrive. Our commitment is to freshness, quality, and a greener tomorrow.
                 </p>
                 <p class="text-lg leading-relaxed max-w-3xl mx-auto mt-4 text-[--color-text-light-grey]">
                     Founded with a passion for agriculture and healthy living, we work directly with local farmers and trusted suppliers to ensure every product meets our stringent standards. Join us in cultivating a healthier planet, one harvest at a time.
@@ -1070,7 +1070,7 @@
 
     <footer class="text-white py-12">
         <div class="container mx-auto px-6 text-center">
-            <p class="font-bold text-4xl logo-text text-[--color-accent-light-green]">GreenHarvest Hub</p>
+            <p class="font-bold text-4xl logo-text text-[--color-accent-light-green]">PachhaThota</p>
             <p class="mt-4 text-sm text-[--color-white]">Nourishing Homes & Farms, Naturally.</p>
             <p class="mt-2 text-xs text-gray-300">Delivering within 300 km radius of Hyderabad, India.</p>
             <div class="mt-6 flex justify-center space-x-8 text-lg">
@@ -1082,7 +1082,7 @@
                 <a href="#contact" class="hover:underline">Contact</a>
                 <a href="#dashboard" class="hover:underline hidden" id="footer-dashboard-link">Dashboard</a>
             </div>
-             <p class="mt-8 text-xs text-gray-300">&copy; 2025 GreenHarvest Hub. All Rights Reserved.</p>
+             <p class="mt-8 text-xs text-gray-300">&copy; 2025 PachhaThota. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -1644,7 +1644,7 @@
                     return;
                 }
 
-                let whatsappMessage = `*GreenHarvest Hub Order Request*\n\n`;
+                let whatsappMessage = `*PachhaThota Order Request*\n\n`;
                 let orderTotalPrice = 0;
                 let orderItemsForDashboard = []; // For the dashboard record
 
@@ -1718,7 +1718,7 @@
                 console.log('Contact Form Submission:', { name, email, subject, message });
                 
                 // Construct mailto link
-                const mailtoSubject = encodeURIComponent(`GreenHarvest Hub Inquiry: ${subject}`);
+                const mailtoSubject = encodeURIComponent(`PachhaThota Inquiry: ${subject}`);
                 const mailtoBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
                 window.location.href = `mailto:edulaksy@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
 
@@ -1751,4 +1751,3 @@
     </script>
 </body>
 </html>
-
