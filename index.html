@@ -235,15 +235,23 @@
         .info-card ul {
             list-style: none;
             padding: 0;
+            /* Ensure list items are contained on mobile */
+            padding-left: 0.5rem; /* Small padding for mobile list items */
+            padding-right: 0.5rem;
         }
         .info-card li {
             margin-bottom: 0.75rem;
             color: var(--color-text-dark-grey);
             font-size: 0.95rem; /* Adjusted for consistency */
+            display: flex; /* Use flex to align icon and text */
+            align-items: flex-start;
+            gap: 0.75rem; /* Space between icon and text */
         }
         .info-card li i {
             color: var(--color-accent-light-green);
-            margin-right: 0.75rem;
+            margin-right: 0rem; /* Resetting margin-right as gap handles spacing */
+            flex-shrink: 0; /* Prevent icon from shrinking */
+            padding-top: 0.2rem; /* Align icon better with text baseline */
         }
         
         /* Footer */
@@ -452,7 +460,7 @@
             <div class="container mx-auto px-6">
                 <h1 class="font-bold">Cultivating Quality, Delivering Freshness.</h1>
                 <p>Your one-stop online shop for farm-fresh produce, vibrant plants, and sustainable gardening essentials. Grow healthy, live green.</p>
-                <a href="#products" class="btn-cta inline-block">Explore Our Products</a>
+                <a href="#products" class="btn-cta inline-block" id="explore-products-btn">Explore Our Products</a>
             </div>
         </section>
 
@@ -907,11 +915,11 @@
 
         <!-- Unique Ideas / Engagement Sections -->
         <section id="features" class="py-16 md:py-24 bg-[--color-light-grey-bg] content-section">
-            <div class="container mx-auto px-6 text-center">
+            <div class="container mx-auto px-6">
                 <h2 class="section-heading">More Reasons to Love PachhaThota</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
                     <!-- Subscription Boxes -->
-                    <div class="info-card">
+                    <div class="info-card px-4 md:px-8"> <!-- Added responsive padding -->
                         <h3><i class="fas fa-box-open mr-2"></i>Curated Subscription Boxes</h3>
                         <p class="text-[--color-text-light-grey] mb-4">Discover the joy of gardening and fresh produce with our tailor-made subscription boxes!</p>
                         <ul class="text-left">
@@ -923,7 +931,7 @@
                     </div>
 
                     <!-- Farm to Fork Stories / Transparency -->
-                    <div class="info-card">
+                    <div class="info-card px-4 md:px-8"> <!-- Added responsive padding -->
                         <h3><i class="fas fa-tractor mr-2"></i>From Our Farm to Your Fork</h3>
                         <p class="text-[--color-text-light-grey] mb-4">Experience the journey of your food and plants. We believe in complete transparency.</p>
                         <ul class="text-left">
@@ -939,18 +947,18 @@
 
         <!-- Farming Community Section -->
         <section id="community" class="py-16 md:py-24 content-section">
-            <div class="container mx-auto px-6 text-center">
+            <div class="container mx-auto px-6">
                 <h2 class="section-heading">Join Our PachhaThota Community</h2>
                 <p class="text-lg leading-relaxed max-w-3xl mx-auto text-[--color-text-light-grey] mb-8">
                     Connect with fellow gardening enthusiasts and farmers! Share your tips, ask questions, and grow together.
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <div class="info-card">
+                    <div class="info-card px-4 md:px-8"> <!-- Added responsive padding -->
                         <h3><i class="fas fa-comments mr-2"></i>Discussion Forum</h3>
                         <p class="text-[--color-text-light-grey]">A place to exchange ideas, troubleshoot plant problems, and celebrate your harvest.</p>
                         <button class="btn-cta text-sm mt-6">Visit Forum</button>
                     </div>
-                    <div class="info-card">
+                    <div class="info-card px-4 md:px-8"> <!-- Added responsive padding -->
                         <h3><i class="fas fa-share-alt mr-2"></i>Share Your Success</h3>
                         <p class="text-[--color-text-light-grey]">Upload photos of your thriving gardens and share your unique farming experiences.</p>
                         <button class="btn-cta text-sm mt-6">Share Now</button>
@@ -965,23 +973,23 @@
 
         <!-- Learning & Resources Section (Blog/Guides) -->
         <section id="learning" class="py-16 md:py-24 bg-[--color-white] content-section">
-            <div class="container mx-auto px-6 text-center">
+            <div class="container mx-auto px-6">
                 <h2 class="section-heading">Learn & Grow with PachhaThota</h2>
                 <p class="text-lg leading-relaxed max-w-3xl mx-auto text-[--color-text-light-grey] mb-8">
                     Empower your gardening journey with our expert guides, tips, and articles.
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    <div class="info-card text-left">
+                    <div class="info-card text-left px-4 md:px-8"> <!-- Added responsive padding -->
                         <h3><i class="fas fa-lightbulb mr-2"></i>Beginner's Guide to Organic Gardening</h3>
                         <p class="text-[--color-text-light-grey] text-sm">Start your organic garden journey with our comprehensive guide, covering everything from soil preparation to harvesting.</p>
                         <a href="#" class="text-[--color-primary-forest-green] hover:underline mt-4 inline-block text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></a>
                     </div>
-                    <div class="info-card text-left">
+                    <div class="info-card text-left px-4 md:px-8"> <!-- Added responsive padding -->
                         <h3><i class="fas fa-bug mr-2"></i>Natural Pest Control Methods</h3>
                         <p class="text-[--color-text-light-grey] text-sm">Discover effective and eco-friendly ways to protect your plants from common pests without harmful chemicals.</p>
                         <a href="#" class="text-[--color-primary-forest-green] hover:underline mt-4 inline-block text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></a>
                     </div>
-                    <div class="info-card text-left">
+                    <div class="info-card text-left px-4 md:px-8"> <!-- Added responsive padding -->
                         <h3><i class="fas fa-calendar-alt mr-2"></i>Seasonal Planting Calendar for Hyderabad</h3>
                         <p class="text-[--color-text-light-grey] text-sm">Know what to plant when in Hyderabad's climate for the best yields and most vibrant garden.</p>
                         <a href="#" class="text-[--color-primary-forest-green] hover:underline mt-4 inline-block text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></a>
@@ -992,7 +1000,7 @@
 
         <!-- About Us Section -->
         <section id="about" class="bg-[--color-light-grey-bg] py-16 md:py-24 content-section">
-            <div class="container mx-auto px-6 text-center">
+            <div class="container mx-auto px-6">
                 <h2 class="section-heading">Our Story: Growing Together</h2>
                 <p class="text-lg leading-relaxed max-w-3xl mx-auto text-[--color-text-light-grey]">
                     PachhaThota is dedicated to providing the freshest produce and highest quality gardening essentials directly from our farms to your doorstep. We believe in sustainable practices, organic methods, and empowering every home and farm to grow and thrive. Our commitment is to freshness, quality, and a greener tomorrow.
@@ -1090,8 +1098,25 @@
     <div id="login-modal-overlay" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" id="login-close-button">&times;</button>
-            <h2 class="text-2xl font-bold mb-6 text-center text-[--color-primary-forest-green]">Admin Login</h2>
+            <h2 class="text-2xl font-bold mb-6 text-center text-[--color-primary-forest-green]">Login to PachhaThota</h2>
             <form id="login-form" class="space-y-4">
+                <div class="mb-4">
+                    <h3 class="text-lg font-bold text-gray-700 mb-2">Select Your Role:</h3>
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <div class="flex items-center">
+                            <input type="radio" id="role-customer" name="login-role" value="customer" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300" checked>
+                            <label for="role-customer" class="ml-2 text-sm text-gray-700">Customer</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="radio" id="role-seller" name="login-role" value="seller" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300">
+                            <label for="role-seller" class="ml-2 text-sm text-gray-700">Seller</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="radio" id="role-admin" name="login-role" value="admin" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300">
+                            <label for="role-admin" class="ml-2 text-sm text-gray-700">Admin</label>
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
                     <input type="text" id="username" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
@@ -1162,9 +1187,13 @@
         // Admin Credentials (Client-side simulation ONLY - DO NOT use in production)
         const ADMIN_USERNAME = 'admin';
         const ADMIN_PASSWORD = 'password';
+        const CUSTOMER_USERNAME = 'customer'; // Example customer credentials
+        const CUSTOMER_PASSWORD = 'password';
+        const SELLER_USERNAME = 'seller'; // Example seller credentials
+        const SELLER_PASSWORD = 'password';
 
         // Global state for login and cart
-        let isAdminLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Persist login state
+        let currentUserRole = localStorage.getItem('currentUserRole') || 'guest'; // Persist current user role
         let shoppingCart = [];
         let allOrders = JSON.parse(localStorage.getItem('allOrders')) || []; // Persist orders
 
@@ -1219,6 +1248,7 @@
             const mobileDashboardNavLink = document.getElementById('mobile-dashboard-nav-link');
             const dashboardSection = document.getElementById('dashboard');
             const clearOrdersBtn = document.getElementById('clear-orders-btn');
+            const exploreProductsBtn = document.getElementById('explore-products-btn'); // Get the new button ID
 
             const loginModalOverlay = document.getElementById('login-modal-overlay');
             const loginForm = document.getElementById('login-form');
@@ -1239,30 +1269,36 @@
 
 
             // Global state for login and cart
-            let isAdminLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Persist login state
+            let currentUserRole = localStorage.getItem('currentUserRole') || 'guest'; // Persist current user role
             let shoppingCart = [];
             let allOrders = JSON.parse(localStorage.getItem('allOrders')) || []; // Persist orders
 
             // --- UI Update Functions ---
             function updateLoginUI() {
-                if (isAdminLoggedIn) {
-                    loginLogoutButton.textContent = 'Logout';
-                    mobileLoginLogoutButton.textContent = 'Logout';
-                    dashboardNavLink.classList.remove('hidden');
-                    mobileDashboardNavLink.classList.remove('hidden');
+                // Adjust login/logout button text based on whether *any* user is logged in
+                if (currentUserRole !== 'guest') {
+                    loginLogoutButton.textContent = `Logout (${currentUserRole})`;
+                    mobileLoginLogoutButton.textContent = `Logout (${currentUserRole})`;
                 } else {
                     loginLogoutButton.textContent = 'Login';
                     mobileLoginLogoutButton.textContent = 'Login';
+                }
+
+                // Show/hide dashboard link based on admin role
+                if (currentUserRole === 'admin') {
+                    dashboardNavLink.classList.remove('hidden');
+                    mobileDashboardNavLink.classList.remove('hidden');
+                } else {
                     dashboardNavLink.classList.add('hidden');
                     mobileDashboardNavLink.classList.add('hidden');
-                    // Hide dashboard section if admin logs out while on it
+                    // If current section is dashboard and user logs out or changes to non-admin, redirect
                     if (dashboardSection.classList.contains('active-section')) {
                         showSection('hero'); // Redirect to home
                     }
                 }
                 // Ensure clear orders button visibility on dashboard
                 if (clearOrdersBtn) {
-                     clearOrdersBtn.style.display = isAdminLoggedIn ? 'block' : 'none';
+                     clearOrdersBtn.style.display = (currentUserRole === 'admin') ? 'block' : 'none';
                 }
             }
 
@@ -1387,7 +1423,7 @@
                 
                 // Show/hide clear orders button based on admin status
                 if (clearOrdersBtn) {
-                     clearOrdersBtn.style.display = isAdminLoggedIn ? 'block' : 'none';
+                     clearOrdersBtn.style.display = (currentUserRole === 'admin') ? 'block' : 'none';
                 }
             }
 
@@ -1417,13 +1453,14 @@
                 mobileMenu.classList.toggle('hidden');
             });
 
-            document.querySelectorAll('nav a[href^="#"], #mobile-menu a[href^="#"], footer a[href^="#"]').forEach(anchor => {
+            // Universal scroll-to-section for all navigation and hero buttons
+            document.querySelectorAll('nav a[href^="#"], #mobile-menu a[href^="#"], footer a[href^="#"], #explore-products-btn').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href').substring(1); 
                     
                     // Prevent access to dashboard if not admin
-                    if (targetId === 'dashboard' && !isAdminLoggedIn) {
+                    if (targetId === 'dashboard' && currentUserRole !== 'admin') {
                         showMessageBox('Access Denied: Please log in as admin to view the dashboard.', true);
                         return;
                     }
@@ -1436,10 +1473,10 @@
 
             // Login/Logout Button
             loginLogoutButton.addEventListener('click', () => {
-                if (isAdminLoggedIn) {
-                    // Logout
-                    isAdminLoggedIn = false;
-                    localStorage.setItem('isAdminLoggedIn', 'false');
+                if (currentUserRole !== 'guest') {
+                    // Logout logic for any logged-in user
+                    currentUserRole = 'guest';
+                    localStorage.setItem('currentUserRole', 'guest');
                     updateLoginUI();
                     showMessageBox('Logged out successfully!');
                     showSection('hero'); // Redirect to home after logout
@@ -1449,10 +1486,10 @@
                 }
             });
             mobileLoginLogoutButton.addEventListener('click', () => {
-                 if (isAdminLoggedIn) {
-                    // Logout
-                    isAdminLoggedIn = false;
-                    localStorage.setItem('isAdminLoggedIn', 'false');
+                 if (currentUserRole !== 'guest') {
+                    // Logout logic for any logged-in user
+                    currentUserRole = 'guest';
+                    localStorage.setItem('currentUserRole', 'guest');
                     updateLoginUI();
                     showMessageBox('Logged out successfully!');
                     showSection('hero'); // Redirect to home after logout
@@ -1467,24 +1504,60 @@
                 loginModalOverlay.classList.remove('open');
                 loginMessage.classList.add('hidden'); // Clear any login messages
                 loginForm.reset();
+                document.getElementById('role-customer').checked = true; // Reset to customer role
             });
 
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
+                const selectedRole = document.querySelector('input[name="login-role"]:checked').value;
 
-                if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-                    isAdminLoggedIn = true;
-                    localStorage.setItem('isAdminLoggedIn', 'true');
+                loginMessage.classList.add('hidden'); // Hide previous messages
+
+                let loginSuccess = false;
+                let message = '';
+
+                if (selectedRole === 'admin') {
+                    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                        currentUserRole = 'admin';
+                        message = 'Login successful! Welcome, Admin.';
+                        loginSuccess = true;
+                    } else {
+                        message = 'Invalid username or password for Admin.';
+                    }
+                } else if (selectedRole === 'customer') {
+                     // For demo, any non-empty credentials for customer/seller will pass
+                    if (username && password) {
+                        currentUserRole = 'customer';
+                        message = 'Customer Login successful! Welcome.';
+                        loginSuccess = true;
+                    } else {
+                        message = 'Please enter username and password.';
+                    }
+                } else if (selectedRole === 'seller') {
+                    if (username && password) {
+                        currentUserRole = 'seller';
+                        message = 'Seller Login successful! Welcome.';
+                        loginSuccess = true;
+                    } else {
+                        message = 'Please enter username and password.';
+                    }
+                }
+
+                if (loginSuccess) {
+                    localStorage.setItem('currentUserRole', currentUserRole);
                     updateLoginUI();
                     loginModalOverlay.classList.remove('open');
-                    loginMessage.classList.add('hidden');
-                    showMessageBox('Login successful! Welcome, Admin.');
-                    showSection('dashboard'); // Redirect to dashboard on successful login
-                    renderDashboard(); // Ensure dashboard is rendered
+                    showMessageBox(message);
+                    if (currentUserRole === 'admin') {
+                        renderDashboard();
+                        showSection('dashboard');
+                    } else {
+                        showSection('hero'); // Non-admin users go to home
+                    }
                 } else {
-                    loginMessage.textContent = 'Invalid username or password.';
+                    loginMessage.textContent = message;
                     loginMessage.classList.remove('hidden');
                 }
             });
@@ -1731,12 +1804,12 @@
                 clearOrdersBtn.addEventListener('click', () => {
                     // Using a custom modal for confirmation instead of browser's confirm()
                     const confirmation = window.confirm('Are you sure you want to clear ALL orders? This action cannot be undone.');
-                    if (isAdminLoggedIn && confirmation) {
+                    if (currentUserRole === 'admin' && confirmation) {
                         allOrders = [];
                         localStorage.setItem('allOrders', JSON.stringify(allOrders));
                         renderDashboard();
                         showMessageBox('All orders cleared successfully!', false);
-                    } else if (!isAdminLoggedIn) {
+                    } else if (currentUserRole !== 'admin') {
                          showMessageBox('Access Denied: Only administrators can clear orders.', true);
                     }
                 });
