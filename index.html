@@ -1,1 +1,1754 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenHarvest Hub: Your Farm & Garden Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Define a natural, fresh, and modern color palette inspired by 'Greenr' */
+        :root {
+            --color-primary-forest-green: #3B8266; /* Deep, muted green */
+            --color-secondary-terra-cotta: #E57373; /* Soft, warm terracotta/blush */
+            --color-accent-light-green: #A5D6A7; /* Lighter, fresh green for highlights */
+            --color-background-off-white: #F8F8F8; /* Clean, soft background */
+            --color-text-dark-grey: #4A4A4A; /* Modern dark grey for body text */
+            --color-text-light-grey: #757575; /* Lighter grey for secondary text */
+            --color-white: #FFFFFF;
+            --color-border-light: #ECEFF1; /* Very light border */
+            --color-shadow: rgba(0,0,0,0.08); /* Soft shadow */
+        }
+
+        /* General body styling - Montserrat for sans-serif, Lora for serif headings */
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--color-background-off-white); color: var(--color-text-dark-grey); }
+        h1, h2, h3, h4 { font-family: 'Lora', serif; color: var(--color-primary-forest-green); }
+
+        /* Header & Navigation */
+        header { background-color: var(--color-white); color: var(--color-text-dark-grey); border-bottom: 1px solid var(--color-border-light); }
+        .nav-link { color: var(--color-text-dark-grey); transition: color 0.3s ease, border-color 0.3s ease; border-bottom: 2px solid transparent; }
+        .nav-link:hover { color: var(--color-primary-forest-green); border-bottom-color: var(--color-primary-forest-green); }
+        .btn-header-action { background-color: var(--color-accent-light-green); color: var(--color-primary-forest-green); padding: 0.75rem 1.5rem; border-radius: 9999px; font-weight: 600; transition: background-color 0.3s ease, transform 0.2s ease; }
+        .btn-header-action:hover { background-color: #81C784; transform: translateY(-1px); } /* Slightly darker green on hover */
+
+        /* Section Headings */
+        .section-heading {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3.5rem;
+            color: var(--color-primary-forest-green);
+        }
+        @media (max-width: 768px) {
+            .section-heading { font-size: 2.2rem; margin-bottom: 2.5rem; }
+        }
+
+        /* Hero Section Styling */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1497210287118-a6d17d59b02a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+            color: white;
+            padding: 10rem 0;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-family: 'Lora', serif;
+            font-size: 4.5rem;
+            color: var(--color-white);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+        }
+        .hero-section p {
+            font-size: 1.6rem;
+            max-width: 900px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        @media (max-width: 768px) {
+            .hero-section { padding: 6rem 0; }
+            .hero-section h1 { font-size: 3rem; }
+            .hero-section p { font-size: 1.2rem; }
+        }
+
+        /* Primary Call to Action Button (reusing .btn-header-action style for main CTA) */
+        .btn-cta {
+            background-color: var(--color-accent-light-green);
+            color: var(--color-primary-forest-green);
+            padding: 1rem 2.5rem;
+            border-radius: 9999px; /* Pill shape */
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .btn-cta:hover {
+            background-color: #81C784;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        /* Product Card Styling */
+        .product-card {
+            background-color: var(--color-white);
+            border-radius: 1rem; /* More rounded */
+            box-shadow: 0 6px 15px var(--color-shadow); /* Softer, deeper shadow */
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+        .product-card img {
+            width: 100%;
+            height: 220px; /* Slightly taller for more visual impact */
+            object-fit: cover;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+        .product-card .content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px; /* Ensure consistent card height for text */
+        }
+        .product-card h3 {
+            font-family: 'Lora', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--color-secondary-terra-cotta); /* Terracotta for product titles */
+        }
+        .product-card .description {
+            color: var(--color-text-light-grey);
+            font-size: 0.95rem;
+            line-height: 1.4;
+            flex-grow: 1; /* Allows description to take available space */
+        }
+        .product-card .price-buy-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+            gap: 0.75rem; /* Space between items when wrapped */
+        }
+        .product-card .price-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .product-card .base-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-primary-forest-green);
+        }
+        .product-card .discount-info {
+            font-size: 0.8rem;
+            color: var(--color-secondary-terra-cotta);
+            font-weight: 500;
+            margin-top: 0.2rem;
+        }
+        .product-card .quantity-input {
+            width: 70px;
+            padding: 0.5rem;
+            border: 1px solid var(--color-border-light);
+            border-radius: 0.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            -moz-appearance: textfield; /* Hide arrows for Firefox */
+        }
+        .product-card .quantity-input::-webkit-outer-spin-button,
+        .product-card .quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .product-card .add-to-cart-btn {
+            background-color: var(--color-primary-forest-green);
+            color: var(--color-white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 9999px; /* Pill shape */
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .product-card .add-to-cart-btn:hover {
+            background-color: #316F54; /* Slightly darker green */
+            transform: translateY(-2px);
+        }
+
+        /* Feature Cards (Why Choose Us) */
+        .feature-card {
+            background-color: var(--color-white);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 6px 15px var(--color-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+        .feature-card .icon {
+            font-size: 3rem;
+            color: var(--color-primary-forest-green);
+            margin-bottom: 1.5rem;
+        }
+        .feature-card h4 {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--color-secondary-terra-cotta);
+        }
+        .feature-card p {
+            color: var(--color-text-light-grey);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Info Card */
+        .info-card {
+            background-color: var(--color-white);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 6px 15px var(--color-shadow);
+        }
+        .info-card h3 {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-primary-forest-green);
+            text-align: center;
+        }
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .info-card li {
+            margin-bottom: 0.75rem;
+            color: var(--color-text-dark-grey);
+            font-size: 1rem;
+        }
+        .info-card li i {
+            color: var(--color-accent-light-green);
+            margin-right: 0.75rem;
+        }
+        
+        /* Footer */
+        footer { background-color: var(--color-primary-forest-green); color: var(--color-white); }
+        footer a { color: var(--color-accent-light-green); transition: color 0.3s ease; }
+        footer a:hover { color: var(--color-white); }
+        footer .logo-text { font-family: 'Lora', serif; }
+
+        /* Custom Message Box for alerts */
+        .custom-message-box {
+            position: fixed;
+            inset-x-0;
+            top: 0;
+            margin-left: auto;
+            margin-right: auto;
+            width: 90%; /* Responsive width */
+            max-width: 400px; /* Max width for larger screens */
+            background-color: #4CAF50; /* Green for success */
+            color: white;
+            text-align: center;
+            padding: 1rem 1.5rem;
+            border-bottom-left-radius: 0.75rem;
+            border-bottom-right-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transition: all 0.4s ease-out;
+            transform: translateY(-100%); /* Start off-screen */
+        }
+        .custom-message-box.show {
+            transform: translateY(0); /* Slide in */
+        }
+        .custom-message-box.error {
+            background-color: #F44336; /* Red for errors */
+        }
+
+        /* Hide non-active sections for single-page feel */
+        .content-section:not(.active-section) {
+            display: none;
+        }
+
+        /* Modal Styles (for Login & Cart) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: var(--color-background-off-white);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-overlay.open .modal-content {
+            transform: translateY(0);
+        }
+        .modal-close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--color-text-light-grey);
+            transition: color 0.2s ease;
+        }
+        .modal-close-button:hover {
+            color: var(--color-primary-forest-green);
+        }
+
+        /* Cart Item Styles */
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed var(--color-border-light);
+            gap: 1rem;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            min-width: 60px; /* Ensure image doesn't shrink too much */
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--color-primary-forest-green);
+        }
+        .cart-item-price-info {
+            font-size: 0.9rem;
+            color: var(--color-text-light-grey);
+        }
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .cart-item-quantity-input {
+            width: 50px;
+            padding: 0.25rem;
+            border: 1px solid var(--color-border-light);
+            border-radius: 0.25rem;
+            text-align: center;
+            -moz-appearance: textfield; /* Hide arrows for Firefox */
+        }
+        .cart-item-quantity-input::-webkit-outer-spin-button,
+        .cart-item-quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .cart-item-remove {
+            background-color: var(--color-secondary-terra-cotta);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            transition: background-color 0.2s ease;
+        }
+        .cart-item-remove:hover {
+            background-color: #C25C5C;
+        }
+        .cart-total-info {
+            border-top: 1px solid var(--color-border-light);
+            padding-top: 1rem;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="bg-[--color-background-off-white] text-[--color-text-dark-grey]">
+
+    <header class="shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-3xl font-bold text-[--color-primary-forest-green] logo-text">GreenHarvest Hub</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#why-choose-us" class="nav-link">Why Choose Us</a>
+                <a href="#community" class="nav-link">Community</a>
+                <a href="#learning" class="nav-link">Learn & Grow</a>
+                <a href="#about" class="nav-link">About Us</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                
+                <!-- Dashboard link - visible only to admin -->
+                <a href="#dashboard" id="dashboard-nav-link" class="nav-link hidden">Dashboard</a>
+                
+                <button id="cart-button" class="btn-header-action flex items-center space-x-2">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">Cart (0)</span>
+                </button>
+                <button id="login-logout-button" class="btn-header-action">Login</button>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-[--color-primary-forest-green] text-2xl">☰</button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-[--color-primary-forest-green] shadow-lg">
+            <a href="#products" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Products</a>
+            <a href="#why-choose-us" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Why Choose Us</a>
+            <a href="#community" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Community</a>
+            <a href="#learning" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Learn & Grow</a>
+            <a href="#about" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">About Us</a>
+            <a href="#contact" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Contact</a>
+            
+            <!-- Mobile Dashboard link - visible only to admin -->
+            <a href="#dashboard" id="mobile-dashboard-nav-link" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54] hidden">Dashboard</a>
+
+            <button id="mobile-cart-button" class="block w-full text-center py-3 px-4 text-base btn-header-action rounded-none text-[--color-primary-forest-green] bg-[--color-accent-light-green]">
+                <i class="fas fa-shopping-cart mr-2"></i>
+                <span id="mobile-cart-count">Cart (0)</span>
+            </button>
+            <button id="mobile-login-logout-button" class="block w-full text-center py-3 px-4 text-base btn-header-action rounded-none text-[--color-primary-forest-green] bg-[--color-accent-light-green]">Login</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section flex items-center justify-center content-section active-section">
+            <div class="container mx-auto px-6">
+                <h1 class="font-bold">Cultivating Quality, Delivering Freshness.</h1>
+                <p>Your one-stop online shop for farm-fresh produce, vibrant plants, and sustainable gardening essentials. Grow healthy, live green.</p>
+                <a href="#products" class="btn-cta inline-block">Explore Our Products</a>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section id="why-choose-us" class="py-16 md:py-24 bg-[--color-white] content-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-heading">Why Choose GreenHarvest Hub?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="feature-card">
+                        <i class="fas fa-leaf icon"></i>
+                        <h4>Organic & Sustainable</h4>
+                        <p>We source directly from farms committed to organic and eco-friendly practices, ensuring purity and environmental care.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-truck icon"></i>
+                        <h4>Farm to Doorstep Freshness</h4>
+                        <p>Enjoy the freshest produce and plants delivered directly to your home, preserving quality and taste.</p>
+                        <p class="text-sm text-gray-500 mt-2">Delivery within 300 km radius of Hyderabad, India.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-seedling icon"></i>
+                        <h4>Expert Gardening Support</h4>
+                        <p>Find everything you need for a thriving garden, from high-quality saplings to effective organic pest control.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="py-16 md:py-24 container mx-auto px-6 content-section">
+            <h2 class="section-heading">Our Carefully Curated Products</h2>
+
+            <!-- Categories Introduction -->
+            <div class="text-center mb-12 text-lg max-w-3xl mx-auto text-[--color-text-light-grey]">
+                Discover our wide range of products, carefully selected for their quality, freshness, and sustainability. Whether you're a home gardener or a large farm, we have something for everyone.
+            </div>
+
+            <!-- Vegetables -->
+            <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-6 mt-12">Farm-Fresh Vegetables</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div class="product-card" data-product-id="tomato-veg">
+                    <img src="https://images.unsplash.com/photo-1546549032-9571cd686864?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Organic Tomatoes">
+                    <div class="content">
+                        <h3>Organic Tomatoes</h3>
+                        <p class="description">Naturally grown, juicy, and ripe for your culinary delights.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹80/kg</span>
+                                <span class="discount-info text-sm">Buy 5kg+ for 5% off, 10kg+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="tomato-veg">
+                            <button class="add-to-cart-btn" data-product-id="tomato-veg">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="spinach-veg">
+                    <img src="https://images.unsplash.com/photo-1596773177699-b1411ce44e3e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Spinach Greens">
+                    <div class="content">
+                        <h3>Spinach Greens</h3>
+                        <p class="description">Freshly picked, nutrient-rich leaves perfect for healthy meals.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹50/bunch</span>
+                                <span class="discount-info text-sm">Buy 5+ for 5% off, 10+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="spinach-veg">
+                            <button class="add-to-cart-btn" data-product-id="spinach-veg">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="bellpepper-veg">
+                    <img src="https://images.unsplash.com/photo-1546738910-c4e8e9e432c7?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Bell Peppers">
+                    <div class="content">
+                        <h3>Colorful Bell Peppers</h3>
+                        <p class="description">Vibrant red, yellow, and green peppers for a burst of flavor.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹120/kg</span>
+                                <span class="discount-info text-sm">Buy 5kg+ for 5% off, 10kg+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="bellpepper-veg">
+                            <button class="add-to-cart-btn" data-product-id="bellpepper-veg">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="product-card" data-product-id="potatoes-veg">
+                    <img src="https://images.unsplash.com/photo-1587063380020-f1ee5df2d721?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Potatoes">
+                    <div class="content">
+                        <h3>Farm Potatoes</h3>
+                        <p class="description">Wholesome and versatile, ideal for a variety of dishes.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹40/kg</span>
+                                <span class="discount-info text-sm">Buy 5kg+ for 5% off, 10kg+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="potatoes-veg">
+                            <button class="add-to-cart-btn" data-product-id="potatoes-veg">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fruits -->
+            <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-6 mt-12">Orchard Fruits</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div class="product-card" data-product-id="mangoes-fruit">
+                    <img src="https://images.unsplash.com/photo-1629822602732-c6517a26ee68?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sweet Mangoes">
+                    <div class="content">
+                        <h3>Sweet Mangoes</h3>
+                        <p class="description">Seasonal delight, bursting with natural sweetness.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹150/kg</span>
+                                <span class="discount-info text-sm">Buy 5kg+ for 5% off, 10kg+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="mangoes-fruit">
+                            <button class="add-to-cart-btn" data-product-id="mangoes-fruit">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="apples-fruit">
+                    <img src="https://images.unsplash.com/photo-1579613832107-167098485070?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Fresh Apples">
+                    <div class="content">
+                        <h3>Crisp Apples</h3>
+                        <p class="description">Farm-fresh, healthy, and perfectly crunchy.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹180/kg</span>
+                                <span class="discount-info text-sm">Buy 5kg+ for 5% off, 10kg+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="apples-fruit">
+                            <button class="add-to-cart-btn" data-product-id="apples-fruit">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="product-card" data-product-id="banana-fruit">
+                    <img src="https://images.unsplash.com/photo-1622359416201-cf5d6c8e5472?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Banana Bunch">
+                    <div class="content">
+                        <h3>Banana Bunch</h3>
+                        <p class="description">Naturally sweet and energy-rich, a perfect snack.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹60/dozen</span>
+                                <span class="discount-info text-sm">Buy 5+ dozen for 5% off, 10+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="banana-fruit">
+                            <button class="add-to-cart-btn" data-product-id="banana-fruit">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flowers -->
+            <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-6 mt-12">Vibrant Flowers</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div class="product-card" data-product-id="rose-flower">
+                    <img src="https://images.unsplash.com/photo-1616260170068-185d26392095?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Rose Bouquet">
+                    <div class="content">
+                        <h3>Elegant Rose Bouquet</h3>
+                        <p class="description">Freshly cut, fragrant roses to brighten any occasion.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹250</span>
+                                <span class="discount-info text-sm">Buy 3+ for 5% off, 5+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="rose-flower">
+                            <button class="add-to-cart-btn" data-product-id="rose-flower">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="marigold-flower">
+                    <img src="https://images.unsplash.com/photo-1610486800767-f4955b2d715d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Marigold Garland">
+                    <div class="content">
+                        <h3>Marigold Garland</h3>
+                        <p class="description">Traditional, bright marigolds perfect for festivities.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹100</span>
+                                <span class="discount-info text-sm">Buy 5+ for 5% off, 10+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="marigold-flower">
+                            <button class="add-to-cart-btn" data-product-id="marigold-flower">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plants -->
+            <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-6 mt-12">Indoor & Outdoor Plants</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div class="product-card" data-product-id="moneyplant-plant">
+                    <img src="https://images.unsplash.com/photo-1601004546450-4b2a472c67b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Money Plant">
+                    <div class="content">
+                        <h3>Money Plant (Pothos)</h3>
+                        <p class="description">Easy-care indoor plant, symbolizing prosperity and good fortune.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹300</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="moneyplant-plant">
+                            <button class="add-to-cart-btn" data-product-id="moneyplant-plant">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="snakeplant-plant">
+                    <img src="https://images.unsplash.com/photo-1596207861911-39c87898516d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Snake Plant">
+                    <div class="content">
+                        <h3>Snake Plant (Sansevieria)</h3>
+                        <p class="description">Air-purifying and low maintenance, ideal for any home or office.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹450</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="snakeplant-plant">
+                            <button class="add-to-cart-btn" data-product-id="snakeplant-plant">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pots -->
+            <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-6 mt-12">Planters & Pots</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div class="product-card" data-product-id="terracotta-pot">
+                    <img src="https://images.unsplash.com/photo-1589139268688-df88656d2e6b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Terracotta Pot">
+                    <div class="content">
+                        <h3>Terracotta Pot (10-inch)</h3>
+                        <p class="description">Classic porous clay pot, ideal for various plants.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹120</span>
+                                <span class="discount-info text-sm">Buy 5+ for 5% off, 10+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="terracotta-pot">
+                            <button class="add-to-cart-btn" data-product-id="terracotta-pot">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="plastic-pot">
+                    <img src="https://images.unsplash.com/photo-1612015555462-83b6e8284534?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Plastic Pot">
+                    <div class="content">
+                        <h3>Plastic Pot (8-inch)</h3>
+                        <p class="description">Lightweight and durable, suitable for indoor and outdoor.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹80</span>
+                                <span class="discount-info text-sm">Buy 5+ for 5% off, 10+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="plastic-pot">
+                            <button class="add-to-cart-btn" data-product-id="plastic-pot">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nursery Saplings -->
+            <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-6 mt-12">Nursery Saplings for Farms</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div class="product-card" data-product-id="tomato-sapling">
+                    <img src="https://images.unsplash.com/photo-1563604928738-f1f3a22f2a74?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tomato Saplings">
+                    <div class="content">
+                        <h3>Tomato Saplings</h3>
+                        <p class="description">High-yield varieties, ready for transplant and abundant harvests.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹50/sapling</span>
+                                <span class="discount-info text-sm">Buy 10+ for 5% off, 25+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="tomato-sapling">
+                            <button class="add-to-cart-btn" data-product-id="tomato-sapling">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="chilli-sapling">
+                    <img src="https://images.unsplash.com/photo-1627889137004-9c8e8d8e8b2b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chilli Saplings">
+                    <div class="content">
+                        <h3>Chilli Saplings</h3>
+                        <p class="description">Spicy varieties for your farm or home garden.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹45/sapling</span>
+                                <span class="discount-info text-sm">Buy 10+ for 5% off, 25+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="chilli-sapling">
+                            <button class="add-to-cart-btn" data-product-id="chilli-sapling">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="brinjal-sapling">
+                    <img src="https://images.unsplash.com/photo-1580211327177-3e113a3b0213?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Brinjal Saplings">
+                    <div class="content">
+                        <h3>Brinjal Saplings</h3>
+                        <p class="description">Robust brinjal plant starts for healthy vegetable yields.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹40/sapling</span>
+                                <span class="discount-info text-sm">Buy 10+ for 5% off, 25+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="brinjal-sapling">
+                            <button class="add-to-cart-btn" data-product-id="brinjal-sapling">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organic Pest Controls -->
+            <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-6 mt-12">Organic Pest Controls</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div class="product-card" data-product-id="neemoil-pest">
+                    <img src="https://images.unsplash.com/photo-1610444535313-2d2f78e4f50f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Neem Oil Spray">
+                    <div class="content">
+                        <h3>Neem Oil Spray</h3>
+                        <p class="description">Natural and effective pest deterrent for organic gardening.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹280/500ml</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="neemoil-pest">
+                            <button class="add-to-cart-btn" data-product-id="neemoil-pest">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="organic-insecticide">
+                    <img src="https://images.unsplash.com/photo-1606790574174-a0c5f4c4c23c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Organic Insecticide">
+                    <div class="content">
+                        <h3>Organic Insecticide</h3>
+                        <p class="description">Safe for plants, tough on pests. Eco-friendly solution.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹350/250g</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="organic-insecticide">
+                            <button class="add-to-cart-btn" data-product-id="organic-insecticide">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soil -->
+            <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-6 mt-12">Premium Soil & Mixes</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div class="product-card" data-product-id="potting-soil">
+                    <img src="https://images.unsplash.com/photo-1557999811-1372332152a5?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Potting Soil">
+                    <div class="content">
+                        <h3>Organic Potting Soil</h3>
+                        <p class="description">Rich blend for healthy plant growth and vibrant gardens.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹180/5kg</span>
+                                <span class="discount-info text-sm">Buy 2+ for 5% off, 5+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="potting-soil">
+                            <button class="add-to-cart-btn" data-product-id="potting-soil">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="vermicompost-soil">
+                    <img src="https://images.unsplash.com/photo-1596328328221-db9284241e8c?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Vermicompost">
+                    <div class="content">
+                        <h3>Vermicompost</h3>
+                        <p class="description">Natural fertilizer, significantly enhances soil fertility and plant vigor.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹120/kg</span>
+                                <span class="discount-info text-sm">Buy 2+ for 5% off, 5+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="vermicompost-soil">
+                            <button class="add-to-cart-btn" data-product-id="vermicompost-soil">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="cocopeat-soil">
+                    <img src="https://images.unsplash.com/photo-1616462823610-d02f2b3b0704?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Coco Peat Block">
+                    <div class="content">
+                        <h3>Coco Peat Block (5kg)</h3>
+                        <p class="description">Excellent growing medium for seeds and potting mixes.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹250</span>
+                                <span class="discount-info text-sm">Buy 2+ for 5% off, 5+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="cocopeat-soil">
+                            <button class="add-to-cart-btn" data-product-id="cocopeat-soil">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="garden-soil">
+                    <img src="https://images.unsplash.com/photo-1601004546450-4b2a472c67b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Garden Soil">
+                    <div class="content">
+                        <h3>Enriched Garden Soil (10kg)</h3>
+                        <p class="description">Ready-to-use enriched soil for garden beds.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹300</span>
+                                <span class="discount-info text-sm">Buy 2+ for 5% off, 5+ for 10% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="garden-soil">
+                            <button class="add-to-cart-btn" data-product-id="garden-soil">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lawn Green Gardens (Seeds/Mixes) -->
+            <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-6 mt-12">Lawn & Garden Essentials</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div class="product-card" data-product-id="lawngrass-seeds">
+                    <img src="https://images.unsplash.com/photo-1555776092-231149e6f2b4?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lawn Grass Seeds">
+                    <div class="content">
+                        <h3>Premium Lawn Grass Seeds</h3>
+                        <p class="description">For a lush, green lawn that enhances your home's curb appeal.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹400/500g</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="lawngrass-seeds">
+                            <button class="add-to-cart-btn" data-product-id="lawngrass-seeds">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="gardentool-set">
+                    <img src="https://images.unsplash.com/photo-1563507567-9d7a22a3e0b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Garden Tool Set">
+                    <div class="content">
+                        <h3>Basic Garden Tool Set</h3>
+                        <p class="description">Essential tools for every gardener, designed for durability and ease of use.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹750</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="gardentool-set">
+                            <button class="add-to-cart-btn" data-product-id="gardentool-set">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="lawn-fertilizer">
+                    <img src="https://images.unsplash.com/photo-1616462823610-d02f2b3b0704?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lawn Fertilizer">
+                    <div class="content">
+                        <h3>Organic Lawn Fertilizer (2kg)</h3>
+                        <p class="description">Promotes healthy grass growth and vibrant green color.</p>
+                        <div class="price-buy-row">
+                            <div class="price-info">
+                                <span class="base-price">₹350</span>
+                                <span class="discount-info text-sm">Buy 2+ for 5% off</span>
+                            </div>
+                            <input type="number" value="1" min="1" class="quantity-input" data-product-id="lawn-fertilizer">
+                            <button class="add-to-cart-btn" data-product-id="lawn-fertilizer">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unique Ideas / Engagement Sections -->
+        <section id="features" class="py-16 md:py-24 bg-[--color-light-grey-bg] content-section">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-heading">More Reasons to Love GreenHarvest Hub</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+                    <!-- Subscription Boxes -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-box-open mr-2"></i>Curated Subscription Boxes</h3>
+                        <p class="text-[--color-text-light-grey] mb-4">Discover the joy of gardening and fresh produce with our tailor-made subscription boxes!</p>
+                        <ul class="text-left">
+                            <li><i class="fas fa-check-circle"></i> **Seasonal Veggie Box:** Fresh, organic vegetables delivered weekly.</li>
+                            <li><i class="fas fa-check-circle"></i> **Gardener's Starter Kit:** Everything you need to begin your home garden.</li>
+                            <li><i class="fas fa-check-circle"></i> **Flower Power Pack:** A delightful mix of seasonal blooms.</li>
+                        </ul>
+                        <button class="btn-cta text-sm mt-6">Learn More</button>
+                    </div>
+
+                    <!-- Farm to Fork Stories / Transparency -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-tractor mr-2"></i>From Our Farm to Your Fork</h3>
+                        <p class="text-[--color-text-light-grey] mb-4">Experience the journey of your food and plants. We believe in complete transparency.</p>
+                        <ul class="text-left">
+                            <li><i class="fas fa-map-marker-alt"></i> Meet the Farmers: Learn about the hands that grow your food.</li>
+                            <li><i class="fas fa-award"></i> Quality & Care: See our commitment to organic and sustainable practices.</li>
+                            <li><i class="fas fa-camera"></i> Photo & Video Tours: Glimpses from our farms and nurseries.</li>
+                        </ul>
+                        <button class="btn-cta text-sm mt-6">Discover Our Farms</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Farming Community Section -->
+        <section id="community" class="py-16 md:py-24 content-section">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-heading">Join Our GreenHarvest Community</h2>
+                <p class="text-lg leading-relaxed max-w-3xl mx-auto text-[--color-text-light-grey] mb-8">
+                    Connect with fellow gardening enthusiasts and farmers! Share your tips, ask questions, and grow together.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="info-card">
+                        <h3><i class="fas fa-comments mr-2"></i>Discussion Forum</h3>
+                        <p class="text-[--color-text-light-grey]">A place to exchange ideas, troubleshoot plant problems, and celebrate your harvest.</p>
+                        <button class="btn-cta text-sm mt-6">Visit Forum</button>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-share-alt mr-2"></i>Share Your Success</h3>
+                        <p class="text-[--color-text-light-grey]">Upload photos of your thriving gardens and share your unique farming experiences.</p>
+                        <button class="btn-cta text-sm mt-6">Share Now</button>
+                    </div>
+                </div>
+                <div class="mt-12">
+                    <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4">Upcoming Workshops & Events</h3>
+                    <p class="text-lg text-[--color-text-light-grey]">Stay tuned for online workshops on organic farming, pest control, and plant care!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning & Resources Section (Blog/Guides) -->
+        <section id="learning" class="py-16 md:py-24 bg-[--color-white] content-section">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-heading">Learn & Grow with GreenHarvest Hub</h2>
+                <p class="text-lg leading-relaxed max-w-3xl mx-auto text-[--color-text-light-grey] mb-8">
+                    Empower your gardening journey with our expert guides, tips, and articles.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="info-card text-left">
+                        <h3><i class="fas fa-lightbulb mr-2"></i>Beginner's Guide to Organic Gardening</h3>
+                        <p class="text-[--color-text-light-grey] text-sm">Start your organic garden journey with our comprehensive guide, covering everything from soil preparation to harvesting.</p>
+                        <a href="#" class="text-[--color-primary-forest-green] hover:underline mt-4 inline-block text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                    <div class="info-card text-left">
+                        <h3><i class="fas fa-bug mr-2"></i>Natural Pest Control Methods</h3>
+                        <p class="text-[--color-text-light-grey] text-sm">Discover effective and eco-friendly ways to protect your plants from common pests without harmful chemicals.</p>
+                        <a href="#" class="text-[--color-primary-forest-green] hover:underline mt-4 inline-block text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                    <div class="info-card text-left">
+                        <h3><i class="fas fa-calendar-alt mr-2"></i>Seasonal Planting Calendar for Hyderabad</h3>
+                        <p class="text-[--color-text-light-grey] text-sm">Know what to plant when in Hyderabad's climate for the best yields and most vibrant garden.</p>
+                        <a href="#" class="text-[--color-primary-forest-green] hover:underline mt-4 inline-block text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="bg-[--color-light-grey-bg] py-16 md:py-24 content-section">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-heading">Our Story: Growing Together</h2>
+                <p class="text-lg leading-relaxed max-w-3xl mx-auto text-[--color-text-light-grey]">
+                    GreenHarvest Hub is dedicated to providing the freshest produce and highest quality gardening essentials directly from our farms to your doorstep. We believe in sustainable practices, organic methods, and empowering every home and farm to grow and thrive. Our commitment is to freshness, quality, and a greener tomorrow.
+                </p>
+                <p class="text-lg leading-relaxed max-w-3xl mx-auto mt-4 text-[--color-text-light-grey]">
+                    Founded with a passion for agriculture and healthy living, we work directly with local farmers and trusted suppliers to ensure every product meets our stringent standards. Join us in cultivating a healthier planet, one harvest at a time.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 md:py-24 content-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-heading">Connect With Us</h2>
+                <div class="max-w-xl mx-auto bg-[--color-white] p-8 rounded-lg shadow-md">
+                    <p class="text-center text-[--color-text-light-grey] mb-6">Have questions or need assistance? We're here to help!</p>
+                    <p class="text-center text-sm text-[--color-text-light-grey] mb-4">We deliver within a 300 km radius of Hyderabad, India.</p>
+                    <form id="contact-form" class="space-y-5">
+                        <div>
+                            <label for="contact-name" class="block text-sm font-medium text-[--color-text-dark-grey] mb-1">Your Name:</label>
+                            <input type="text" id="contact-name" class="mt-1 block w-full border border-[--color-border-light] rounded-md shadow-sm p-3 focus:ring-[--color-primary-forest-green] focus:border-[--color-primary-forest-green]" placeholder="Your Name" required>
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-sm font-medium text-[--color-text-dark-grey] mb-1">Your Email:</label>
+                            <input type="email" id="contact-email" class="mt-1 block w-full border border-[--color-border-light] rounded-md shadow-sm p-3 focus:ring-[--color-primary-forest-green] focus:border-[--color-primary-forest-green]" placeholder="your.email@example.com" required>
+                        </div>
+                        <div>
+                            <label for="contact-subject" class="block text-sm font-medium text-[--color-text-dark-grey] mb-1">Subject:</label>
+                            <input type="text" id="contact-subject" class="mt-1 block w-full border border-[--color-border-light] rounded-md shadow-sm p-3 focus:ring-[--color-primary-forest-green] focus:border-[--color-primary-forest-green]" placeholder="e.g., Order Inquiry, Partnership, Feedback" required>
+                        </div>
+                        <div>
+                            <label for="contact-message" class="block text-sm font-medium text-[--color-text-dark-grey] mb-1">Message:</label>
+                            <textarea id="contact-message" rows="5" class="mt-1 block w-full border border-[--color-border-light] rounded-md shadow-sm p-3 focus:ring-[--color-primary-forest-green] focus:border-[--color-primary-forest-green]" placeholder="Your message..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-[--color-primary-forest-green] text-[--color-white] px-6 py-3 rounded-md font-semibold hover:bg-[#316F54] transition-colors">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Management Dashboard (Client-Side Simulation) -->
+        <section id="dashboard" class="py-16 md:py-24 content-section hidden">
+            <div class="container mx-auto px-6">
+                <h2 class="section-heading">Order Management Dashboard</h2>
+                <div class="max-w-4xl mx-auto bg-[--color-white] p-8 rounded-lg shadow-md">
+                    <p class="text-center text-[--color-text-light-grey] mb-6">This is a client-side simulation of your order dashboard. For a robust, persistent solution with multi-user access and advanced reporting, **Firestore** integration is recommended.</p>
+                    
+                    <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Order Summary</h3>
+                    <div id="order-summary" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center">
+                        <div class="bg-[--color-light-grey-bg] p-4 rounded-lg">
+                            <p class="text-sm text-gray-600">Total Orders</p>
+                            <p id="total-orders" class="text-2xl font-bold text-[--color-secondary-terra-cotta]">0</p>
+                        </div>
+                        <div class="bg-[--color-light-grey-bg] p-4 rounded-lg">
+                            <p class="text-sm text-gray-600">Total Revenue</p>
+                            <p id="total-revenue" class="text-2xl font-bold text-[--color-primary-forest-green]">₹0.00</p>
+                        </div>
+                        <div class="bg-[--color-light-grey-bg] p-4 rounded-lg">
+                            <p class="text-sm text-gray-600">Most Popular Item</p>
+                            <p id="most-popular-item" class="text-xl font-bold text-[--color-secondary-terra-cotta]">N/A</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4">Recent Orders</h3>
+                    <div id="order-list" class="space-y-4">
+                        <p class="text-center text-[--color-text-light-grey]">No orders placed yet.</p>
+                        <!-- Orders will be dynamically loaded here -->
+                    </div>
+                    <button id="clear-orders-btn" class="w-full bg-red-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-600 transition-colors mt-8">Clear All Orders (Admin Only)</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="font-bold text-4xl logo-text text-[--color-accent-light-green]">GreenHarvest Hub</p>
+            <p class="mt-4 text-sm text-[--color-white]">Nourishing Homes & Farms, Naturally.</p>
+            <p class="mt-2 text-xs text-gray-300">Delivering within 300 km radius of Hyderabad, India.</p>
+            <div class="mt-6 flex justify-center space-x-8 text-lg">
+                <a href="#products" class="hover:underline">Products</a>
+                <a href="#why-choose-us" class="hover:underline">Why Choose Us</a>
+                <a href="#community" class="hover:underline">Community</a>
+                <a href="#learning" class="hover:underline">Learn & Grow</a>
+                <a href="#about" class="hover:underline">About Us</a>
+                <a href="#contact" class="hover:underline">Contact</a>
+                <a href="#dashboard" class="hover:underline hidden" id="footer-dashboard-link">Dashboard</a>
+            </div>
+             <p class="mt-8 text-xs text-gray-300">&copy; 2025 GreenHarvest Hub. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" id="login-close-button">&times;</button>
+            <h2 class="text-2xl font-bold mb-6 text-center text-[--color-primary-forest-green]">Admin Login</h2>
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
+                    <input type="text" id="username" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
+                    <input type="password" id="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                </div>
+                <div id="login-message" class="text-red-500 text-center hidden"></div>
+                <button type="submit" class="w-full bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#316F54] transition-colors">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" id="cart-close-button">&times;</button>
+            <h2 class="text-2xl font-bold mb-6 text-center text-[--color-primary-forest-green]">Your Shopping Cart</h2>
+            <div id="cart-items-list" class="max-h-80 overflow-y-auto mb-6 pr-2">
+                <!-- Cart items will be rendered here -->
+                <p id="empty-cart-message" class="text-center text-[--color-text-light-grey]">Your cart is empty.</p>
+            </div>
+            
+            <div class="cart-total-info">
+                <span class="text-xl font-bold text-[--color-primary-forest-green]">Total:</span>
+                <span id="cart-total-price" class="text-xl font-bold text-[--color-secondary-terra-cotta]">₹0.00</span>
+            </div>
+
+            <form id="customer-details-form" class="space-y-4 mt-6 border-t border-b border-[--color-border-light] py-4">
+                <h3 class="text-lg font-bold text-[--color-primary-forest-green]">Your Details for Order</h3>
+                <div>
+                    <label for="customer-name" class="block text-sm font-medium text-gray-700">Your Name:</label>
+                    <input type="text" id="customer-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" placeholder="e.g., John Doe" required>
+                </div>
+                <div>
+                    <label for="customer-phone" class="block text-sm font-medium text-gray-700">Phone Number:</label>
+                    <input type="tel" id="customer-phone" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" placeholder="e.g., +919876543210" required>
+                </div>
+                <div>
+                    <label for="delivery-address" class="block text-sm font-medium text-gray-700">Delivery Address:</label>
+                    <textarea id="delivery-address" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" placeholder="Full Address with Landmark, City, Pincode" required></textarea>
+                    <p class="text-xs text-gray-500 mt-1">For map-based location, please coordinate directly on WhatsApp after placing the order.</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-700 mb-2">Payment Method:</h3>
+                    <div class="flex items-center space-x-4">
+                        <input type="radio" id="payment-cod" name="payment-method" value="Cash on Delivery" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300" checked>
+                        <label for="payment-cod" class="text-sm text-gray-700">Cash on Delivery (COD)</label>
+                    </div>
+                    <div class="flex items-center space-x-4 mt-2">
+                        <input type="radio" id="payment-online" name="payment-method" value="Online Payment" class="focus:ring-[--color-primary-forest-green] h-4 w-4 text-[--color-primary-forest-green] border-gray-300" disabled>
+                        <label for="payment-online" class="text-sm text-gray-500">Online Payment (Coming Soon)</label>
+                    </div>
+                </div>
+            </form>
+
+            <button id="whatsapp-order-button" class="w-full bg-green-500 text-white px-4 py-3 rounded-md font-semibold flex items-center justify-center space-x-2 hover:bg-green-600 transition-colors mt-6">
+                <i class="fab fa-whatsapp"></i>
+                <span>Place Order on WhatsApp</span>
+            </button>
+             <p class="text-center text-xs text-gray-500 mt-2">You will be redirected to WhatsApp to confirm your order.</p>
+        </div>
+    </div>
+
+
+    <script>
+        // Admin Credentials (Client-side simulation ONLY - DO NOT use in production)
+        const ADMIN_USERNAME = 'admin';
+        const ADMIN_PASSWORD = 'password';
+
+        // Global state for login and cart
+        let isAdminLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Persist login state
+        let shoppingCart = [];
+        let allOrders = JSON.parse(localStorage.getItem('allOrders')) || []; // Persist orders
+
+        // Define product data with base prices and bulk pricing tiers
+        const products = [
+            { id: 'tomato-veg', category: 'Vegetables', name: 'Organic Tomatoes', basePrice: 80, unit: 'kg', img: 'https://images.unsplash.com/photo-1546549032-9571cd686864?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            { id: 'spinach-veg', category: 'Vegetables', name: 'Spinach Greens', basePrice: 50, unit: 'bunch', img: 'https://images.unsplash.com/photo-1596773177699-b1411ce44e3e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            { id: 'bellpepper-veg', category: 'Vegetables', name: 'Colorful Bell Peppers', basePrice: 120, unit: 'kg', img: 'https://images.unsplash.com/photo-1546738910-c4e8e9e432c7?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            { id: 'potatoes-veg', category: 'Vegetables', name: 'Farm Potatoes', basePrice: 40, unit: 'kg', img: 'https://images.unsplash.com/photo-1587063380020-f1ee5df2d721?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            
+            { id: 'mangoes-fruit', category: 'Fruits', name: 'Sweet Mangoes', basePrice: 150, unit: 'kg', img: 'https://images.unsplash.com/photo-1629822602732-c6517a26ee68?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            { id: 'apples-fruit', category: 'Fruits', name: 'Crisp Apples', basePrice: 180, unit: 'kg', img: 'https://images.unsplash.com/photo-1579613832107-167098485070?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            { id: 'banana-fruit', category: 'Fruits', name: 'Banana Bunch', basePrice: 60, unit: 'dozen', img: 'https://images.unsplash.com/photo-1622359416201-cf5d6c8e5472?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+
+            { id: 'rose-flower', category: 'Flowers', name: 'Elegant Rose Bouquet', basePrice: 250, unit: 'bouquet', img: 'https://images.unsplash.com/photo-1616260170068-185d26392095?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 3, discount: 0.05 }, { quantity: 5, discount: 0.10 }] },
+            { id: 'marigold-flower', category: 'Flowers', name: 'Marigold Garland', basePrice: 100, unit: 'garland', img: 'https://images.unsplash.com/photo-1610486800767-f4955b2d715d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+
+            { id: 'moneyplant-plant', category: 'Plants', name: 'Money Plant (Pothos)', basePrice: 300, unit: 'plant', img: 'https://images.unsplash.com/photo-1601004546450-4b2a472c67b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
+            { id: 'snakeplant-plant', category: 'Plants', name: 'Snake Plant (Sansevieria)', basePrice: 450, unit: 'plant', img: 'https://images.unsplash.com/photo-1596207861911-39c87898516d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
+            
+            { id: 'terracotta-pot', category: 'Pots', name: 'Terracotta Pot (10-inch)', basePrice: 120, unit: 'pot', img: 'https://images.unsplash.com/photo-1589139268688-df88656d2e6b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+            { id: 'plastic-pot', category: 'Pots', name: 'Plastic Pot (8-inch)', basePrice: 80, unit: 'pot', img: 'https://images.unsplash.com/photo-1612015555462-83b6e8284534?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 5, discount: 0.05 }, { quantity: 10, discount: 0.10 }] },
+
+            { id: 'tomato-sapling', category: 'Nursery Saplings', name: 'Tomato Saplings', basePrice: 50, unit: 'sapling', img: 'https://images.unsplash.com/photo-1563604928738-f1f3a22f2a74?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 10, discount: 0.05 }, { quantity: 25, discount: 0.10 }] },
+            { id: 'chilli-sapling', category: 'Nursery Saplings', name: 'Chilli Saplings', basePrice: 45, unit: 'sapling', img: 'https://images.unsplash.com/photo-1627889137004-9c8e8d8e8b2b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 10, discount: 0.05 }, { quantity: 25, discount: 0.10 }] },
+            { id: 'brinjal-sapling', category: 'Nursery Saplings', name: 'Brinjal Saplings', basePrice: 40, unit: 'sapling', img: 'https://images.unsplash.com/photo-1580211327177-3e113a3b0213?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 10, discount: 0.05 }, { quantity: 25, discount: 0.10 }] },
+
+            { id: 'neemoil-pest', category: 'Organic Pest Controls', name: 'Neem Oil Spray', basePrice: 280, unit: '500ml', img: 'https://images.unsplash.com/photo-1610444535313-2d2f78e4f50f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
+            { id: 'organic-insecticide', category: 'Organic Pest Controls', name: 'Organic Insecticide', basePrice: 350, unit: '250g', img: 'https://images.unsplash.com/photo-1606790574174-a0c5f4c4c23c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
+
+            { id: 'potting-soil', category: 'Soil & Mixes', name: 'Organic Potting Soil', basePrice: 180, unit: '5kg', img: 'https://images.unsplash.com/photo-1557999811-1372332152a5?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }] },
+            { id: 'vermicompost-soil', category: 'Soil & Mixes', name: 'Vermicompost', basePrice: 120, unit: 'kg', img: 'https://images.unsplash.com/photo-1596328328221-db9284241e8c?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }] },
+            { id: 'cocopeat-soil', category: 'Soil & Mixes', name: 'Coco Peat Block', basePrice: 250, unit: 'block', img: 'https://images.unsplash.com/photo-1616462823610-d02f2b3b0704?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }] },
+            { id: 'garden-soil', category: 'Soil & Mixes', name: 'Enriched Garden Soil', basePrice: 300, unit: '10kg', img: 'https://images.unsplash.com/photo-1601004546450-4b2a472c67b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 2, discount: 0.05 }, { quantity: 5, discount: 0.10 }] },
+
+            { id: 'lawngrass-seeds', category: 'Lawn & Garden', name: 'Premium Lawn Grass Seeds', basePrice: 400, unit: '500g', img: 'https://images.unsplash.com/photo-1555776092-231149e6f2b4?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
+            { id: 'gardentool-set', category: 'Lawn & Garden', name: 'Basic Garden Tool Set', basePrice: 750, unit: 'set', img: 'https://images.unsplash.com/photo-1563507567-9d7a22a3e0b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [] },
+            { id: 'lawn-fertilizer', category: 'Lawn & Garden', name: 'Organic Lawn Fertilizer', basePrice: 350, unit: '2kg', img: 'https://images.unsplash.com/photo-1616462823610-d02f2b3b0704?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', bulkPricing: [{ quantity: 2, discount: 0.05 }] }
+        ];
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const cartButton = document.getElementById('cart-button');
+            const mobileCartButton = document.getElementById('mobile-cart-button');
+            const cartCountSpan = document.getElementById('cart-count');
+            const mobileCartCountSpan = document.getElementById('mobile-cart-count');
+            const loginLogoutButton = document.getElementById('login-logout-button');
+            const mobileLoginLogoutButton = document.getElementById('mobile-login-logout-button');
+            const dashboardNavLink = document.getElementById('dashboard-nav-link');
+            const mobileDashboardNavLink = document.getElementById('mobile-dashboard-nav-link');
+            const dashboardSection = document.getElementById('dashboard');
+            const clearOrdersBtn = document.getElementById('clear-orders-btn');
+
+            const loginModalOverlay = document.getElementById('login-modal-overlay');
+            const loginForm = document.getElementById('login-form');
+            const loginMessage = document.getElementById('login-message');
+            const loginCloseButton = document.getElementById('login-close-button');
+
+            const cartModalOverlay = document.getElementById('cart-modal-overlay');
+            const cartItemsList = document.getElementById('cart-items-list');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const cartTotalPriceSpan = document.getElementById('cart-total-price');
+            const whatsappOrderButton = document.getElementById('whatsapp-order-button');
+            const cartCloseButton = document.getElementById('cart-close-button');
+
+            // Customer details fields in cart modal
+            const customerNameInput = document.getElementById('customer-name');
+            const customerPhoneInput = document.getElementById('customer-phone');
+            const deliveryAddressInput = document.getElementById('delivery-address');
+
+
+            // Global state for login and cart
+            let isAdminLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Persist login state
+            let shoppingCart = [];
+            let allOrders = JSON.parse(localStorage.getItem('allOrders')) || []; // Persist orders
+
+            // --- UI Update Functions ---
+            function updateLoginUI() {
+                if (isAdminLoggedIn) {
+                    loginLogoutButton.textContent = 'Logout';
+                    mobileLoginLogoutButton.textContent = 'Logout';
+                    dashboardNavLink.classList.remove('hidden');
+                    mobileDashboardNavLink.classList.remove('hidden');
+                } else {
+                    loginLogoutButton.textContent = 'Login';
+                    mobileLoginLogoutButton.textContent = 'Login';
+                    dashboardNavLink.classList.add('hidden');
+                    mobileDashboardNavLink.classList.add('hidden');
+                    // Hide dashboard section if admin logs out while on it
+                    if (dashboardSection.classList.contains('active-section')) {
+                        showSection('hero'); // Redirect to home
+                    }
+                }
+                // Ensure clear orders button visibility on dashboard
+                if (clearOrdersBtn) {
+                     clearOrdersBtn.style.display = isAdminLoggedIn ? 'block' : 'none';
+                }
+            }
+
+            function updateCartCount() {
+                const totalItems = shoppingCart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountSpan.textContent = `Cart (${totalItems})`;
+                mobileCartCountSpan.textContent = `Cart (${totalItems})`;
+            }
+
+            // Function to display custom message box
+            function showMessageBox(message, isError = false) {
+                let messageBox = document.querySelector('.custom-message-box');
+                if (!messageBox) {
+                    messageBox = document.createElement('div');
+                    messageBox.className = 'custom-message-box';
+                    document.body.appendChild(messageBox);
+                }
+                
+                messageBox.textContent = message;
+                messageBox.classList.remove('show', 'error'); // Reset classes
+                
+                if (isError) {
+                    messageBox.classList.add('error');
+                } else {
+                    messageBox.classList.add('show');
+                }
+
+                // Force reflow to ensure transition plays
+                void messageBox.offsetWidth; 
+                
+                messageBox.classList.add('show');
+
+                setTimeout(() => {
+                    messageBox.classList.remove('show');
+                    messageBox.addEventListener('transitionend', function handler() {
+                        messageBox.removeEventListener('transitionend', handler);
+                        if (messageBox.parentNode) messageBox.parentNode.removeChild(messageBox);
+                    });
+                }, 3000); // Hide after 3 seconds
+            }
+
+            // Function to calculate discounted price
+            function getDiscountedPrice(basePrice, quantity, bulkPricing) {
+                let finalPrice = basePrice;
+                let discountApplied = 0;
+
+                // Sort bulk pricing tiers in descending order of quantity to apply largest applicable discount
+                const sortedBulkPricing = [...bulkPricing].sort((a, b) => b.quantity - a.quantity);
+
+                for (const tier of sortedBulkPricing) {
+                    if (quantity >= tier.quantity) {
+                        finalPrice = basePrice * (1 - tier.discount);
+                        discountApplied = tier.discount * 100;
+                        break; // Apply the highest applicable discount and exit
+                    }
+                }
+                return { pricePerUnit: finalPrice, total: finalPrice * quantity, discount: discountApplied };
+            }
+
+            // Function to render the dashboard
+            function renderDashboard() {
+                const orderListDiv = document.getElementById('order-list');
+                const totalOrdersSpan = document.getElementById('total-orders');
+                const totalRevenueSpan = document.getElementById('total-revenue');
+                const mostPopularItemSpan = document.getElementById('most-popular-item');
+
+                orderListDiv.innerHTML = ''; // Clear previous list
+
+                if (allOrders.length === 0) {
+                    orderListDiv.innerHTML = '<p class="text-center text-[--color-text-light-grey]">No orders placed yet.</p>';
+                    totalOrdersSpan.textContent = '0';
+                    totalRevenueSpan.textContent = '₹0.00';
+                    mostPopularItemSpan.textContent = 'N/A';
+                    return;
+                }
+
+                let totalRevenue = 0;
+                const itemCounts = {};
+
+                allOrders.forEach(order => {
+                    totalRevenue += order.totalPrice;
+                    const orderDate = new Date(order.timestamp).toLocaleString();
+                    const orderCard = document.createElement('div');
+                    orderCard.className = 'bg-[--color-white] p-4 rounded-lg shadow-sm border border-[--color-border-light]';
+                    
+                    let itemsHtml = order.items.map(item => {
+                        // Accumulate item counts for popularity calculation
+                        itemCounts[item.name] = (itemCounts[item.name] || 0) + item.quantity;
+                        return `<li>${item.quantity} x ${item.name} @ ₹${item.pricePerUnit.toFixed(2)}/unit (Total: ₹${(item.totalPrice).toFixed(2)})</li>`;
+                    }).join('');
+
+                    orderCard.innerHTML = `
+                        <p class="font-semibold text-lg text-[--color-primary-forest-green]">Order #${order.orderId}</p>
+                        <p class="text-sm text-gray-500">Date: ${orderDate}</p>
+                        <p class="text-sm text-gray-500">Customer: ${order.customerName || 'N/A'} (Phone: ${order.customerPhone || 'N/A'})</p>
+                        <p class="text-sm text-gray-500">Delivery Address: ${order.deliveryAddress || 'N/A'}</p>
+                        <p class="text-sm text-gray-500">Payment: ${order.paymentMethod || 'N/A'}</p>
+                        <div class="mt-2">
+                            <p class="font-medium">Items:</p>
+                            <ul class="list-disc list-inside text-sm text-[--color-text-light-grey]">
+                                ${itemsHtml}
+                            </ul>
+                        </div>
+                        <p class="font-bold text-lg mt-3 text-right">Order Total: <span class="text-[--color-secondary-terra-cotta]">₹${order.totalPrice.toFixed(2)}</span></p>
+                    `;
+                    orderListDiv.appendChild(orderCard);
+                });
+
+                totalOrdersSpan.textContent = allOrders.length;
+                totalRevenueSpan.textContent = `₹${totalRevenue.toFixed(2)}`;
+
+                // Calculate most popular item
+                let maxCount = 0;
+                let popularItem = 'N/A';
+                for (const item in itemCounts) {
+                    if (itemCounts[item] > maxCount) {
+                        maxCount = itemCounts[item];
+                        popularItem = item;
+                    }
+                }
+                mostPopularItemSpan.textContent = popularItem;
+                
+                // Show/hide clear orders button based on admin status
+                if (clearOrdersBtn) {
+                     clearOrdersBtn.style.display = isAdminLoggedIn ? 'block' : 'none';
+                }
+            }
+
+            // Function to show a specific content section and hide others
+            const showSection = (targetId) => {
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active-section');
+                });
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active-section');
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+
+                // Update active navigation link styling
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeNavLink = document.querySelector(`nav a[href="#${targetId}"]`);
+                if (activeNavLink) {
+                    activeNavLink.classList.add('active');
+                }
+            };
+
+            // --- Event Listeners ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('nav a[href^="#"], #mobile-menu a[href^="#"], footer a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1); 
+                    
+                    // Prevent access to dashboard if not admin
+                    if (targetId === 'dashboard' && !isAdminLoggedIn) {
+                        showMessageBox('Access Denied: Please log in as admin to view the dashboard.', true);
+                        return;
+                    }
+                    showSection(targetId);
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden'); 
+                    }
+                });
+            });
+
+            // Login/Logout Button
+            loginLogoutButton.addEventListener('click', () => {
+                if (isAdminLoggedIn) {
+                    // Logout
+                    isAdminLoggedIn = false;
+                    localStorage.setItem('isAdminLoggedIn', 'false');
+                    updateLoginUI();
+                    showMessageBox('Logged out successfully!');
+                    showSection('hero'); // Redirect to home after logout
+                } else {
+                    // Show Login Modal
+                    loginModalOverlay.classList.add('open');
+                }
+            });
+            mobileLoginLogoutButton.addEventListener('click', () => {
+                 if (isAdminLoggedIn) {
+                    // Logout
+                    isAdminLoggedIn = false;
+                    localStorage.setItem('isAdminLoggedIn', 'false');
+                    updateLoginUI();
+                    showMessageBox('Logged out successfully!');
+                    showSection('hero'); // Redirect to home after logout
+                } else {
+                    // Show Login Modal
+                    loginModalOverlay.classList.add('open');
+                }
+                mobileMenu.classList.add('hidden'); // Close mobile menu
+            });
+
+            loginCloseButton.addEventListener('click', () => {
+                loginModalOverlay.classList.remove('open');
+                loginMessage.classList.add('hidden'); // Clear any login messages
+                loginForm.reset();
+            });
+
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                    isAdminLoggedIn = true;
+                    localStorage.setItem('isAdminLoggedIn', 'true');
+                    updateLoginUI();
+                    loginModalOverlay.classList.remove('open');
+                    loginMessage.classList.add('hidden');
+                    showMessageBox('Login successful! Welcome, Admin.');
+                    showSection('dashboard'); // Redirect to dashboard on successful login
+                    renderDashboard(); // Ensure dashboard is rendered
+                } else {
+                    loginMessage.textContent = 'Invalid username or password.';
+                    loginMessage.classList.remove('hidden');
+                }
+            });
+
+            // Add to Cart functionality
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = e.target.dataset.productId;
+                    const product = products.find(p => p.id === productId);
+                    if (!product) {
+                        showMessageBox('Error: Product not found.', true);
+                        return;
+                    }
+
+                    const quantityInput = e.target.parentNode.querySelector('.quantity-input');
+                    const quantity = parseInt(quantityInput.value);
+
+                    if (isNaN(quantity) || quantity <= 0) {
+                        showMessageBox('Please enter a valid quantity.', true);
+                        return;
+                    }
+
+                    const { pricePerUnit, total, discount } = getDiscountedPrice(product.basePrice, quantity, product.bulkPricing || []);
+                    
+                    // Add/update item in shopping cart
+                    const existingItemIndex = shoppingCart.findIndex(item => item.id === productId);
+                    if (existingItemIndex > -1) {
+                        shoppingCart[existingItemIndex].quantity += quantity;
+                        // Recalculate price for the updated quantity of this existing item
+                        const updatedPrices = getDiscountedPrice(product.basePrice, shoppingCart[existingItemIndex].quantity, product.bulkPricing || []);
+                        shoppingCart[existingItemIndex].pricePerUnit = updatedPrices.pricePerUnit;
+                        shoppingCart[existingItemIndex].totalPrice = updatedPrices.total;
+                        shoppingCart[existingItemIndex].discountApplied = updatedPrices.discount > 0 ? `${updatedPrices.discount}%` : 'None';
+                    } else {
+                        shoppingCart.push({
+                            id: productId,
+                            name: product.name,
+                            img: product.img,
+                            quantity: quantity,
+                            unit: product.unit,
+                            basePrice: product.basePrice,
+                            pricePerUnit: pricePerUnit, // Store calculated unit price
+                            totalPrice: total,
+                            discountApplied: discount > 0 ? `${discount}%` : 'None'
+                        });
+                    }
+
+                    updateCartCount();
+                    showMessageBox(`Added ${quantity} ${product.unit} of ${product.name} to cart.`);
+                });
+            });
+
+            // Cart Modal Open/Close
+            cartButton.addEventListener('click', () => {
+                renderCartItems();
+                cartModalOverlay.classList.add('open');
+            });
+            mobileCartButton.addEventListener('click', () => {
+                renderCartItems();
+                cartModalOverlay.classList.add('open');
+                mobileMenu.classList.add('hidden'); // Close mobile menu
+            });
+            cartCloseButton.addEventListener('click', () => {
+                cartModalOverlay.classList.remove('open');
+            });
+
+            // Update quantity of an item in the cart from the modal
+            function updateCartItemQuantity(itemId, newQuantity) {
+                const itemIndex = shoppingCart.findIndex(item => item.id === itemId);
+                if (itemIndex > -1) {
+                    if (newQuantity <= 0) {
+                        shoppingCart.splice(itemIndex, 1); // Remove if quantity is 0 or less
+                        showMessageBox(`${products.find(p => p.id === itemId)?.name} removed from cart.`, false);
+                    } else {
+                        const product = products.find(p => p.id === itemId);
+                        if (product) {
+                            const updatedPrices = getDiscountedPrice(product.basePrice, newQuantity, product.bulkPricing || []);
+                            shoppingCart[itemIndex].quantity = newQuantity;
+                            shoppingCart[itemIndex].pricePerUnit = updatedPrices.pricePerUnit;
+                            shoppingCart[itemIndex].totalPrice = updatedPrices.total;
+                            shoppingCart[itemIndex].discountApplied = updatedPrices.discount > 0 ? `${updatedPrices.discount}%` : 'None';
+                        }
+                    }
+                    updateCartCount();
+                    renderCartItems(); // Re-render cart to show updated totals
+                }
+            }
+
+            // Render Cart Items in Modal
+            function renderCartItems() {
+                cartItemsList.innerHTML = '';
+                let overallCartTotal = 0;
+
+                if (shoppingCart.length === 0) {
+                    emptyCartMessage.classList.remove('hidden');
+                    whatsappOrderButton.disabled = true;
+                    whatsappOrderButton.classList.add('opacity-50', 'cursor-not-allowed');
+                } else {
+                    emptyCartMessage.classList.add('hidden');
+                    whatsappOrderButton.disabled = false;
+                    whatsappOrderButton.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                    shoppingCart.forEach(item => {
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'cart-item';
+                        itemElement.innerHTML = `
+                            <img src="${item.img}" alt="${item.name}" class="w-16 h-16 rounded-md object-cover">
+                            <div class="cart-item-details">
+                                <p class="cart-item-name">${item.name}</p>
+                                <p class="cart-item-price-info">₹${item.pricePerUnit.toFixed(2)} / ${item.unit}</p>
+                                ${item.discountApplied !== 'None' ? `<p class="text-xs text-[--color-secondary-terra-cotta]">Discount: ${item.discountApplied}</p>` : ''}
+                                <p class="text-sm font-semibold text-gray-700">Total: ₹${item.totalPrice.toFixed(2)}</p>
+                            </div>
+                            <div class="cart-item-actions">
+                                <input type="number" value="${item.quantity}" min="1" class="cart-item-quantity-input" data-item-id="${item.id}">
+                                <button class="cart-item-remove" data-item-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        `;
+                        cartItemsList.appendChild(itemElement);
+                        overallCartTotal += item.totalPrice;
+                    });
+                }
+                cartTotalPriceSpan.textContent = `₹${overallCartTotal.toFixed(2)}`;
+
+                // Attach event listeners for quantity changes and removal
+                document.querySelectorAll('.cart-item-quantity-input').forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        const itemId = e.target.dataset.itemId;
+                        const newQuantity = parseInt(e.target.value);
+                        updateCartItemQuantity(itemId, newQuantity);
+                    });
+                });
+
+                document.querySelectorAll('.cart-item-remove').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const itemIdToRemove = e.target.closest('.cart-item-remove').dataset.itemId;
+                        updateCartItemQuantity(itemIdToRemove, 0); // Set quantity to 0 to remove
+                    });
+                });
+            }
+
+            // WhatsApp Order Button in Cart Modal
+            whatsappOrderButton.addEventListener('click', () => {
+                if (shoppingCart.length === 0) {
+                    showMessageBox('Your cart is empty. Please add items before placing an order.', true);
+                    return;
+                }
+
+                // Validate customer details
+                const customerName = customerNameInput.value.trim();
+                const customerPhone = customerPhoneInput.value.trim();
+                const deliveryAddress = deliveryAddressInput.value.trim();
+                const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+
+                if (!customerName || !customerPhone || !deliveryAddress) {
+                    showMessageBox('Please fill in all your details (Name, Phone, Address) to place the order.', true);
+                    return;
+                }
+
+                let whatsappMessage = `*GreenHarvest Hub Order Request*\n\n`;
+                let orderTotalPrice = 0;
+                let orderItemsForDashboard = []; // For the dashboard record
+
+                shoppingCart.forEach((item, index) => {
+                    whatsappMessage += `${index + 1}. ${item.name} - ${item.quantity} ${item.unit}\n`;
+                    whatsappMessage += `   Base Price: ₹${item.basePrice.toFixed(2)}\n`;
+                    if (item.discountApplied !== 'None') {
+                        whatsappMessage += `   Discount: ${item.discountApplied}\n`;
+                        whatsappMessage += `   Discounted Unit Price: ₹${item.pricePerUnit.toFixed(2)}\n`;
+                    }
+                    whatsappMessage += `   Subtotal: ₹${item.totalPrice.toFixed(2)}\n`;
+                    orderTotalPrice += item.totalPrice;
+
+                    // Prepare item for dashboard record
+                    orderItemsForDashboard.push({
+                        name: item.name,
+                        quantity: item.quantity,
+                        pricePerUnit: item.pricePerUnit,
+                        totalPrice: item.totalPrice,
+                        discountApplied: item.discountApplied
+                    });
+                });
+
+                whatsappMessage += `\n*Overall Total: ₹${orderTotalPrice.toFixed(2)}*\n\n`;
+                whatsappMessage += `--- Customer Details ---\n`;
+                whatsappMessage += `Name: ${customerName}\n`;
+                whatsappMessage += `Phone: ${customerPhone}\n`;
+                whatsappMessage += `Delivery Address: ${deliveryAddress}\n`;
+                whatsappMessage += `Payment Method: ${paymentMethod}\n\n`;
+                whatsappMessage += `Looking forward to your confirmation and delivery details!`;
+
+
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                const whatsappNumber = '919704699511'; // Your WhatsApp number
+
+                window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+
+                // Record the order for the dashboard
+                const newOrder = {
+                    orderId: `GH-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+                    items: orderItemsForDashboard,
+                    totalPrice: orderTotalPrice,
+                    customerName: customerName,
+                    customerPhone: customerPhone,
+                    deliveryAddress: deliveryAddress,
+                    paymentMethod: paymentMethod,
+                    timestamp: new Date().toISOString()
+                };
+                allOrders.push(newOrder);
+                localStorage.setItem('allOrders', JSON.stringify(allOrders)); // Persist orders to local storage
+
+                shoppingCart = []; // Clear cart after placing order
+                updateCartCount();
+                cartModalOverlay.classList.remove('open'); // Close cart modal
+                showMessageBox('Your order request has been sent to WhatsApp! Please check the new tab to confirm.');
+                customerNameInput.value = '';
+                customerPhoneInput.value = '';
+                deliveryAddressInput.value = '';
+                document.getElementById('payment-cod').checked = true; // Reset payment to COD
+            });
+
+            // Contact Form Submission (remains mailto)
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('contact-name').value;
+                const email = document.getElementById('contact-email').value;
+                const subject = document.getElementById('contact-subject').value;
+                const message = document.getElementById('contact-message').value;
+                
+                console.log('Contact Form Submission:', { name, email, subject, message });
+                
+                // Construct mailto link
+                const mailtoSubject = encodeURIComponent(`GreenHarvest Hub Inquiry: ${subject}`);
+                const mailtoBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
+                window.location.href = `mailto:edulaksy@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+                showMessageBox(`Thank you, ${name}! Your message has been sent. We will get back to you soon.`, false);
+                contactForm.reset();
+            });
+
+            // Clear All Orders button on Dashboard
+            if (clearOrdersBtn) {
+                clearOrdersBtn.addEventListener('click', () => {
+                    // Using a custom modal for confirmation instead of browser's confirm()
+                    const confirmation = window.confirm('Are you sure you want to clear ALL orders? This action cannot be undone.');
+                    if (isAdminLoggedIn && confirmation) {
+                        allOrders = [];
+                        localStorage.setItem('allOrders', JSON.stringify(allOrders));
+                        renderDashboard();
+                        showMessageBox('All orders cleared successfully!', false);
+                    } else if (!isAdminLoggedIn) {
+                         showMessageBox('Access Denied: Only administrators can clear orders.', true);
+                    }
+                });
+            }
+
+
+            // --- Initial Setup ---
+            updateLoginUI(); // Set initial login state of UI
+            updateCartCount(); // Set initial cart count
+            showSection('hero'); // Show hero section on initial load
+        });
+    </script>
+</body>
+</html>
 
