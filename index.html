@@ -7,63 +7,67 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Merriweather for Headings, Inter for Body -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Define a natural, fresh, and modern color palette inspired by 'Greenr' */
+        /* Define a natural, fresh, and modern color palette inspired by 'Greenr' - now more earthy/rustic */
         :root {
-            --color-primary-forest-green: #3B8266; /* Deep, muted green */
-            --color-secondary-terra-cotta: #E57373; /* Soft, warm terracotta/blush */
-            --color-accent-light-green: #A5D6A7; /* Lighter, fresh green for highlights */
-            --color-background-off-white: #F8F8F8; /* Clean, soft background */
-            --color-text-dark-grey: #4A4A4A; /* Modern dark grey for body text */
-            --color-text-light-grey: #757575; /* Lighter grey for secondary text */
+            --color-primary-forest-green: #5C884B; /* Deeper, warmer forest green/olive */
+            --color-secondary-terra-cotta: #C58B5E; /* Muted terracotta/clay */
+            --color-accent-light-green: #A3B899; /* Sage-like, muted light green */
+            --color-background-off-white: #FDF8F3; /* Creamy, warm off-white/linen */
+            --color-text-dark-grey: #4A3C32; /* Deep brown/charcoal */
+            --color-text-light-grey: #7A6A5E; /* Muted medium brown/taupe */
             --color-white: #FFFFFF;
-            --color-border-light: #ECEFF1; /* Very light border */
-            --color-shadow: rgba(0,0,0,0.08); /* Soft shadow */
+            --color-border-light: #D4C9BF; /* Light tan/beige border */
+            --color-shadow: rgba(74, 60, 50, 0.1); /* Warmer, softer shadow */
         }
 
         /* General body styling - Inter for humanist sans-serif */
         body { font-family: 'Inter', sans-serif; background-color: var(--color-background-off-white); color: var(--color-text-dark-grey); font-size: 0.95rem; }
-        h1, h2, h3, h4 { font-family: 'Inter', sans-serif; color: var(--color-primary-forest-green); }
+        
+        /* Headings with Merriweather */
+        h1, h2, h3, h4 { font-family: 'Merriweather', serif; color: var(--color-primary-forest-green); }
 
         /* Header & Navigation */
         header { background-color: var(--color-white); color: var(--color-text-dark-grey); border-bottom: 1px solid var(--color-border-light); }
         .nav-link { color: var(--color-text-dark-grey); transition: color 0.3s ease, border-color 0.3s ease; border-bottom: 2px solid transparent; }
         .nav-link:hover { color: var(--color-primary-forest-green); border-bottom-color: var(--color-primary-forest-green); }
         .btn-header-action { background-color: var(--color-accent-light-green); color: var(--color-primary-forest-green); padding: 0.75rem 1.5rem; border-radius: 9999px; font-weight: 600; transition: background-color 0.3s ease, transform 0.2s ease; }
-        .btn-header-action:hover { background-color: #81C784; transform: translateY(-1px); } /* Slightly darker green on hover */
+        .btn-header-action:hover { background-color: #92B08B; transform: translateY(-1px); } /* Slightly darker sage on hover */
 
         /* Section Headings */
         .section-heading {
-            font-size: 2.5rem; /* Reduced from 3rem */
+            font-size: 2.5rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 3.5rem;
             color: var(--color-primary-forest-green);
         }
         @media (max-width: 768px) {
-            .section-heading { font-size: 1.8rem; /* Reduced from 2.2rem */ margin-bottom: 2.5rem; }
+            .section-heading { font-size: 1.8rem; margin-bottom: 2.5rem; }
         }
 
         /* Hero Section Styling */
         .hero-section {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1497210287118-a6d17d59b02a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+            /* Updated image for a more rustic feel */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517482933181-70586e964177?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
             color: white;
             padding: 10rem 0;
             text-align: center;
         }
         .hero-section h1 {
-            font-family: 'Inter', sans-serif; /* Changed from Lora */
-            font-size: 3.8rem; /* Reduced from 4.5rem */
+            font-family: 'Merriweather', serif;
+            font-size: 3.8rem;
             color: var(--color-white);
             margin-bottom: 1.5rem;
             line-height: 1.1;
             text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
         }
         .hero-section p {
-            font-size: 1.4rem; /* Reduced from 1.6rem */
+            font-size: 1.4rem;
             max-width: 900px;
             margin: 0 auto 3rem auto;
             line-height: 1.6;
@@ -71,8 +75,8 @@
         }
         @media (max-width: 768px) {
             .hero-section { padding: 6rem 0; }
-            .hero-section h1 { font-size: 2.5rem; /* Reduced from 3rem */ }
-            .hero-section p { font-size: 1.1rem; /* Reduced from 1.2rem */ }
+            .hero-section h1 { font-size: 2.5rem; }
+            .hero-section p { font-size: 1.1rem; }
         }
 
         /* Primary Call to Action Button (reusing .btn-header-action style for main CTA) */
@@ -82,14 +86,14 @@
             padding: 1rem 2.5rem;
             border-radius: 9999px; /* Pill shape */
             font-weight: 700;
-            font-size: 1rem; /* Reduced from 1.1rem */
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
         }
         .btn-cta:hover {
-            background-color: #81C784;
+            background-color: #92B08B; /* Slightly darker sage */
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(0,0,0,0.15);
         }
@@ -97,8 +101,8 @@
         /* Product Card Styling */
         .product-card {
             background-color: var(--color-white);
-            border-radius: 1rem; /* More rounded */
-            box-shadow: 0 6px 15px var(--color-shadow); /* Softer, deeper shadow */
+            border-radius: 1rem;
+            box-shadow: 0 6px 15px var(--color-shadow);
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -108,7 +112,7 @@
         }
         .product-card img {
             width: 100%;
-            height: 220px; /* Slightly taller for more visual impact */
+            height: 220px;
             object-fit: cover;
             border-bottom: 1px solid var(--color-border-light);
         }
@@ -117,28 +121,28 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 180px; /* Ensure consistent card height for text */
+            min-height: 180px;
         }
         .product-card h3 {
-            font-family: 'Inter', sans-serif; /* Changed from Lora */
-            font-size: 1.4rem; /* Reduced from 1.6rem */
+            font-family: 'Merriweather', serif;
+            font-size: 1.4rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
             color: var(--color-secondary-terra-cotta); /* Terracotta for product titles */
         }
         .product-card .description {
             color: var(--color-text-light-grey);
-            font-size: 0.95rem; /* Adjusted for consistency */
+            font-size: 0.95rem;
             line-height: 1.4;
-            flex-grow: 1; /* Allows description to take available space */
+            flex-grow: 1;
         }
         .product-card .price-buy-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 1rem;
-            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
-            gap: 0.75rem; /* Space between items when wrapped */
+            flex-wrap: wrap;
+            gap: 0.75rem;
         }
         .product-card .price-info {
             display: flex;
@@ -146,13 +150,13 @@
             align-items: flex-start;
         }
         .product-card .base-price {
-            font-family: 'Inter', sans-serif; /* Changed from Montserrat */
-            font-size: 1.2rem; /* Reduced from 1.4rem */
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--color-primary-forest-green);
         }
         .product-card .discount-info {
-            font-size: 0.75rem; /* Adjusted for consistency */
+            font-size: 0.75rem;
             color: var(--color-secondary-terra-cotta);
             font-weight: 500;
             margin-top: 0.2rem;
@@ -164,7 +168,7 @@
             border-radius: 0.5rem;
             text-align: center;
             font-size: 0.9rem;
-            -moz-appearance: textfield; /* Hide arrows for Firefox */
+            -moz-appearance: textfield;
         }
         .product-card .quantity-input::-webkit-outer-spin-button,
         .product-card .quantity-input::-webkit-inner-spin-button {
@@ -176,13 +180,13 @@
             background-color: var(--color-primary-forest-green);
             color: var(--color-white);
             padding: 0.8rem 1.5rem;
-            border-radius: 9999px; /* Pill shape */
+            border-radius: 9999px;
             font-weight: 600;
-            font-size: 0.95rem; /* Adjusted for consistency */
+            font-size: 0.95rem;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .product-card .add-to-cart-btn:hover {
-            background-color: #316F54; /* Slightly darker green */
+            background-color: #4A6E3F; /* Slightly darker green */
             transform: translateY(-2px);
         }
 
@@ -205,15 +209,15 @@
             margin-bottom: 1.5rem;
         }
         .feature-card h4 {
-            font-family: 'Inter', sans-serif; /* Changed from Lora */
-            font-size: 1.6rem; /* Reduced from 1.8rem */
+            font-family: 'Merriweather', serif;
+            font-size: 1.6rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
             color: var(--color-secondary-terra-cotta);
         }
         .feature-card p {
             color: var(--color-text-light-grey);
-            font-size: 0.95rem; /* Adjusted for consistency */
+            font-size: 0.95rem;
             line-height: 1.6;
         }
 
@@ -225,8 +229,8 @@
             box-shadow: 0 6px 15px var(--color-shadow);
         }
         .info-card h3 {
-            font-family: 'Inter', sans-serif; /* Changed from Lora */
-            font-size: 1.6rem; /* Reduced from 1.8rem */
+            font-family: 'Merriweather', serif;
+            font-size: 1.6rem;
             font-weight: 700;
             margin-bottom: 1rem;
             color: var(--color-primary-forest-green);
@@ -235,30 +239,28 @@
         .info-card ul {
             list-style: none;
             padding: 0;
-            /* Ensure list items are contained on mobile */
-            padding-left: 0.5rem; /* Small padding for mobile list items */
+            padding-left: 0.5rem;
             padding-right: 0.5rem;
         }
         .info-card li {
             margin-bottom: 0.75rem;
             color: var(--color-text-dark-grey);
-            font-size: 0.95rem; /* Adjusted for consistency */
-            display: flex; /* Use flex to align icon and text */
+            font-size: 0.95rem;
+            display: flex;
             align-items: flex-start;
-            gap: 0.75rem; /* Space between icon and text */
+            gap: 0.75rem;
         }
         .info-card li i {
             color: var(--color-accent-light-green);
-            margin-right: 0rem; /* Resetting margin-right as gap handles spacing */
-            flex-shrink: 0; /* Prevent icon from shrinking */
-            padding-top: 0.2rem; /* Align icon better with text baseline */
+            flex-shrink: 0;
+            padding-top: 0.2rem;
         }
         
         /* Footer */
         footer { background-color: var(--color-primary-forest-green); color: var(--color-white); }
         footer a { color: var(--color-accent-light-green); transition: color 0.3s ease; }
         footer a:hover { color: var(--color-white); }
-        footer .logo-text { font-family: 'Inter', sans-serif; /* Changed from Lora */ }
+        footer .logo-text { font-family: 'Merriweather', serif; }
 
         /* Custom Message Box for alerts */
         .custom-message-box {
@@ -267,9 +269,9 @@
             top: 0;
             margin-left: auto;
             margin-right: auto;
-            width: 90%; /* Responsive width */
-            max-width: 400px; /* Max width for larger screens */
-            background-color: #4CAF50; /* Green for success */
+            width: 90%;
+            max-width: 400px;
+            background-color: #5C884B; /* Green for success matching primary */
             color: white;
             text-align: center;
             padding: 1rem 1.5rem;
@@ -278,13 +280,13 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             z-index: 1001;
             transition: all 0.4s ease-out;
-            transform: translateY(-100%); /* Start off-screen */
+            transform: translateY(-100%);
         }
         .custom-message-box.show {
-            transform: translateY(0); /* Slide in */
+            transform: translateY(0);
         }
         .custom-message-box.error {
-            background-color: #F44336; /* Red for errors */
+            background-color: #E57373; /* Red for errors matching secondary */
         }
 
         /* Hide non-active sections for single-page feel */
@@ -357,7 +359,7 @@
         .cart-item img {
             width: 60px;
             height: 60px;
-            min-width: 60px; /* Ensure image doesn't shrink too much */
+            min-width: 60px;
             object-fit: cover;
             border-radius: 0.5rem;
         }
@@ -375,16 +377,18 @@
         .cart-item-actions {
             display: flex;
             align-items: center;
-            gap: 0.75rem; /* Adjusted gap */
+            gap: 0.75rem;
         }
         .cart-item-quantity-input {
-            width: 45px; /* Adjusted width */
+            width: 45px;
             padding: 0.25rem;
             border: 1px solid var(--color-border-light);
             border-radius: 0.25rem;
             text-align: center;
             font-size: 0.9rem;
-            -moz-appearance: textfield; /* Hide arrows for Firefox */
+            -moz-appearance: textfield;
+            pointer-events: none; /* Make it read-only for direct input, controlled by buttons */
+            background-color: #fcfcfc; /* Slightly different background for read-only */
         }
         .cart-item-quantity-input::-webkit-outer-spin-button,
         .cart-item-quantity-input::-webkit-inner-spin-button {
@@ -400,7 +404,7 @@
             transition: background-color 0.2s ease;
         }
         .cart-item-remove:hover {
-            background-color: #C25C5C;
+            background-color: #D26464;
         }
         .cart-total-info {
             border-top: 1px solid var(--color-border-light);
@@ -420,24 +424,24 @@
         .quantity-control-buttons button {
             background-color: var(--color-accent-light-green);
             color: var(--color-primary-forest-green);
-            width: 28px; /* Slightly larger for touch */
-            height: 28px; /* Slightly larger for touch */
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.1rem; /* Slightly larger font */
+            font-size: 1.1rem;
             transition: background-color 0.2s ease;
             cursor: pointer;
-            border: none; /* Ensure no default button border */
+            border: none;
         }
         .quantity-control-buttons button:hover {
-            background-color: #81C784;
+            background-color: #92B08B;
         }
         .quantity-control-buttons button:disabled {
-            background-color: #e0e0e0;
-            color: #a0a0a0;
+            background-color: #E0E0E0;
+            color: #A0A0A0;
             cursor: not-allowed;
         }
 
@@ -479,8 +483,8 @@
             justify-content: center;
             margin-bottom: 2rem;
             border-bottom: 1px solid var(--color-border-light);
-            flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
-            gap: 0.5rem; /* Space between tabs */
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
         .admin-nav-tab {
             padding: 0.75rem 1.5rem;
@@ -497,12 +501,12 @@
             background-color: var(--color-white);
             color: var(--color-primary-forest-green);
             border-color: var(--color-primary-forest-green);
-            border-bottom: 1px solid var(--color-white); /* To visually blend with content area */
+            border-bottom: 1px solid var(--color-white);
             transform: translateY(1px);
         }
         .admin-nav-tab:not(.active):hover {
             color: var(--color-text-dark-grey);
-            background-color: #f0f0f0;
+            background-color: #F0F0F0;
         }
         .admin-module-content-section {
             display: none;
@@ -535,10 +539,10 @@
             letter-spacing: 0.05em;
         }
         .admin-table tbody tr:nth-child(even) {
-            background-color: #f8f8f8;
+            background-color: #F8F8F8;
         }
         .admin-table tbody tr:hover {
-            background-color: #f0f0f0;
+            background-color: #F0F0F0;
         }
         .admin-table td select {
             padding: 0.4rem;
@@ -579,15 +583,15 @@
         </nav>
         <div id="mobile-menu" class="hidden md:hidden bg-[--color-primary-forest-green] shadow-lg">
             <div id="mobile-main-nav-links">
-                <a href="#products" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Products</a>
-                <a href="#why-choose-us" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Why Choose Us</a>
-                <a href="#community" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Community</a>
-                <a href="#learning" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Learn & Grow</a>
-                <a href="#about" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">About Us</a>
-                <a href="#contact" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Contact</a>
+                <a href="#products" class="block text-center py-3 px-4 text-base text-white hover:bg-[#4A6E3F]">Products</a>
+                <a href="#why-choose-us" class="block text-center py-3 px-4 text-base text-white hover:bg-[#4A6E3F]">Why Choose Us</a>
+                <a href="#community" class="block text-center py-3 px-4 text-base text-white hover:bg-[#4A6E3F]">Community</a>
+                <a href="#learning" class="block text-center py-3 px-4 text-base text-white hover:bg-[#4A6E3F]">Learn & Grow</a>
+                <a href="#about" class="block text-center py-3 px-4 text-base text-white hover:bg-[#4A6E3F]">About Us</a>
+                <a href="#contact" class="block text-center py-3 px-4 text-base text-white hover:bg-[#4A6E3F]">Contact</a>
             </div>
             <!-- Mobile Dashboard link - always shown but handled by JS visibility -->
-            <a href="#dashboard" id="mobile-dashboard-nav-link" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54] hidden">Admin Dashboard</a>
+            <a href="#dashboard" id="mobile-dashboard-nav-link" class="block text-center py-3 px-4 text-base text-white hover:bg-[#4A6E3F] hidden">Admin Dashboard</a>
 
             <button id="mobile-cart-button" class="block w-full text-center py-3 px-4 text-base btn-header-action rounded-none text-[--color-primary-forest-green] bg-[--color-accent-light-green]">
                 <i class="fas fa-shopping-cart mr-2"></i>
@@ -1062,7 +1066,7 @@
                 <h2 class="section-heading">More Reasons to Love PachhaThota</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
                     <!-- Subscription Boxes -->
-                    <div class="info-card px-4 md:px-8"> <!-- Added responsive padding -->
+                    <div class="info-card px-4 md:px-8">
                         <h3><i class="fas fa-box-open mr-2"></i>Curated Subscription Boxes</h3>
                         <p class="text-[--color-text-light-grey] mb-4">Discover the joy of gardening and fresh produce with our tailor-made subscription boxes!</p>
                         <ul class="text-left">
@@ -1074,7 +1078,7 @@
                     </div>
 
                     <!-- Farm to Fork Stories / Transparency -->
-                    <div class="info-card px-4 md:px-8"> <!-- Added responsive padding -->
+                    <div class="info-card px-4 md:px-8">
                         <h3><i class="fas fa-tractor mr-2"></i>From Our Farm to Your Fork</h3>
                         <p class="text-[--color-text-light-grey] mb-4">Experience the journey of your food and plants. We believe in complete transparency.</p>
                         <ul class="text-left">
@@ -1096,12 +1100,12 @@
                     Connect with fellow gardening enthusiasts and farmers! Share your tips, ask questions, and grow together.
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <div class="info-card px-4 md:px-8"> <!-- Added responsive padding -->
+                    <div class="info-card px-4 md:px-8">
                         <h3><i class="fas fa-comments mr-2"></i>Discussion Forum</h3>
                         <p class="text-[--color-text-light-grey]">A place to exchange ideas, troubleshoot plant problems, and celebrate your harvest.</p>
                         <button class="btn-cta text-sm mt-6">Visit Forum</button>
                     </div>
-                    <div class="info-card px-4 md:px-8"> <!-- Added responsive padding -->
+                    <div class="info-card px-4 md:px-8">
                         <h3><i class="fas fa-share-alt mr-2"></i>Share Your Success</h3>
                         <p class="text-[--color-text-light-grey]">Upload photos of your thriving gardens and share your unique farming experiences.</p>
                         <button class="btn-cta text-sm mt-6">Share Now</button>
@@ -1122,17 +1126,17 @@
                     Empower your gardening journey with our expert guides, tips, and articles.
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    <div class="info-card text-left px-4 md:px-8"> <!-- Added responsive padding -->
+                    <div class="info-card text-left px-4 md:px-8">
                         <h3><i class="fas fa-lightbulb mr-2"></i>Beginner's Guide to Organic Gardening</h3>
                         <p class="text-[--color-text-light-grey] text-sm">Start your organic garden journey with our comprehensive guide, covering everything from soil preparation to harvesting.</p>
                         <a href="#" class="text-[--color-primary-forest-green] hover:underline mt-4 inline-block text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></a>
                     </div>
-                    <div class="info-card text-left px-4 md:px-8"> <!-- Added responsive padding -->
+                    <div class="info-card text-left px-4 md:px-8">
                         <h3><i class="fas fa-bug mr-2"></i>Natural Pest Control Methods</h3>
                         <p class="text-[--color-text-light-grey] text-sm">Discover effective and eco-friendly ways to protect your plants from common pests without harmful chemicals.</p>
                         <a href="#" class="text-[--color-primary-forest-green] hover:underline mt-4 inline-block text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></a>
                     </div>
-                    <div class="info-card text-left px-4 md:px-8"> <!-- Added responsive padding -->
+                    <div class="info-card text-left px-4 md:px-8">
                         <h3><i class="fas fa-calendar-alt mr-2"></i>Seasonal Planting Calendar for Hyderabad</h3>
                         <p class="text-[--color-text-light-grey] text-sm">Know what to plant when in Hyderabad's climate for the best yields and most vibrant garden.</p>
                         <a href="#" class="text-[--color-primary-forest-green] hover:underline mt-4 inline-block text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></a>
@@ -1178,7 +1182,7 @@
                             <label for="contact-message" class="block text-sm font-medium text-[--color-text-dark-grey] mb-1">Message:</label>
                             <textarea id="contact-message" rows="5" class="mt-1 block w-full border border-[--color-border-light] rounded-md shadow-sm p-3 focus:ring-[--color-primary-forest-green] focus:border-[--color-primary-forest-green]" placeholder="Your message..." required></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-[--color-primary-forest-green] text-[--color-white] px-6 py-3 rounded-md font-semibold hover:bg-[#316F54] transition-colors">Send Message</button>
+                        <button type="submit" class="w-full bg-[--color-primary-forest-green] text-[--color-white] px-6 py-3 rounded-md font-semibold hover:bg-[#4A6E3F] transition-colors">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -1232,7 +1236,7 @@
                                 <option value="Delivered">Delivered</option>
                                 <option value="Cancelled">Cancelled</option>
                             </select>
-                            <button id="apply-filter-btn" class="bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#316F54] transition-colors">Apply Filters</button>
+                            <button id="apply-filter-btn" class="bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#4A6E3F] transition-colors">Apply Filters</button>
                         </div>
                         <div id="order-list-table-container" class="overflow-x-auto">
                             <table class="admin-table">
@@ -1388,7 +1392,7 @@
                         </div>
                     </div>
                     <div id="login-message" class="text-red-500 text-center hidden"></div>
-                    <button type="submit" class="w-full bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#316F54] transition-colors">Login</button>
+                    <button type="submit" class="w-full bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#4A6E3F] transition-colors">Login</button>
                 </form>
             </div>
 
@@ -1421,7 +1425,7 @@
                         <input type="password" id="register-confirm-password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
                     </div>
                     <div id="register-message" class="text-red-500 text-center hidden"></div>
-                    <button type="submit" class="w-full bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#316F54] transition-colors">Register</button>
+                    <button type="submit" class="w-full bg-[--color-primary-forest-green] text-white px-4 py-2 rounded-md hover:bg-[#4A6E3F] transition-colors">Register</button>
                 </form>
             </div>
         </div>
