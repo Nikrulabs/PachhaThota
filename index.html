@@ -375,14 +375,15 @@
         .cart-item-actions {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem; /* Adjusted gap */
         }
         .cart-item-quantity-input {
-            width: 50px;
+            width: 45px; /* Adjusted width */
             padding: 0.25rem;
             border: 1px solid var(--color-border-light);
             border-radius: 0.25rem;
             text-align: center;
+            font-size: 0.9rem;
             -moz-appearance: textfield; /* Hide arrows for Firefox */
         }
         .cart-item-quantity-input::-webkit-outer-spin-button,
@@ -410,24 +411,34 @@
             align-items: center;
         }
 
-        /* Cart Quantity Adjust Buttons */
-        .quantity-adjust-btn {
+        /* Quantity control buttons */
+        .quantity-control-buttons {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .quantity-control-buttons button {
             background-color: var(--color-accent-light-green);
             color: var(--color-primary-forest-green);
-            border: none;
-            border-radius: 0.25rem;
-            width: 28px;
-            height: 28px;
+            width: 28px; /* Slightly larger for touch */
+            height: 28px; /* Slightly larger for touch */
+            border-radius: 50%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 1.1rem;
+            justify-content: center;
             font-weight: bold;
-            cursor: pointer;
+            font-size: 1.1rem; /* Slightly larger font */
             transition: background-color 0.2s ease;
+            cursor: pointer;
+            border: none; /* Ensure no default button border */
         }
-        .quantity-adjust-btn:hover {
+        .quantity-control-buttons button:hover {
             background-color: #81C784;
+        }
+        .quantity-control-buttons button:disabled {
+            background-color: #e0e0e0;
+            color: #a0a0a0;
+            cursor: not-allowed;
         }
 
 
@@ -467,7 +478,7 @@
             display: flex;
             justify-content: center;
             margin-bottom: 2rem;
-            border-bottom: 1px solid var(--color-primary-forest-green); /* Thicker for emphasis */
+            border-bottom: 1px solid var(--color-border-light);
             flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
             gap: 0.5rem; /* Space between tabs */
         }
@@ -536,6 +547,10 @@
             background-color: white;
             min-width: 120px;
         }
+        /* Style for hidden navigation elements in admin mode */
+        .hide-in-admin {
+            display: none !important;
+        }
     </style>
 </head>
 <body class="bg-[--color-background-off-white] text-[--color-text-dark-grey]">
@@ -543,7 +558,7 @@
     <header class="shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#hero" class="text-3xl font-bold text-[--color-primary-forest-green] logo-text">PachhaThota</a>
-            <div class="hidden md:flex space-x-8 items-center">
+            <div id="main-nav-links" class="hidden md:flex space-x-8 items-center">
                 <a href="#products" class="nav-link">Products</a>
                 <a href="#why-choose-us" class="nav-link">Why Choose Us</a>
                 <a href="#community" class="nav-link">Community</a>
@@ -551,7 +566,7 @@
                 <a href="#about" class="nav-link">About Us</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 
-                <!-- Dashboard link - visible only to admin -->
+                <!-- Dashboard link - always shown but handled by JS visibility -->
                 <a href="#dashboard" id="dashboard-nav-link" class="nav-link hidden">Admin Dashboard</a>
                 
                 <button id="cart-button" class="btn-header-action flex items-center space-x-2">
@@ -563,14 +578,15 @@
             <button id="mobile-menu-button" class="md:hidden text-[--color-primary-forest-green] text-2xl">☰</button>
         </nav>
         <div id="mobile-menu" class="hidden md:hidden bg-[--color-primary-forest-green] shadow-lg">
-            <a href="#products" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Products</a>
-            <a href="#why-choose-us" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Why Choose Us</a>
-            <a href="#community" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Community</a>
-            <a href="#learning" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Learn & Grow</a>
-            <a href="#about" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">About Us</a>
-            <a href="#contact" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Contact</a>
-            
-            <!-- Mobile Dashboard link - visible only to admin -->
+            <div id="mobile-main-nav-links">
+                <a href="#products" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Products</a>
+                <a href="#why-choose-us" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Why Choose Us</a>
+                <a href="#community" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Community</a>
+                <a href="#learning" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Learn & Grow</a>
+                <a href="#about" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">About Us</a>
+                <a href="#contact" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54]">Contact</a>
+            </div>
+            <!-- Mobile Dashboard link - always shown but handled by JS visibility -->
             <a href="#dashboard" id="mobile-dashboard-nav-link" class="block text-center py-3 px-4 text-base text-white hover:bg-[#316F54] hidden">Admin Dashboard</a>
 
             <button id="mobile-cart-button" class="block w-full text-center py-3 px-4 text-base btn-header-action rounded-none text-[--color-primary-forest-green] bg-[--color-accent-light-green]">
@@ -1176,7 +1192,9 @@
                 <div class="admin-nav-tabs max-w-4xl mx-auto">
                     <button class="admin-nav-tab active" data-admin-tab="overview">Overview</button>
                     <button class="admin-nav-tab" data-admin-tab="orders">Orders</button>
-                    <button class="admin-nav-tab" data-admin-tab="settings">Settings</button>
+                    <button class="admin-nav-tab" data-admin-tab="products">Products</button>
+                    <button class="admin-nav-tab" data-admin-tab="customers">Customers</button>
+                    <button id="admin-settings-tab" class="admin-nav-tab" data-admin-tab="settings">Settings</button>
                 </div>
 
                 <!-- Admin Module Content -->
@@ -1198,7 +1216,7 @@
                                 <p id="most-popular-item" class="text-xl font-bold text-[--color-secondary-terra-cotta]">N/A</p>
                             </div>
                         </div>
-                        <p class="text-center text-[--color-text-light-grey]">Navigate through the tabs above to manage orders and settings.</p>
+                        <p class="text-center text-[--color-text-light-grey]">Navigate through the tabs above to manage orders, products, and customer information.</p>
                     </div>
 
                     <!-- Orders Tab Content -->
@@ -1208,7 +1226,7 @@
                             <input type="text" id="order-search-input" placeholder="Search by Order ID or Customer Name" class="flex-grow p-2 border border-gray-300 rounded-md shadow-sm">
                             <select id="order-status-filter" class="p-2 border border-gray-300 rounded-md shadow-sm">
                                 <option value="all">All Statuses</option>
-                                <option value="Confirmed">Confirmed</option>
+                                <option value="Pending">Pending</option>
                                 <option value="Processing">Processing</option>
                                 <option value="Shipped">Shipped</option>
                                 <option value="Delivered">Delivered</option>
@@ -1237,6 +1255,47 @@
                         </div>
                     </div>
 
+                    <!-- Products Tab Content -->
+                    <div id="admin-products" class="admin-module-content-section">
+                        <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Product List</h3>
+                        <p class="text-center text-[--color-text-light-grey] mb-4">This section displays all products. For a real backend, you'd have options to add, edit, or delete products.</p>
+                        <div id="product-list-table-container" class="overflow-x-auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Base Price</th>
+                                        <th>Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="products-table-body">
+                                    <!-- Products will be dynamically loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Customers Tab Content -->
+                    <div id="admin-customers" class="admin-module-content-section">
+                        <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Customer List</h3>
+                        <p class="text-center text-[--color-text-light-grey] mb-4">This section displays registered customers. In a real system, you'd manage customer profiles here.</p>
+                        <div id="customer-list-table-container" class="overflow-x-auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customers-table-body">
+                                    <!-- Customers will be dynamically loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                      <!-- Settings Tab Content -->
                     <div id="admin-settings" class="admin-module-content-section">
                         <h3 class="text-2xl font-bold text-[--color-primary-forest-green] mb-4 text-center">Admin Settings</h3>
@@ -1258,7 +1317,7 @@
             <p class="font-bold text-4xl logo-text text-[--color-accent-light-green]">PachhaThota</p>
             <p class="mt-4 text-sm text-[--color-white]">Nourishing Homes & Farms, Naturally.</p>
             <p class="mt-2 text-xs text-gray-300">Delivering within 300 km radius of Hyderabad, India.</p>
-            <div class="mt-6 flex justify-center space-x-8 text-lg">
+            <div id="footer-nav-links" class="mt-6 flex justify-center space-x-8 text-lg">
                 <a href="#products" class="hover:underline">Products</a>
                 <a href="#why-choose-us" class="hover:underline">Why Choose Us</a>
                 <a href="#community" class="hover:underline">Community</a>
@@ -1411,11 +1470,11 @@
                 </div>
             </form>
 
-            <button id="place-order-online-button" class="w-full bg-[--color-primary-forest-green] text-white px-4 py-3 rounded-md font-semibold flex items-center justify-center space-x-2 hover:bg-[#316F54] transition-colors mt-6">
-                <i class="fas fa-check-circle"></i>
-                <span>Place Order Online</span>
+            <button id="whatsapp-order-button" class="w-full bg-green-500 text-white px-4 py-3 rounded-md font-semibold flex items-center justify-center space-x-2 hover:bg-green-600 transition-colors mt-6">
+                <i class="fab fa-whatsapp"></i>
+                <span>Place Order on WhatsApp</span>
             </button>
-             <p class="text-center text-xs text-gray-500 mt-2">After confirmation, a WhatsApp message will be sent with order details for your records (simulated backend action).</p>
+             <p class="text-center text-xs text-gray-500 mt-2">You will be redirected to WhatsApp to confirm your order.</p>
         </div>
     </div>
 
@@ -1434,7 +1493,7 @@
 
         // Global state for login and cart
         let currentUserRole = localStorage.getItem('currentUserRole') || 'guest'; // Persist current user role
-        let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')) || []; // Persist cart
+        let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')) || []; // Load cart from local storage
         let allOrders = JSON.parse(localStorage.getItem('allOrders')) || []; // Persist orders
 
         // Define product data with base prices and bulk pricing tiers
@@ -1442,7 +1501,7 @@
             { id: 'tomato-veg', category: 'Vegetables', name: 'Organic Tomatoes', basePrice: 80, unit: 'kg', img: 'https://images.unsplash.com/photo-1546549032-9571cd686864?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
             { id: 'spinach-veg', category: 'Vegetables', name: 'Spinach Greens', basePrice: 50, unit: 'bunch', img: 'https://images.unsplash.com/photo-1596773177699-b1411ce44e3e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
             { id: 'bellpepper-veg', category: 'Vegetables', name: 'Colorful Bell Peppers', basePrice: 120, unit: 'kg', img: 'https://images.unsplash.com/photo-1546738910-c4e8e9e432c7?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-            { id: 'potatoes-veg', category: 'Vegetables', name: 'Farm Potatoes', basePrice: 40, unit: 'kg', img: 'https://images.unsplash.com/photo-1587063380020-f1ee5df2d721?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'potatoes-veg', category: 'Vegetables', 'name': 'Farm Potatoes', basePrice: 40, unit: 'kg', img: 'https://images.unsplash.com/photo-1587063380020-f1ee5df2d721?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
             
             { id: 'mangoes-fruit', category: 'Fruits', name: 'Sweet Mangoes', basePrice: 150, unit: 'kg', img: 'https://images.unsplash.com/photo-1629822602732-c6517a26ee68?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
             { id: 'apples-fruit', category: 'Fruits', name: 'Crisp Apples', basePrice: 180, unit: 'kg', img: 'https://images.unsplash.com/photo-1579613832107-167098485070?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
@@ -1501,6 +1560,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            const mainNavLinksDiv = document.getElementById('main-nav-links'); // Desktop nav container
+            const mobileMainNavLinksDiv = document.getElementById('mobile-main-nav-links'); // Mobile nav container
+            const footerNavLinksDiv = document.getElementById('footer-nav-links'); // Footer nav container
+
             const cartButton = document.getElementById('cart-button');
             const mobileCartButton = document.getElementById('mobile-cart-button');
             const cartCountSpan = document.getElementById('cart-count');
@@ -1545,7 +1608,7 @@
             const cartItemsList = document.getElementById('cart-items-list');
             const emptyCartMessage = document.getElementById('empty-cart-message');
             const cartTotalPriceSpan = document.getElementById('cart-total-price');
-            const placeOrderOnlineButton = document.getElementById('place-order-online-button'); // Renamed button
+            const whatsappOrderButton = document.getElementById('whatsapp-order-button');
             const cartCloseButton = document.getElementById('cart-close-button');
 
             // Customer details fields in cart modal
@@ -1557,11 +1620,14 @@
             const adminNavTabs = document.querySelectorAll('.admin-nav-tab');
             const adminModuleContentSections = document.querySelectorAll('.admin-module-content-section');
             const ordersTableBody = document.getElementById('orders-table-body');
+            const productsTableBody = document.getElementById('products-table-body');
+            const customersTableBody = document.getElementById('customers-table-body');
             const orderSearchInput = document.getElementById('order-search-input');
             const orderStatusFilter = document.getElementById('order-status-filter');
             const applyFilterBtn = document.getElementById('apply-filter-btn');
             const clearOrdersBtn = document.getElementById('clear-orders-btn');
             const changePasswordBtn = document.getElementById('change-password-btn');
+
 
             // --- UI Update Functions ---
             function updateLoginUI() {
@@ -1588,17 +1654,67 @@
                         showSection('hero'); // Redirect to home
                     }
                 }
+                // Call function to manage overall navigation visibility
+                updateNavigationVisibility();
             }
+
+            // Function to toggle main navigation visibility based on current view
+            function updateNavigationVisibility() {
+                const isAdminDashboardActive = dashboardSection.classList.contains('active-section') && currentUserRole === 'admin';
+
+                // Desktop Navigation
+                const desktopNavItems = mainNavLinksDiv.querySelectorAll('.nav-link:not(#dashboard-nav-link)');
+                desktopNavItems.forEach(item => {
+                    if (isAdminDashboardActive) {
+                        item.classList.add('hide-in-admin');
+                    } else {
+                        item.classList.remove('hide-in-admin');
+                    }
+                });
+                // Ensure cart button visibility logic for desktop nav remains the same
+                if (isAdminDashboardActive) {
+                    cartButton.classList.add('hide-in-admin');
+                } else {
+                    cartButton.classList.remove('hide-in-admin');
+                }
+
+                // Mobile Navigation
+                const mobileNavItems = mobileMainNavLinksDiv.querySelectorAll('a');
+                mobileNavItems.forEach(item => {
+                    if (isAdminDashboardActive) {
+                        item.classList.add('hide-in-admin');
+                    } else {
+                        item.classList.remove('hide-in-admin');
+                    }
+                });
+                // Ensure mobile cart button visibility logic remains the same
+                 if (isAdminDashboardActive) {
+                    mobileCartButton.classList.add('hide-in-admin');
+                } else {
+                    mobileCartButton.classList.remove('hide-in-admin');
+                }
+
+                // Footer Navigation
+                const footerLinks = footerNavLinksDiv.querySelectorAll('a:not(#footer-dashboard-link)');
+                 footerLinks.forEach(item => {
+                    if (isAdminDashboardActive) {
+                        item.classList.add('hide-in-admin');
+                    } else {
+                        item.classList.remove('hide-in-admin');
+                    }
+                });
+            }
+
 
             function updateCartCount() {
                 const totalItems = shoppingCart.reduce((sum, item) => sum + item.quantity, 0);
                 cartCountSpan.textContent = `Cart (${totalItems})`;
                 mobileCartCountSpan.textContent = `Cart (${totalItems})`;
-                localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart)); // Persist cart state
+                localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart)); // Save cart to local storage
             }
 
             // Function to display custom message box
-            function showMessageBox(message, isError = false, duration = 3000) {
+            function showMessageBox(message, isError = false) {
                 let messageBox = document.querySelector('.custom-message-box');
                 if (!messageBox) {
                     messageBox = document.createElement('div');
@@ -1626,7 +1742,7 @@
                         messageBox.removeEventListener('transitionend', handler);
                         if (messageBox.parentNode) messageBox.parentNode.removeChild(messageBox);
                     });
-                }, duration); // Hide after 'duration' seconds
+                }, 3000); // Hide after 3 seconds
             }
 
             // Function to calculate discounted price
@@ -1654,9 +1770,8 @@
             function renderAdminDashboard() {
                 renderOverview();
                 renderOrdersTable();
-                // Products and Customers tables are not directly part of the primary admin tabs anymore
-                // renderProductsTable(); 
-                // renderCustomersTable();
+                renderProductsTable();
+                renderCustomersTable();
             }
 
             function renderOverview() {
@@ -1721,10 +1836,6 @@
                     return;
                 }
 
-                // Sort orders by timestamp, newest first
-                filteredOrders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-
-
                 filteredOrders.forEach(order => {
                     const orderDate = new Date(order.timestamp).toLocaleString();
                     const itemsSummary = order.items.map(item => `${item.name} (${item.quantity} ${item.unit})`).join(', ');
@@ -1738,7 +1849,7 @@
                         <td>₹${order.totalPrice.toFixed(2)}</td>
                         <td>
                             <select class="order-status-select p-1 border rounded" data-order-id="${order.orderId}">
-                                <option value="Confirmed" ${order.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+                                <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
                                 <option value="Processing" ${order.status === 'Processing' ? 'selected' : ''}>Processing</option>
                                 <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
                                 <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
@@ -1771,7 +1882,7 @@
                                 detailsMessage += `- ${item.name} x ${item.quantity} (${item.unit}) @ ₹${item.pricePerUnit.toFixed(2)} (Total: ₹${item.totalPrice.toFixed(2)})\n`;
                             });
                             detailsMessage += `\nOverall Total: ₹${order.totalPrice.toFixed(2)}`;
-                            showMessageBox(detailsMessage, false, 8000); // Show for longer
+                            showMessageBox(detailsMessage, false); 
                         }
                     });
                 });
@@ -1787,9 +1898,41 @@
                 }
             }
 
-            // Products table and Customers table rendering functions removed as per user request to streamline admin view
-            // However, the `products` and `simulatedUsers` data structures are still available globally
-            // if you wish to re-introduce viewing them or use their data in other reports.
+            function renderProductsTable() {
+                productsTableBody.innerHTML = '';
+                if (products.length === 0) {
+                    productsTableBody.innerHTML = '<tr><td colspan="5" class="text-center text-[--color-text-light-grey]">No products defined.</td></tr>';
+                    return;
+                }
+                products.forEach(product => {
+                    const row = productsTableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${product.id}</td>
+                        <td>${product.name}</td>
+                        <td>${product.category}</td>
+                        <td>₹${product.basePrice.toFixed(2)}</td>
+                        <td>${product.unit}</td>
+                    `;
+                });
+            }
+
+            function renderCustomersTable() {
+                customersTableBody.innerHTML = '';
+                const usersArray = Object.entries(simulatedUsers); // Convert object to array for iteration
+
+                if (usersArray.length === 0) {
+                    customersTableBody.innerHTML = '<tr><td colspan="2" class="text-center text-[--color-text-light-grey]">No registered users.</td></tr>';
+                    return;
+                }
+
+                usersArray.forEach(([email, userData]) => {
+                    const row = customersTableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${email}</td>
+                        <td>${userData.role}</td>
+                    `;
+                });
+            }
 
 
             // Function to show a specific content section and hide others
@@ -1814,6 +1957,7 @@
                 if (activeNavLink) {
                     activeNavLink.classList.add('active');
                 }
+                updateNavigationVisibility(); // Adjust navigation visibility
             };
 
             // --- Event Listeners ---
@@ -2065,10 +2209,9 @@
                     // Add/update item in shopping cart
                     const existingItemIndex = shoppingCart.findIndex(item => item.id === productId);
                     if (existingItemIndex > -1) {
-                        // Increase quantity if item already exists
-                        const newQuantity = shoppingCart[existingItemIndex].quantity + quantity;
-                        const updatedPrices = getDiscountedPrice(product.basePrice, newQuantity, productBulkPricing);
-                        shoppingCart[existingItemIndex].quantity = newQuantity;
+                        shoppingCart[existingItemIndex].quantity += quantity;
+                        // Recalculate price for the updated quantity of this existing item
+                        const updatedPrices = getDiscountedPrice(product.basePrice, shoppingCart[existingItemIndex].quantity, productBulkPricing);
                         shoppingCart[existingItemIndex].pricePerUnit = updatedPrices.pricePerUnit;
                         shoppingCart[existingItemIndex].totalPrice = updatedPrices.total;
                         shoppingCart[existingItemIndex].discountApplied = updatedPrices.discount > 0 ? `${updatedPrices.discount}%` : 'None';
@@ -2135,12 +2278,12 @@
 
                 if (shoppingCart.length === 0) {
                     emptyCartMessage.classList.remove('hidden');
-                    placeOrderOnlineButton.disabled = true;
-                    placeOrderOnlineButton.classList.add('opacity-50', 'cursor-not-allowed');
+                    whatsappOrderButton.disabled = true;
+                    whatsappOrderButton.classList.add('opacity-50', 'cursor-not-allowed');
                 } else {
                     emptyCartMessage.classList.add('hidden');
-                    placeOrderOnlineButton.disabled = false;
-                    placeOrderOnlineButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                    whatsappOrderButton.disabled = false;
+                    whatsappOrderButton.classList.remove('opacity-50', 'cursor-not-allowed');
 
                     shoppingCart.forEach(item => {
                         const itemElement = document.createElement('div');
@@ -2153,11 +2296,13 @@
                                 ${item.discountApplied !== 'None' ? `<p class="text-xs text-[--color-secondary-terra-cotta]">Discount: ${item.discountApplied}</p>` : ''}
                                 <p class="text-sm font-semibold text-gray-700">Total: ₹${item.totalPrice.toFixed(2)}</p>
                             </div>
-                            <div class="cart-item-actions flex items-center">
-                                <button class="quantity-adjust-btn minus-btn" data-item-id="${item.id}">-</button>
-                                <input type="number" value="${item.quantity}" min="1" class="cart-item-quantity-input mx-1" data-item-id="${item.id}">
-                                <button class="quantity-adjust-btn plus-btn" data-item-id="${item.id}">+</button>
-                                <button class="cart-item-remove ml-2" data-item-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+                            <div class="cart-item-actions">
+                                <div class="quantity-control-buttons">
+                                    <button class="quantity-decrease-btn" data-item-id="${item.id}" ${item.quantity <=1 ? 'disabled' : ''}>-</button>
+                                    <input type="number" value="${item.quantity}" min="1" class="cart-item-quantity-input" data-item-id="${item.id}" readonly>
+                                    <button class="quantity-increase-btn" data-item-id="${item.id}">+</button>
+                                </div>
+                                <button class="cart-item-remove" data-item-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         `;
                         cartItemsList.appendChild(itemElement);
@@ -2167,36 +2312,27 @@
                 cartTotalPriceSpan.textContent = `₹${overallCartTotal.toFixed(2)}`;
 
                 // Attach event listeners for quantity changes and removal
-                document.querySelectorAll('.cart-item-quantity-input').forEach(input => {
-                    input.addEventListener('change', (e) => {
-                        const itemId = e.target.dataset.itemId;
-                        const newQuantity = parseInt(e.target.value);
-                        updateCartItemQuantity(itemId, newQuantity);
-                    });
-                });
-
-                document.querySelectorAll('.minus-btn').forEach(button => {
+                // Note: The number input itself is now readonly, controlled by buttons.
+                
+                document.querySelectorAll('.quantity-decrease-btn').forEach(button => {
                     button.addEventListener('click', (e) => {
                         const itemId = e.target.dataset.itemId;
-                        const quantityInput = document.querySelector(`.cart-item-quantity-input[data-item-id="${itemId}"]`);
-                        let currentQuantity = parseInt(quantityInput.value);
-                        if (currentQuantity > 1) {
-                            quantityInput.value = currentQuantity - 1;
-                            updateCartItemQuantity(itemId, currentQuantity - 1);
+                        const currentInput = cartItemsList.querySelector(`.cart-item-quantity-input[data-item-id="${itemId}"]`);
+                        const newQuantity = parseInt(currentInput.value) - 1;
+                        if (newQuantity >= 1) { // Prevent going below 1, use remove button for 0
+                            updateCartItemQuantity(itemId, newQuantity);
                         } else {
-                            // If quantity is 1 and minus is clicked, remove the item
-                            updateCartItemQuantity(itemId, 0); 
+                            showMessageBox('Use the trash icon to remove the item from cart.', true);
                         }
                     });
                 });
 
-                document.querySelectorAll('.plus-btn').forEach(button => {
+                 document.querySelectorAll('.quantity-increase-btn').forEach(button => {
                     button.addEventListener('click', (e) => {
                         const itemId = e.target.dataset.itemId;
-                        const quantityInput = document.querySelector(`.cart-item-quantity-input[data-item-id="${itemId}"]`);
-                        let currentQuantity = parseInt(quantityInput.value);
-                        quantityInput.value = currentQuantity + 1;
-                        updateCartItemQuantity(itemId, currentQuantity + 1);
+                        const currentInput = cartItemsList.querySelector(`.cart-item-quantity-input[data-item-id="${itemId}"]`);
+                        const newQuantity = parseInt(currentInput.value) + 1;
+                        updateCartItemQuantity(itemId, newQuantity);
                     });
                 });
 
@@ -2208,8 +2344,8 @@
                 });
             }
 
-            // Place Order Online Button in Cart Modal (Renamed)
-            placeOrderOnlineButton.addEventListener('click', () => {
+            // WhatsApp Order Button in Cart Modal
+            whatsappOrderButton.addEventListener('click', () => {
                 if (shoppingCart.length === 0) {
                     showMessageBox('Your cart is empty. Please add items before placing an order.', true);
                     return;
@@ -2226,14 +2362,20 @@
                     return;
                 }
 
-                // Simulate online order confirmation
-                showMessageBox('Order Placed Successfully! Processing your order now.', false, 4000); // Show for 4 seconds
-
+                let whatsappMessage = `*PachhaThota Order Request*\n\n`;
                 let orderTotalPrice = 0;
                 let orderItemsForDashboard = []; // For the dashboard record
 
-                shoppingCart.forEach(item => {
+                shoppingCart.forEach((item, index) => {
+                    whatsappMessage += `${index + 1}. ${item.name} - ${item.quantity} ${item.unit}\n`;
+                    whatsappMessage += `   Base Price: ₹${item.basePrice.toFixed(2)}\n`;
+                    if (item.discountApplied !== 'None') {
+                        whatsappMessage += `   Discount: ${item.discountApplied}\n`;
+                        whatsappMessage += `   Discounted Unit Price: ₹${item.pricePerUnit.toFixed(2)}\n`;
+                    }
+                    whatsappMessage += `   Subtotal: ₹${item.totalPrice.toFixed(2)}\n`;
                     orderTotalPrice += item.totalPrice;
+
                     // Prepare item for dashboard record
                     orderItemsForDashboard.push({
                         name: item.name,
@@ -2243,6 +2385,20 @@
                         discountApplied: item.discountApplied
                     });
                 });
+
+                whatsappMessage += `\n*Overall Total: ₹${orderTotalPrice.toFixed(2)}*\n\n`;
+                whatsappMessage += `--- Customer Details ---\n`;
+                whatsappMessage += `Name: ${customerName}\n`;
+                whatsappMessage += `Phone: ${customerPhone}\n`;
+                whatsappMessage += `Delivery Address: ${deliveryAddress}\n`;
+                whatsappMessage += `Payment Method: ${paymentMethod}\n\n`;
+                whatsappMessage += `Looking forward to your confirmation and delivery details!`;
+
+
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                const whatsappNumber = '919704699511'; // Your WhatsApp number
+
+                window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
 
                 // Record the order for the dashboard
                 const newOrder = {
@@ -2254,37 +2410,15 @@
                     deliveryAddress: deliveryAddress,
                     paymentMethod: paymentMethod,
                     timestamp: new Date().toISOString(),
-                    status: 'Confirmed' // Default status for new online orders
+                    status: 'Pending' // Default status for new orders
                 };
                 allOrders.push(newOrder);
                 localStorage.setItem('allOrders', JSON.stringify(allOrders)); // Persist orders to local storage
 
-                // Simulate backend sending WhatsApp message after a short delay
-                setTimeout(() => {
-                    let whatsappMessage = `*PachhaThota Order Confirmed!* (Order ID: ${newOrder.orderId})\n\n`;
-                    whatsappMessage += `--- Order Summary ---\n`;
-                    newOrder.items.forEach((item, index) => {
-                        whatsappMessage += `${index + 1}. ${item.name} - ${item.quantity} ${item.unit}\n`;
-                        whatsappMessage += `   Subtotal: ₹${item.totalPrice.toFixed(2)}\n`;
-                    });
-                    whatsappMessage += `\n*Overall Total: ₹${newOrder.totalPrice.toFixed(2)}*\n\n`;
-                    whatsappMessage += `--- Customer Details ---\n`;
-                    whatsappMessage += `Name: ${newOrder.customerName}\n`;
-                    whatsappMessage += `Phone: ${newOrder.customerPhone}\n`;
-                    whatsappMessage += `Delivery Address: ${newOrder.deliveryAddress}\n`;
-                    whatsappMessage += `Payment Method: ${newOrder.paymentMethod}\n\n`;
-                    whatsappMessage += `Thank you for your order! We'll notify you when your order status changes.`;
-
-
-                    const encodedMessage = encodeURIComponent(whatsappMessage);
-                    const whatsappNumber = '919704699511'; // Your WhatsApp number
-                    window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
-                    showMessageBox('WhatsApp message with order details sent (simulated backend action).', false, 3000);
-                }, 1500); // Small delay to show initial confirmation message
-
                 shoppingCart = []; // Clear cart after placing order
                 updateCartCount();
                 cartModalOverlay.classList.remove('open'); // Close cart modal
+                showMessageBox('Your order request has been sent to WhatsApp! Please check the new tab to confirm.');
                 customerNameInput.value = '';
                 customerPhoneInput.value = '';
                 deliveryAddressInput.value = '';
@@ -2326,8 +2460,11 @@
                         renderOverview();
                     } else if (targetTabId === 'orders') {
                         renderOrdersTable();
+                    } else if (targetTabId === 'products') {
+                        renderProductsTable();
+                    } else if (targetTabId === 'customers') {
+                        renderCustomersTable();
                     }
-                    // No rendering for products/customers/settings as they are static or simpler
                 });
             });
 
